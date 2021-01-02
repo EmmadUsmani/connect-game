@@ -1,8 +1,8 @@
-import Player from "./Player";
+import { Player, Board, Column, Piece } from ".";
 
 class Game {
   // properties should be immutable to work with React
-  private _board: (Player | null)[][];
+  private _board: Board;
   private _players: Player[];
   private _currPlayerIdx: number;
 
@@ -22,7 +22,7 @@ class Game {
     (0, 0) is left col bottom row */
     this._board = [];
     for (let i = 0; i < numCols; i++) {
-      const column: (Player | null)[] = [];
+      const column: Column = [];
       for (let j = 0; j < numRows; j++) {
         column.push(null);
       }
@@ -30,37 +30,33 @@ class Game {
     }
   }
 
-  placeCircle(colNum: number): void {
+  placePiece(colNum: number): void {
     const column = this._board[colNum];
     let rowNum = -1;
 
     for (let j = 0; j < column.length; j++) {
       if (!column[j]) {
-        console.log("placing piece");
         rowNum = j;
         break;
       }
     }
 
-    if (rowNum === -1) {
-      console.log("column full");
-      return;
-    }
+    if (rowNum === -1) return;
 
     this.updatePiece(colNum, rowNum, this._players[this._currPlayerIdx]);
     this.updateCurrPlayer();
   }
 
   /* Immutably change piece on board */
-  private updatePiece(colNum: number, rowNum: number, player: Player) {
-    const newBoard: (Player | null)[][] = [];
+  private updatePiece(colNum: number, rowNum: number, piece: Piece) {
+    const newBoard: Board = [];
     const [numCols, numRows] = [this._board.length, this._board[0].length];
 
     for (let i = 0; i < numCols; i++) {
-      const newColumn: (Player | null)[] = [];
+      const newColumn: Column = [];
       for (let j = 0; j < numRows; j++) {
         newColumn.push(
-          i === colNum && j === rowNum ? player : this._board[i][j]
+          i === colNum && j === rowNum ? piece : this._board[i][j]
         );
       }
       newBoard.push(newColumn);

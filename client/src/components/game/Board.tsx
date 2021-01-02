@@ -18,7 +18,7 @@ const Board: React.FC<BoardProps> = ({ game }) => {
           className="board-col"
           key={idx}
           onClick={() => {
-            game.placeCircle(idx);
+            game.placePiece(idx);
             setBoard(game.board);
           }}
         >
