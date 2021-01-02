@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 
 import Circle from "./Circle";
-import { Game, Player } from "../../models";
+import { Game, GameBoard } from "../../models";
 import "./Board.css";
 
-interface BoardProps {
-  game: Game;
-}
-
-const Board: React.FC<BoardProps> = ({ game }) => {
-  const [board, setBoard] = useState<(Player | null)[][]>(game.board);
+const Board: React.FC = () => {
+  const game = Game.instance;
+  const [board, setBoard] = useState<GameBoard>(game.board);
 
   return (
     <div className="board">

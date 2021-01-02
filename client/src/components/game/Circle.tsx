@@ -1,11 +1,11 @@
 import React from "react";
 
-import { Color } from "../../models";
+import { GameColor } from "../../models";
 import "./Circle.css";
 
 interface CircleProps {
   size: number;
-  color?: Color;
+  color?: GameColor;
 }
 
 const Circle: React.FC<CircleProps> = ({ size, color }) => {

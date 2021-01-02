@@ -1,19 +1,19 @@
 import React from "react";
 
 import { Board } from "../components/game";
-import { Color, Game } from "../models";
+import { GameColor, Game } from "../models";
 import "./Play.css";
 
 const Play: React.FC = () => {
-  const game = new Game([
-    { name: "Blue", color: Color.Blue },
-    { name: "Green", color: Color.Green },
+  Game.newGame([
+    { name: "Alice", color: GameColor.Green },
+    { name: "Bob", color: GameColor.Blue },
   ]);
 
   return (
     <>
       <p className="turn">Your turn</p>
-      <Board game={game} />
+      <Board />
     </>
   );
 };

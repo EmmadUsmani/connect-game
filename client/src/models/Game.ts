@@ -1,10 +1,16 @@
-import { Player, Board, Column, Piece } from ".";
+import { GamePlayer, GameBoard, GameColumn, GamePiece } from "./types";
 
 class Game {
   // properties should be immutable to work with React
-  private _board: Board;
-  private _players: Player[];
+  private _board: GameBoard;
+  private _players: GamePlayer[];
   private _currPlayerIdx: number;
+  private static _instance: Game;
+
+  static get instance() {
+    if (!this._instance) throw new Error("No Game instance.");
+    return this._instance;
+  }
 
   get board() {
     return this._board;
@@ -14,7 +20,7 @@ class Game {
     return this._players[this._currPlayerIdx];
   }
 
-  constructor(players: Player[], numRows: number = 6, numCols: number = 7) {
+  private constructor(players: GamePlayer[], numRows: number, numCols: number) {
     this._players = players;
     this._currPlayerIdx = 0;
 
@@ -22,12 +28,21 @@ class Game {
     (0, 0) is left col bottom row */
     this._board = [];
     for (let i = 0; i < numCols; i++) {
-      const column: Column = [];
+      const column: GameColumn = [];
       for (let j = 0; j < numRows; j++) {
         column.push(null);
       }
       this._board.push(column);
     }
+  }
+
+  static newGame(
+    players: GamePlayer[],
+    numRows: number = 6,
+    numCols: number = 7
+  ): Game {
+    this._instance = new Game(players, numRows, numCols);
+    return this._instance;
   }
 
   placePiece(colNum: number): void {
@@ -48,12 +63,12 @@ class Game {
   }
 
   /* Immutably change piece on board */
-  private updatePiece(colNum: number, rowNum: number, piece: Piece) {
-    const newBoard: Board = [];
+  private updatePiece(colNum: number, rowNum: number, piece: GamePiece) {
+    const newBoard: GameBoard = [];
     const [numCols, numRows] = [this._board.length, this._board[0].length];
 
     for (let i = 0; i < numCols; i++) {
-      const newColumn: Column = [];
+      const newColumn: GameColumn = [];
       for (let j = 0; j < numRows; j++) {
         newColumn.push(
           i === colNum && j === rowNum ? piece : this._board[i][j]

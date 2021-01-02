@@ -1,15 +1,15 @@
-export enum Color {
+export enum GameColor {
   Blue = "#8CB1F8",
   Green = "#97DC8F",
 }
 
-export interface Player {
+export interface GamePlayer {
   name: string;
-  color: Color;
+  color: GameColor;
 }
 
-export type Piece = Player | null;
+export type GamePiece = GamePlayer | null;
 
-export type Column = Piece[];
+export type GameColumn = GamePiece[];
 
-export type Board = Column[];
+export type GameBoard = GameColumn[];
