@@ -1,6 +1,8 @@
 export enum GameColor {
   Blue = "#8CB1F8",
   Green = "#97DC8F",
+  Pink = "pink",
+  Orange = "orange",
 }
 
 export interface GamePlayer {

@@ -1,14 +1,14 @@
 import React from "react";
 
 import { GameColor } from "../../models";
-import "./Circle.css";
+import "./Piece.css";
 
-interface CircleProps {
+interface PieceProps {
   size: number;
   color?: GameColor;
 }
 
-const Circle: React.FC<CircleProps> = ({ size, color }) => {
+const Piece: React.FC<PieceProps> = ({ size, color }) => {
   const style = {
     width: size,
     height: size,
@@ -17,7 +17,7 @@ const Circle: React.FC<CircleProps> = ({ size, color }) => {
     borderColor: color ? "transparent" : "var(--grey)",
   };
 
-  return <div className="circle" style={style} />;
+  return <div className="piece" style={style} />;
 };
 
-export default Circle;
+export default Piece;

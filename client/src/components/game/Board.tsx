@@ -1,26 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 
-import Circle from "./Circle";
-import { Game, GameBoard } from "../../models";
+import Piece from "./Piece";
+import { GameBoard } from "../../models";
 import "./Board.css";
 
-const Board: React.FC = () => {
-  const game = Game.instance;
-  const [board, setBoard] = useState<GameBoard>(game.board);
+interface BoardProps {
+  board: GameBoard | undefined;
+  handleColumnClick(colNum: number): void;
+}
 
+const Board: React.FC<BoardProps> = ({ board, handleColumnClick }) => {
   return (
     <div className="board">
-      {board.map((col, idx) => (
+      {board?.map((col, idx) => (
         <div
           className="board-col"
           key={idx}
-          onClick={() => {
-            game.placePiece(idx);
-            setBoard(game.board);
-          }}
+          onClick={() => handleColumnClick(idx)}
         >
           {col.map((player, idx) => (
-            <Circle
+            <Piece
               size={60}
               color={player ? player.color : undefined}
               key={idx}
