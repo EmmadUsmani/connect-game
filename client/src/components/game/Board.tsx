@@ -1,28 +1,21 @@
 import React from "react";
 
 import Circle from "./Circle";
+import { Game } from "../../models";
 import "./Board.css";
 
 interface BoardProps {
-  numRows: number;
-  numCols: number;
+  game: Game;
 }
 
-const Board: React.FC<BoardProps> = ({ numRows, numCols }) => {
-  const cols: JSX.Element[][] = [];
-  for (let i = 0; i < numCols; i++) {
-    const col: JSX.Element[] = [];
-    for (let j = 0; j < numRows; j++) {
-      col.push(<Circle size={60} key={i.toString() + j.toString()} />);
-    }
-    cols.push(col);
-  }
-
+const Board: React.FC<BoardProps> = ({ game }) => {
   return (
     <div className="board">
-      {cols.map((col, index) => (
+      {game.board.map((col, index) => (
         <div className="board-col" key={index}>
-          {col}
+          {col.map((player, index) => (
+            <Circle size={60} color={player ? player.color : undefined} />
+          ))}
         </div>
       ))}
     </div>
