@@ -33,7 +33,12 @@ const Play: React.FC = () => {
           </>
         )}
       </p>
-      <Board board={board} handleColumnClick={handleColumnClick} />
+      <Board
+        board={board}
+        handleColumnClick={handleColumnClick}
+        clickable={!winner}
+        pieceSize={60}
+      />
     </>
   );
 };

@@ -12,7 +12,7 @@ const Piece: React.FC<PieceProps> = ({ size, color }) => {
   const style = {
     width: size,
     height: size,
-    margin: size / 2,
+    margin: `${size / 2}px 0px`,
     backgroundColor: color,
     borderColor: color ? "transparent" : "var(--grey)",
   };
