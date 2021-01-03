@@ -142,7 +142,6 @@ class Game {
     for (const [colOff, rowOff] of offsets) {
       if (explore(colNum + colOff, rowNum + rowOff, colOff, rowOff, 1)) {
         this._winner = player;
-        console.log(player.name + " won!");
         return;
       }
     }
