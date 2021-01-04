@@ -1,4 +1,10 @@
-import { GamePlayer, GameBoard, GameColumn, GamePiece } from "./types";
+import {
+  GamePlayer,
+  GameBoard,
+  GameColumn,
+  GamePiece,
+  GameDirectionPairs,
+} from "./types";
 
 class Game {
   // properties should be immutable to work with React
@@ -113,11 +119,10 @@ class Game {
       colOff: number,
       rowOff: number,
       count: number
-    ): boolean => {
-      if (count === this._winCondition) return true;
+    ): number => {
       if (colNum < 0 || rowNum < 0 || colNum >= numCols || rowNum >= numRows)
-        return false;
-      if (this._board[colNum][rowNum] !== player) return false;
+        return count;
+      if (this._board[colNum][rowNum] !== player) return count;
 
       return explore(
         colNum + colOff,
@@ -128,19 +133,14 @@ class Game {
       );
     };
 
-    // initialize explore on each of the 8 directions
-    const offsets = [
-      [-1, -1],
-      [-1, 0],
-      [-1, 1],
-      [0, -1],
-      [0, 1],
-      [1, -1],
-      [1, 0],
-      [1, 1],
-    ];
-    for (const [colOff, rowOff] of offsets) {
-      if (explore(colNum + colOff, rowNum + rowOff, colOff, rowOff, 1)) {
+    /* for each pair of direction (i.e. North & South), 
+    check if the player's pieces in those directions sum to winCondition */
+    for (const [[colOff1, rowOff1], [colOff2, rowOff2]] of GameDirectionPairs) {
+      const count =
+        1 +
+        explore(colNum + colOff1, rowNum + rowOff1, colOff1, rowOff1, 0) +
+        explore(colNum + colOff2, rowNum + rowOff2, colOff2, rowOff2, 0);
+      if (count >= this._winCondition) {
         this._winner = player;
         return;
       }
