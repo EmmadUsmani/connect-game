@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Play } from "./pages";
+import { Menu } from "./pages";
 import { Game, GameColor } from "./models";
 import { fonts, colors } from "./config";
 
@@ -20,7 +20,7 @@ const App: React.FC = () => {
 
   return (
     <StyledDiv>
-      <Play />
+      <Menu />
     </StyledDiv>
   );
 };

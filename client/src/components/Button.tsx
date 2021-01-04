@@ -9,7 +9,7 @@ const StyledDiv = styled.div`
   justify-content: center;
   margin: 0px auto 20px;
   cursor: pointer;
-  max-width: 400px;
+  width: 400px;
   height: 75px;
   background-color: ${colors.primary};
   color: ${colors.text.secondary};
