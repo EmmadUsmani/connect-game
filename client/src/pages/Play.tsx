@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
-import { Board } from "../components/game";
+import { Board, Header } from "../components/play";
 import { Game, GameBoard, GamePlayer } from "../models";
-import "./Play.css";
 
 const Play: React.FC = () => {
   const game = Game.instance;
   const [board, setBoard] = useState<GameBoard>(game.board);
   const [currPlayer, setCurrPlayer] = useState<GamePlayer>(game.currPlayer);
-  const [winner, setWinner] = useState<GamePlayer | null>(game.winner);
+  const [winner, setWinner] = useState<GamePlayer | undefined>(game.winner);
 
   const handleColumnClick = (colNum: number): void => {
     if (winner) return;
@@ -21,18 +20,7 @@ const Play: React.FC = () => {
 
   return (
     <>
-      <p className="turn">
-        {winner ? (
-          <>
-            <span style={{ color: winner.color }}>{winner.name}</span> won!
-          </>
-        ) : (
-          <>
-            <span style={{ color: currPlayer.color }}>{currPlayer.name}'s</span>{" "}
-            turn
-          </>
-        )}
-      </p>
+      <Header currPlayer={currPlayer} winner={winner} />
       <Board
         board={board}
         handleColumnClick={handleColumnClick}

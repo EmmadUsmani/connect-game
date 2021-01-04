@@ -1,12 +1,23 @@
 import React from "react";
+import styled from "styled-components";
 
-interface TextProps {
+import { fontSizes } from "../config";
+
+interface Props {
   size?: number;
   children: React.ReactNode;
 }
 
-const Text: React.FC<TextProps> = ({ size, children }) => {
-  return <p style={{ fontSize: size || 36 }}>{children}</p>;
+interface StyledProps {
+  size?: number;
+}
+
+const StyledP = styled.p<StyledProps>`
+  font-size: ${(props) => props.size || fontSizes.small}px;
+`;
+
+const Text: React.FC<Props> = ({ size, children }) => {
+  return <StyledP size={size}>{children}</StyledP>;
 };
 
 export default Text;

@@ -1,9 +1,0 @@
-.board {
-  display: inline-flex;
-  flex-direction: row;
-}
-
-.board-col {
-  display: flex;
-  flex-direction: column-reverse;
-}

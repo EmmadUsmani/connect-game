@@ -1,25 +1,23 @@
 import React from "react";
+import styled from "styled-components";
+
+import { colors, fontSizes } from "../config";
+
+const StyledDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px auto 20px;
+  cursor: pointer;
+  max-width: 400px;
+  height: 75px;
+  background-color: ${colors.primary};
+  color: ${colors.text.secondary};
+  font-size: ${fontSizes.small}px;
+`;
 
 const Button: React.FC = ({ children }) => {
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#626262",
-        margin: "0 auto 20px",
-        color: "white",
-        fontSize: 36,
-        maxWidth: 400,
-        height: 75,
-        userSelect: "none",
-        cursor: "pointer",
-      }}
-    >
-      {children}
-    </div>
-  );
+  return <StyledDiv>{children}</StyledDiv>;
 };
 
 export default Button;

@@ -11,7 +11,7 @@ class Game {
   private _board: GameBoard;
   private _players: GamePlayer[];
   private _currPlayerIdx: number;
-  private _winner: GamePlayer | null;
+  private _winner: GamePlayer | undefined;
   private _winCondition: number;
   private static _instance: Game;
 
@@ -41,7 +41,7 @@ class Game {
     this._players = players;
     this._winCondition = winCondition;
     this._currPlayerIdx = 0;
-    this._winner = null;
+    this._winner = undefined;
 
     /* board is stored as an array of columns
     (0, 0) is left col bottom row */
