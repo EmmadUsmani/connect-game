@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Play } from "./pages";
+import { Menu } from "./pages";
 import { Game, GameColor } from "./models";
 import "./App.css";
 
@@ -14,7 +14,7 @@ const App: React.FC = () => {
 
   return (
     <div className="page">
-      <Play />
+      <Menu />
     </div>
   );
 };
