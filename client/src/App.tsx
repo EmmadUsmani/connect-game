@@ -1,15 +1,21 @@
 import React from "react";
-import styled from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 import { Menu } from "./pages";
 import { Game, GameColor } from "./models";
 import { fonts, colors } from "./config";
 
-const StyledDiv = styled.div`
-  text-align: center;
-  user-select: none;
-  font-family: ${fonts.primary}, sans-serif;
-  color: ${colors.text.primary};
+const GlobalStyle = createGlobalStyle`
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    text-align: center;
+    user-select: none;
+    font-family: ${fonts.primary}, sans-serif;
+    color: ${colors.text.primary};
+  }
 `;
 
 const App: React.FC = () => {
@@ -19,9 +25,10 @@ const App: React.FC = () => {
   ]);
 
   return (
-    <StyledDiv>
+    <>
+      <GlobalStyle />
       <Menu />
-    </StyledDiv>
+    </>
   );
 };
 
