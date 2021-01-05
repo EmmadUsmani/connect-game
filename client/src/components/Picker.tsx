@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { colors, fonts, fontSizes } from "../config";
+import { colors, fonts } from "../config";
 
 const StyledSelect = styled.select`
   -moz-appearance: none; // first 2 lines hide dropdown arrow
@@ -17,7 +17,7 @@ const StyledSelect = styled.select`
   background-color: ${colors.secondary};
   color: ${colors.text.primary};
   font-family: ${fonts.primary};
-  font-size: ${fontSizes.small}px;
+  font-size: ${fonts.sizes.small}px;
 `;
 
 const Picker: React.FC = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { fontSizes } from "../config";
+import { fonts } from "../config";
 
 interface Props {
   size?: number;
@@ -13,7 +13,7 @@ interface StyledProps {
 }
 
 const StyledP = styled.p<StyledProps>`
-  font-size: ${(props) => props.size || fontSizes.small}px;
+  font-size: ${(props) => props.size || fonts.sizes.small}px;
 `;
 
 const Text: React.FC<Props> = ({ size, children }) => {

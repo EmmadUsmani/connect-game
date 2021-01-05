@@ -12,12 +12,11 @@ export const colors = {
 
 export const fonts = {
   primary: "Quicksand",
-};
-
-export const fontSizes = {
-  extraLarge: 72,
-  large: 64,
-  medium: 48,
-  small: 36,
-  extraSmall: 30,
+  sizes: {
+    extraLarge: 72,
+    large: 64,
+    medium: 48,
+    small: 36,
+    extraSmall: 30,
+  },
 };

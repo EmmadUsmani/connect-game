@@ -1,16 +1,16 @@
 import React from "react";
 
 import { Text, TextInput, Button, Picker } from "../components";
-import { fontSizes } from "../config";
+import { fonts } from "../config";
 
 const screens = [
   <>
-    <Text size={fontSizes.extraLarge}>Connect</Text>
+    <Text size={fonts.sizes.extraLarge}>Connect</Text>
     <Button>Create Game</Button>
     <Button>Join Game</Button>
   </>,
   <>
-    <Text size={fontSizes.large}>Enter your name</Text>
+    <Text size={fonts.sizes.large}>Enter your name</Text>
     <TextInput />
     <Button>Continue</Button>
   </>,

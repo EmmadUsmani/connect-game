@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { Text } from "../";
 import { GamePlayer } from "../../models";
-import { fontSizes } from "../../config";
+import { fonts } from "../../config";
 
 interface HeaderProps {
   currPlayer: GamePlayer;
@@ -20,7 +20,7 @@ const StyledSpan = styled.span`
 
 const Header: React.FC<HeaderProps> = ({ currPlayer, winner }) => {
   return (
-    <StyledText size={fontSizes.large}>
+    <StyledText size={fonts.sizes.large}>
       {winner ? (
         <>
           <StyledSpan color={winner.color}>{winner.name}</StyledSpan> won!

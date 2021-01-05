@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { colors, fontSizes } from "../config";
+import { colors, fonts } from "../config";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const StyledDiv = styled.div`
   height: 75px;
   background-color: ${colors.primary};
   color: ${colors.text.secondary};
-  font-size: ${fontSizes.small}px;
+  font-size: ${fonts.sizes.small}px;
 `;
 
 const Button: React.FC = ({ children }) => {
