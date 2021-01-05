@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Text, Input, Button, Picker, Page } from "../components";
+import { Text, Input, Button, Picker, Page, Link } from "../components";
 import { GameColor } from "../models";
 import { fonts } from "../config";
 
@@ -23,11 +23,6 @@ const StartButton = styled(Button)`
 `;
 
 const screens = [
-  <Page>
-    <StyledText size={fonts.sizes.extraLarge}>Connect</StyledText>
-    <Button>Create Game</Button>
-    <Button>Join Game</Button>
-  </Page>,
   <Page>
     <StyledText size={fonts.sizes.large}>Enter your name</StyledText>
     <Input type="text" />
@@ -60,8 +55,16 @@ const screens = [
   </Page>,
 ];
 
-const Menu: React.FC = () => {
-  return screens[3];
+const Home: React.FC = () => {
+  return (
+    <Page>
+      <StyledText size={fonts.sizes.extraLarge}>Connect</StyledText>
+      <Link to="/create/name">
+        <Button>Create Game</Button>
+      </Link>
+      <Button>Join Game</Button>
+    </Page>
+  );
 };
 
-export default Menu;
+export default Home;

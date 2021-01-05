@@ -1,7 +1,8 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 
-import { Menu } from "./pages";
+import { Home, Name } from "./pages";
 import { Game, GameColor } from "./models";
 import { fonts, colors } from "./config";
 
@@ -27,7 +28,16 @@ const App: React.FC = () => {
   return (
     <>
       <GlobalStyle />
-      <Menu />
+      <Router>
+        <Switch>
+          <Route path="/create/name">
+            <Name />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
     </>
   );
 };
