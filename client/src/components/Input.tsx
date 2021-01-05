@@ -1,9 +1,8 @@
-import React from "react";
 import styled from "styled-components";
 
 import { colors, fonts } from "../config";
 
-const StyledInput = styled.input`
+const Input = styled.input`
   margin-bottom: 20px;
   width: 400px;
   height: 75px;
@@ -18,8 +17,4 @@ const StyledInput = styled.input`
   font-size: ${fonts.sizes.small}px;
 `;
 
-const TextInput: React.FC = () => {
-  return <StyledInput type="text" />;
-};
-
-export default TextInput;
+export default Input;

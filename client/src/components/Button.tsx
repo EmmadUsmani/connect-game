@@ -1,23 +1,23 @@
-import React from "react";
 import styled from "styled-components";
 
 import { colors, fonts } from "../config";
 
-const StyledDiv = styled.div`
+interface ButtonProps {
+  color?: string;
+  disabled?: boolean;
+}
+
+const Button = styled.div<ButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0px auto 20px;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
   width: 400px;
   height: 75px;
-  background-color: ${colors.primary};
+  background-color: ${(props) => (props.color ? props.color : colors.primary)};
   color: ${colors.text.secondary};
   font-size: ${fonts.sizes.small}px;
 `;
-
-const Button: React.FC = ({ children }) => {
-  return <StyledDiv>{children}</StyledDiv>;
-};
 
 export default Button;
