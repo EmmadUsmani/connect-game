@@ -1,27 +1,32 @@
 import React from "react";
+import styled from "styled-components";
 
 import { Text, TextInput, Button, Picker } from "../components";
 import { fonts } from "../config";
 
+const StyledText = styled(Text)`
+  margin-bottom: 60px;
+`;
+
 const screens = [
   <>
-    <Text size={fonts.sizes.extraLarge}>Connect</Text>
+    <StyledText size={fonts.sizes.extraLarge}>Connect</StyledText>
     <Button>Create Game</Button>
     <Button>Join Game</Button>
   </>,
   <>
-    <Text size={fonts.sizes.large}>Enter your name</Text>
+    <StyledText size={fonts.sizes.large}>Enter your name</StyledText>
     <TextInput />
     <Button>Continue</Button>
+  </>,
+  <>
+    <Text>Board size</Text>
+    <Picker />
   </>,
 ];
 
 const Menu: React.FC = () => {
-  return (
-    <>
-      <Picker />
-    </>
-  );
+  return <div>{screens[1]}</div>;
 };
 
 export default Menu;
