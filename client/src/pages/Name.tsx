@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Page, Text, Input, Button } from "../components";
+import { Page, Text, Input, Button, Link } from "../components";
 import { fonts } from "../config";
 
 const Name: React.FC = () => {
@@ -10,7 +10,9 @@ const Name: React.FC = () => {
         Enter your name
       </Text>
       <Input type="text" />
-      <Button>Continue</Button>
+      <Link to="/create/settings">
+        <Button>Continue</Button>
+      </Link>
     </Page>
   );
 };

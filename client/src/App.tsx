@@ -2,8 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 
-import { Home, Name } from "./pages";
-import { Game, GameColor } from "./models";
+import { Home, Name, Settings, Room, Play } from "./pages";
 import { fonts, colors } from "./config";
 
 const GlobalStyle = createGlobalStyle`
@@ -20,11 +19,6 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App: React.FC = () => {
-  Game.newGame([
-    { name: "Alice", color: GameColor.Green },
-    { name: "Bob", color: GameColor.Blue },
-  ]);
-
   return (
     <>
       <GlobalStyle />
@@ -32,6 +26,15 @@ const App: React.FC = () => {
         <Switch>
           <Route path="/create/name">
             <Name />
+          </Route>
+          <Route path="/create/settings">
+            <Settings />
+          </Route>
+          <Route path="/room">
+            <Room />
+          </Route>
+          <Route path="/play">
+            <Play />
           </Route>
           <Route path="/">
             <Home />
