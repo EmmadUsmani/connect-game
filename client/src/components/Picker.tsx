@@ -3,6 +3,10 @@ import styled from "styled-components";
 
 import { colors, fonts } from "../config";
 
+interface PickerProps {
+  options: [string, string][]; // label, value
+}
+
 const StyledSelect = styled.select`
   -moz-appearance: none; // first 2 lines hide dropdown arrow
   -webkit-appearance: none;
@@ -20,11 +24,14 @@ const StyledSelect = styled.select`
   font-size: ${fonts.sizes.small}px;
 `;
 
-const Picker: React.FC = () => {
+const Picker: React.FC<PickerProps> = ({ options }) => {
   return (
     <StyledSelect>
-      <option value="7x6">7 columns x 6 rows</option>
-      <option value="12x12">12 columns x 12 rows</option>
+      {options.map(([label, value], idx) => (
+        <option value={value} key={idx}>
+          {label}
+        </option>
+      ))}
     </StyledSelect>
   );
 };
