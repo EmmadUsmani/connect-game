@@ -17,6 +17,7 @@ const Button = styled.div<ButtonProps>`
   height: 75px;
   background-color: ${(props) => (props.color ? props.color : colors.primary)};
   color: ${colors.text.secondary};
+  opacity: ${(props) => (props.disabled && !props.color ? "50%" : "100%")};
   font-size: ${fonts.sizes.small}px;
 `;
 

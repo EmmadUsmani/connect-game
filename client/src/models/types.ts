@@ -35,3 +35,5 @@ export const GameDirectionPairs = [
   [GameDirections.NorthWest, GameDirections.SouthEast],
   [GameDirections.NorthEast, GameDirections.SouthWest],
 ];
+
+export const GameMaxNameLen = 16;

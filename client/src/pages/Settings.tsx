@@ -20,7 +20,11 @@ const powerupOptions: [string, string][] = [
   ["Full", "full"],
 ];
 
-const Settings: React.FC = () => {
+interface SettingsProps {
+  onSubmit(): void;
+}
+
+const Settings: React.FC<SettingsProps> = ({ onSubmit }) => {
   return (
     <Page>
       <Label>Board size</Label>
@@ -29,9 +33,9 @@ const Settings: React.FC = () => {
       <Picker options={timerOptions} />
       <Label>Powerups</Label>
       <Picker options={powerupOptions} />
-      <Link to="/room">
-        <Button style={{ marginTop: 10 }}>Create Game</Button>
-      </Link>
+      <Button onClick={onSubmit} style={{ marginTop: 10 }}>
+        Create Game
+      </Button>
     </Page>
   );
 };

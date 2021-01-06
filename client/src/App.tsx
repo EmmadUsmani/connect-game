@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 
-import { Home, Name, Settings, Room, Play } from "./pages";
+import { Home, Create, Room, Play } from "./pages";
 import { fonts, colors } from "./config";
 
 const GlobalStyle = createGlobalStyle`
@@ -24,11 +24,8 @@ const App: React.FC = () => {
       <GlobalStyle />
       <Router>
         <Switch>
-          <Route path="/create/name">
-            <Name />
-          </Route>
-          <Route path="/create/settings">
-            <Settings />
+          <Route path="/create">
+            <Create />
           </Route>
           <Route path="/room">
             <Room />
