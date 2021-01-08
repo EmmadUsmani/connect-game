@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
 
 import { Name, Settings } from "./";
-import { GameMaxNameLen } from "../models";
+import { GameDefaultSettings, GameMaxNameLen, GameSettings } from "../models";
 
 const Create: React.FC = () => {
   const history = useHistory();
   const match = useRouteMatch();
 
   const [name, setName] = useState<string>("");
+  const [settings, setSettings] = useState<GameSettings>(GameDefaultSettings);
 
   const handleNameChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -21,6 +22,10 @@ const Create: React.FC = () => {
   const handleNameSubmit = (): void => {
     if (!name) return;
     history.push(`${match.path}/settings`);
+  };
+
+  const handleSettingsChange = (newSettings: GameSettings): void => {
+    setSettings(newSettings);
   };
 
   const handleCreate = (): void => {
@@ -38,7 +43,11 @@ const Create: React.FC = () => {
         />
       </Route>
       <Route path={`${match.path}/settings`}>
-        <Settings onSubmit={handleCreate} />
+        <Settings
+          settings={settings}
+          onChange={handleSettingsChange}
+          onSubmit={handleCreate}
+        />
       </Route>
     </Switch>
   );

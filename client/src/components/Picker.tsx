@@ -4,7 +4,9 @@ import styled from "styled-components";
 import { colors, fonts } from "../config";
 
 interface PickerProps {
-  options: [string, string][]; // label, value
+  value: string | number;
+  onChange(event: React.ChangeEvent<HTMLSelectElement>): void;
+  options: { label: string; value: string | number }[];
 }
 
 const StyledSelect = styled.select`
@@ -24,10 +26,10 @@ const StyledSelect = styled.select`
   font-size: ${fonts.sizes.small}px;
 `;
 
-const Picker: React.FC<PickerProps> = ({ options }) => {
+const Picker: React.FC<PickerProps> = ({ value, onChange, options }) => {
   return (
-    <StyledSelect>
-      {options.map(([label, value], idx) => (
+    <StyledSelect value={value} onChange={onChange}>
+      {options.map(({ label, value }, idx) => (
         <option value={value} key={idx}>
           {label}
         </option>
