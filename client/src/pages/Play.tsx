@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import { Page } from "../components";
 import { Board, Header } from "../components/play";
 import { Game, GameBoard, GamePlayer } from "../models";
 
@@ -19,7 +20,7 @@ const Play: React.FC = () => {
   };
 
   return (
-    <>
+    <Page>
       <Header currPlayer={currPlayer} winner={winner} />
       <Board
         board={board}
@@ -27,7 +28,7 @@ const Play: React.FC = () => {
         clickable={!winner}
         pieceSize={60}
       />
-    </>
+    </Page>
   );
 };
 

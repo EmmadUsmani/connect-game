@@ -11,7 +11,7 @@ interface HeaderProps {
 }
 
 const StyledText = styled(Text)`
-  margin: 90px 0px;
+  margin-bottom: 90px;
 `;
 
 const StyledSpan = styled.span`
