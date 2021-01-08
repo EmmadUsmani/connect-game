@@ -1,44 +1,41 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { createGlobalStyle } from "styled-components";
+import { Switch, Route, useHistory } from "react-router-dom";
 
 import { Home, Create, Room, Play } from "./pages";
-import { fonts, colors } from "./config";
-
-const GlobalStyle = createGlobalStyle`
-  html, body, #root {
-    height: 100%;
-    margin: 0;
-  }
-  body {
-    text-align: center;
-    user-select: none;
-    font-family: ${fonts.primary}, sans-serif;
-    color: ${colors.text.primary};
-  }
-`;
+import { GameSettings, Game, GameColor } from "./models";
 
 const App: React.FC = () => {
+  const history = useHistory();
+
+  const handleCreate = (name: string, settings: GameSettings): void => {
+    const {
+      boardSize: [numCols, numRows],
+      winCondition,
+    } = settings;
+    Game.newGame(
+      [{ name: name, color: GameColor.Blue }],
+      numCols,
+      numRows,
+      winCondition
+    );
+    history.push("/room");
+  };
+
   return (
-    <>
-      <GlobalStyle />
-      <Router>
-        <Switch>
-          <Route path="/create">
-            <Create />
-          </Route>
-          <Route path="/room">
-            <Room />
-          </Route>
-          <Route path="/play">
-            <Play />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
-    </>
+    <Switch>
+      <Route path="/create">
+        <Create onCreate={handleCreate} />
+      </Route>
+      <Route path="/room">
+        <Room />
+      </Route>
+      <Route path="/play">
+        <Play />
+      </Route>
+      <Route path="/">
+        <Home />
+      </Route>
+    </Switch>
   );
 };
 

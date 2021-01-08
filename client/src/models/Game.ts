@@ -24,6 +24,10 @@ class Game {
     return this._board;
   }
 
+  get players() {
+    return this._players;
+  }
+
   get currPlayer() {
     return this._players[this._currPlayerIdx];
   }
@@ -34,8 +38,8 @@ class Game {
 
   private constructor(
     players: GamePlayer[],
-    numRows: number,
     numCols: number,
+    numRows: number,
     winCondition: number
   ) {
     this._players = players;
@@ -57,11 +61,11 @@ class Game {
 
   static newGame(
     players: GamePlayer[],
-    numRows: number = 6,
     numCols: number = 7,
+    numRows: number = 6,
     winCondition: number = 4
   ): Game {
-    this._instance = new Game(players, numRows, numCols, winCondition);
+    this._instance = new Game(players, numCols, numRows, winCondition);
     return this._instance;
   }
 

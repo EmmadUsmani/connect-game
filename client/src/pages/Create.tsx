@@ -4,7 +4,11 @@ import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
 import { Name, Settings } from "./";
 import { GameDefaultSettings, GameMaxNameLen, GameSettings } from "../models";
 
-const Create: React.FC = () => {
+interface CreateProps {
+  onCreate(name: string, settings: GameSettings): void;
+}
+
+const Create: React.FC<CreateProps> = ({ onCreate }) => {
   const history = useHistory();
   const match = useRouteMatch();
 
@@ -28,11 +32,6 @@ const Create: React.FC = () => {
     setSettings(newSettings);
   };
 
-  const handleCreate = (): void => {
-    console.log("creating room!");
-    history.push("/room");
-  };
-
   return (
     <Switch>
       <Route path={`${match.path}/name`}>
@@ -46,7 +45,7 @@ const Create: React.FC = () => {
         <Settings
           settings={settings}
           onChange={handleSettingsChange}
-          onSubmit={handleCreate}
+          onSubmit={() => onCreate(name, settings)}
         />
       </Route>
     </Switch>

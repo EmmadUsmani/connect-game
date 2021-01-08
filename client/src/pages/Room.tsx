@@ -1,28 +1,21 @@
 import React from "react";
 
 import { Page, Label, Input, Button, Link } from "../components";
-import { Game, GameColor } from "../models";
+import { Game } from "../models";
 
 const Room: React.FC = () => {
-  Game.newGame([
-    { name: "Alice", color: GameColor.Green },
-    { name: "Bob", color: GameColor.Blue },
-  ]);
+  const players = Game.instance.players;
 
   return (
     <Page>
       <Label>Room code</Label>
       <Input type="text" value="A8GTH20" disabled />
       <Label>Players</Label>
-      <Button color={GameColor.Blue} disabled>
-        Emmad
-      </Button>
-      <Button color={GameColor.Green} disabled>
-        Alejandro
-      </Button>
-      <Button color={GameColor.Pink} disabled>
-        Carlos
-      </Button>
+      {players.map((player) => (
+        <Button color={player.color} key={player.name} disabled>
+          {player.name}
+        </Button>
+      ))}
       <Link to="/play">
         <Button style={{ marginTop: 20 }}>Start Game</Button>
       </Link>
