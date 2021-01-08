@@ -10,7 +10,7 @@ export interface GamePlayer {
   color: GameColor;
 }
 
-export type GamePiece = GamePlayer | null;
+export type GamePiece = GamePlayer | undefined;
 
 export type GameColumn = GamePiece[];
 

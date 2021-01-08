@@ -53,7 +53,7 @@ class Game {
     for (let i = 0; i < numCols; i++) {
       const column: GameColumn = [];
       for (let j = 0; j < numRows; j++) {
-        column.push(null);
+        column.push(undefined);
       }
       this._board.push(column);
     }
