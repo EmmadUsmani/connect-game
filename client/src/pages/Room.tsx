@@ -6,6 +6,10 @@ import { Game } from "../models";
 const Room: React.FC = () => {
   const players = Game.instance.players;
 
+  const handleStart = (): void => {
+    Game.instance.start();
+  };
+
   return (
     <Page>
       <Label>Room code</Label>
@@ -17,7 +21,9 @@ const Room: React.FC = () => {
         </Button>
       ))}
       <Link to="/play">
-        <Button style={{ marginTop: 20 }}>Start Game</Button>
+        <Button onClick={handleStart} style={{ marginTop: 20 }}>
+          Start Game
+        </Button>
       </Link>
       <Button>Copy Link</Button>
     </Page>

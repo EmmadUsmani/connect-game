@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import { Page } from "../components";
+import { Button, Link, Page } from "../components";
 import { Board, Header } from "../components/play";
 import { Game, GameBoard, GamePlayer } from "../models";
 
@@ -37,6 +37,11 @@ const Play: React.FC = () => {
         clickable={!winner}
         pieceSize={60}
       />
+      {winner ? (
+        <Link to="/room">
+          <Button style={{ marginTop: 20 }}>Back to lobby</Button>
+        </Link>
+      ) : null}
     </Page>
   );
 };

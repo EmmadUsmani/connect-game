@@ -7,6 +7,8 @@ import {
 } from "./types";
 
 class Game {
+  // TODO: preface private method names with _
+  // TODO: make numCols and numRows properties
   // properties should be immutable to work with React
   private _board: GameBoard;
   private _players: GamePlayer[];
@@ -46,19 +48,10 @@ class Game {
     this._winCondition = winCondition;
     this._currPlayerIdx = 0;
     this._winner = undefined;
-
-    /* board is stored as an array of columns
-    (0, 0) is left col bottom row */
-    this._board = [];
-    for (let i = 0; i < numCols; i++) {
-      const column: GameColumn = [];
-      for (let j = 0; j < numRows; j++) {
-        column.push(undefined);
-      }
-      this._board.push(column);
-    }
+    this._board = this.createBoard(numCols, numRows);
   }
 
+  // TODO: rename to createGame
   static newGame(
     players: GamePlayer[],
     numCols: number = 7,
@@ -67,6 +60,14 @@ class Game {
   ): Game {
     this._instance = new Game(players, numCols, numRows, winCondition);
     return this._instance;
+  }
+
+  /* Used to start game after returning to lobby */
+  start(): void {
+    const [numCols, numRows] = [this._board.length, this._board[0].length];
+    this._board = this.createBoard(numCols, numRows);
+    this._winner = undefined;
+    this._currPlayerIdx = 0;
   }
 
   placePiece(colNum: number): void {
@@ -108,6 +109,21 @@ class Game {
 
   private updateCurrPlayer(): void {
     this._currPlayerIdx = (this._currPlayerIdx + 1) % this._players.length;
+  }
+
+  /* Returns a new, blank board. 
+     Board is stored as an array of columns,
+     (0, 0) is left col bottom row */
+  private createBoard(numCols: number, numRows: number): GameBoard {
+    const board: GameBoard = [];
+    for (let i = 0; i < numCols; i++) {
+      const column: GameColumn = [];
+      for (let j = 0; j < numRows; j++) {
+        column.push(undefined);
+      }
+      board.push(column);
+    }
+    return board;
   }
 
   /* Check if there is a winner at colNum, rowNum */
