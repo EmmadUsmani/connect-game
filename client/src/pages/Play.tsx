@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import { Page } from "../components";
 import { Board, Header } from "../components/play";
@@ -9,6 +10,14 @@ const Play: React.FC = () => {
   const [board, setBoard] = useState<GameBoard>(game.board);
   const [currPlayer, setCurrPlayer] = useState<GamePlayer>(game.currPlayer);
   const [winner, setWinner] = useState<GamePlayer | undefined>(game.winner);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    return history.listen(() => {
+      if (history.action === "POP") history.push("/");
+    });
+  }, []);
 
   const handleColumnClick = (colNum: number): void => {
     if (winner) return;
