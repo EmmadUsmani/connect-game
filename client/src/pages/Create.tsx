@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  Redirect,
+  useRouteMatch,
+  useHistory,
+} from "react-router-dom";
 
 import { Name, Settings } from "./";
 import { GameDefaultSettings, GameMaxNameLen, GameSettings } from "../models";
@@ -34,20 +40,21 @@ const Create: React.FC<CreateProps> = ({ onCreate }) => {
 
   return (
     <Switch>
-      <Route path={`${match.path}/name`}>
+      <Route exact path={`${match.path}/name`}>
         <Name
           value={name}
           onChange={handleNameChange}
           onSubmit={handleNameSubmit}
         />
       </Route>
-      <Route path={`${match.path}/settings`}>
+      <Route exact path={`${match.path}/settings`}>
         <Settings
           settings={settings}
           onChange={handleSettingsChange}
           onSubmit={() => onCreate(name, settings)}
         />
       </Route>
+      <Redirect to="/" />
     </Switch>
   );
 };

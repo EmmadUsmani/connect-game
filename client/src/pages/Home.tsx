@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Text, Button, Page, Link } from "../components";
 import { fonts } from "../config";
 
-const Home: React.FC = () => {
+interface HomeProps {
+  onLoad(): void;
+}
+
+const Home: React.FC<HomeProps> = ({ onLoad }) => {
+  useEffect(onLoad, []);
+
   return (
     <Page>
       <Text size={fonts.sizes.extraLarge} style={{ marginBottom: 60 }}>
