@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 import { Text } from "../";
-import { GamePlayer } from "../../models";
+import { GamePlayer, GameWinner } from "../../models";
 import { fonts } from "../../config";
 
 interface HeaderProps {
   currPlayer: GamePlayer;
-  winner?: GamePlayer;
+  winner?: GameWinner;
 }
 
 const StyledText = styled(Text)`
@@ -19,20 +19,32 @@ const StyledSpan = styled.span`
 `;
 
 const Header: React.FC<HeaderProps> = ({ currPlayer, winner }) => {
-  return (
-    <StyledText size={fonts.sizes.large}>
-      {winner ? (
-        <>
-          <StyledSpan color={winner.color}>{winner.name}</StyledSpan> won!
-        </>
-      ) : (
+  let message: React.ReactNode;
+  switch (winner) {
+    // no player has won yet
+    case undefined:
+      message = (
         <>
           <StyledSpan color={currPlayer.color}>{currPlayer.name}</StyledSpan>'s
           turn
         </>
-      )}
-    </StyledText>
-  );
+      );
+      break;
+    // game is a tie
+    case null:
+      message = <>Draw</>;
+      break;
+    // there is a winner
+    default:
+      message = (
+        <>
+          <StyledSpan color={winner.color}>{winner.name}</StyledSpan> won!
+        </>
+      );
+      break;
+  }
+
+  return <StyledText size={fonts.sizes.large}>{message}</StyledText>;
 };
 
 export default Header;

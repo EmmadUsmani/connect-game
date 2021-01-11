@@ -3,16 +3,17 @@ import { useHistory } from "react-router-dom";
 
 import { Button, Link, Page } from "../components";
 import { Board, Header } from "../components/play";
-import { Game, GameBoard, GamePlayer } from "../models";
+import { Game, GameBoard, GamePlayer, GameWinner } from "../models";
 
 const Play: React.FC = () => {
   const game = Game.instance;
   const [board, setBoard] = useState<GameBoard>(game.board);
   const [currPlayer, setCurrPlayer] = useState<GamePlayer>(game.currPlayer);
-  const [winner, setWinner] = useState<GamePlayer | undefined>(game.winner);
+  const [winner, setWinner] = useState<GameWinner>(game.winner);
 
   const history = useHistory();
 
+  // TODO: refactor to custom hook to use in multiple places (like room)
   useEffect(() => {
     return history.listen(() => {
       if (history.action === "POP") history.push("/");
@@ -37,7 +38,7 @@ const Play: React.FC = () => {
         clickable={!winner}
         pieceSize={60}
       />
-      {winner ? (
+      {winner || winner === null ? (
         <Link to="/room">
           <Button style={{ marginTop: 20 }}>Back to lobby</Button>
         </Link>
