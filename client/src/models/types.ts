@@ -12,6 +12,8 @@ export interface GamePlayer {
 
 export type GamePiece = GamePlayer | undefined;
 
+export type GameWinner = GamePlayer | undefined | null; // null if tie
+
 export type GameColumn = GamePiece[];
 
 export type GameBoard = GameColumn[];

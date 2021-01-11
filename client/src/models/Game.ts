@@ -3,18 +3,21 @@ import {
   GameBoard,
   GameColumn,
   GamePiece,
+  GameWinner,
   GameDirectionPairs,
 } from "./types";
 
 class Game {
   // TODO: preface private method names with _
   // TODO: make numCols and numRows properties
+  // TODO: gameState property to abstract turn, won, draw
   // properties should be immutable to work with React
   private _board: GameBoard;
   private _players: GamePlayer[];
   private _currPlayerIdx: number;
-  private _winner: GamePlayer | undefined;
+  private _winner: GameWinner; // null if tie
   private _winCondition: number;
+  private _numFilled: number;
   private static _instance: Game;
 
   static get instance() {
@@ -48,6 +51,7 @@ class Game {
     this._winCondition = winCondition;
     this._currPlayerIdx = 0;
     this._winner = undefined;
+    this._numFilled = 0;
     this._board = this.createBoard(numCols, numRows);
   }
 
@@ -68,10 +72,11 @@ class Game {
     this._board = this.createBoard(numCols, numRows);
     this._winner = undefined;
     this._currPlayerIdx = 0;
+    this._numFilled = 0;
   }
 
   placePiece(colNum: number): void {
-    if (this.winner) return;
+    if (this.winner || this.winner === null) return;
     const column = this._board[colNum];
     let rowNum = -1;
 
@@ -84,6 +89,7 @@ class Game {
 
     if (rowNum === -1) return;
 
+    this._numFilled += 1;
     this.updatePiece(colNum, rowNum, this.currPlayer);
     this.updateCurrPlayer();
   }
@@ -105,6 +111,7 @@ class Game {
 
     this._board = newBoard;
     this.checkWinner(colNum, rowNum);
+    this.checkTie();
   }
 
   private updateCurrPlayer(): void {
@@ -112,8 +119,8 @@ class Game {
   }
 
   /* Returns a new, blank board. 
-     Board is stored as an array of columns,
-     (0, 0) is left col bottom row */
+  Board is stored as an array of columns,
+  (0, 0) is left col bottom row */
   private createBoard(numCols: number, numRows: number): GameBoard {
     const board: GameBoard = [];
     for (let i = 0; i < numCols; i++) {
@@ -165,6 +172,14 @@ class Game {
         return;
       }
     }
+  }
+
+  /* Check if game is at a tie (all pieces filled), 
+  should call checkWinner before/after */
+  private checkTie(): void {
+    const [numCols, numRows] = [this._board.length, this._board[0].length];
+    if (this._numFilled === numCols * numRows && this._winner === undefined)
+      this._winner = null;
   }
 }
 

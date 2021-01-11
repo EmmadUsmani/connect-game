@@ -19,7 +19,10 @@ const App: React.FC = () => {
       winCondition,
     } = settings;
     Game.newGame(
-      [{ name: name, color: GameColor.Blue }],
+      [
+        { name: name, color: GameColor.Blue },
+        { name: "Bob", color: GameColor.Green },
+      ],
       numCols,
       numRows,
       winCondition
