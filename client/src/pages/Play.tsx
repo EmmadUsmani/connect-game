@@ -17,7 +17,7 @@ const Play: React.FC = () => {
     return history.listen(() => {
       if (history.action === "POP") history.push("/");
     });
-  }, []);
+  }, [history]);
 
   const handleColumnClick = (colNum: number): void => {
     if (winner) return;

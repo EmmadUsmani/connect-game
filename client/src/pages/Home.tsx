@@ -8,7 +8,7 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ onLoad }) => {
-  useEffect(onLoad, []);
+  useEffect(onLoad, [onLoad]);
 
   return (
     <Page>
