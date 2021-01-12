@@ -10,3 +10,5 @@ export function strToBoardSize(str: string) {
     .split(",")
     .map((num) => parseInt(num)) as GameSettings["boardSize"];
 }
+
+// TODO: consider moving to static methods of Game class
