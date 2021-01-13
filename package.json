@@ -1,0 +1,15 @@
+{
+  "name": "connect-game",
+  "version": "1.0.0",
+  "description": "A Connect 4 inspired browser game. Built using React, Node, Socket.io, and Typescript.",
+  "main": "server/build/index.js",
+  "repository": "https://github.com/EmmadUsmani/connect-game.git",
+  "author": "Emmad Usmani <emmadusmani@berkeley.edu>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server",
+    "shared"
+  ]
+}

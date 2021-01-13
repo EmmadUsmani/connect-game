@@ -1,0 +1,10 @@
+{
+  "name": "@connect-game/shared",
+  "version": "1.0.0",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "private": true,
+  "dependencies": {
+    "cross-env": "7.0.3"
+  }
+}

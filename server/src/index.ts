@@ -1,7 +1,7 @@
 import { createServer } from "http";
 import { Server, Socket } from "socket.io";
 
-import { EventNames, EventData } from "../../shared";
+import { EventNames, EventData } from "@connect-game/shared";
 
 const httpServer = createServer();
 
