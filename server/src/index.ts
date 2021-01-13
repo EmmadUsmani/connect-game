@@ -1,6 +1,7 @@
 import { createServer } from "http";
-
 import { Server, Socket } from "socket.io";
+
+import { EventNames, EventData } from "../../shared";
 
 const httpServer = createServer();
 
@@ -14,9 +15,12 @@ const io = new Server(httpServer, {
 
 io.on("connection", (socket: Socket) => {
   console.log(socket.id);
-  socket.on("create room", (settings) => {
-    console.log(settings);
-  });
+  socket.on(
+    EventNames.CreateRoom,
+    (settings: EventData[EventNames.CreateRoom]) => {
+      console.log(settings);
+    }
+  );
 });
 
 httpServer.listen(3001, () => {

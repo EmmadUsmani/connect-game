@@ -4,7 +4,6 @@ import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { Home, Create, Room, Play } from "./pages";
 import { ProtectedRoute } from "./components";
 import { GameSettings, Game, GameColor } from "./models";
-import { socket } from "./services";
 
 const App: React.FC = () => {
   const history = useHistory();
@@ -19,7 +18,6 @@ const App: React.FC = () => {
       boardSize: [numCols, numRows],
       winCondition,
     } = settings;
-    socket.emit("create room", settings);
     Game.newGame(
       [
         { name: name, color: GameColor.Blue },

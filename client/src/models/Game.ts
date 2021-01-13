@@ -6,6 +6,8 @@ import {
   GameWinner,
   GameDirectionPairs,
 } from "./types";
+import { socket } from "../services";
+import { EventNames, EventData } from "../../../shared";
 
 class Game {
   // TODO: preface private method names with _
@@ -62,6 +64,13 @@ class Game {
     numRows: number = 6,
     winCondition: number = 4
   ): Game {
+    const data: EventData[EventNames.CreateRoom] = {
+      numCols,
+      numRows,
+      winCondition,
+    };
+    socket.emit(EventNames.CreateRoom, data);
+
     this._instance = new Game(players, numCols, numRows, winCondition);
     return this._instance;
   }
