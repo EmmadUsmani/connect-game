@@ -1,15 +1,8 @@
 import { createServer } from "http";
 
-import express from "express";
 import { Server, Socket } from "socket.io";
 
-const app = express();
-
-app.get("/", (req, res) => {
-  res.send("Hello world everyone!");
-});
-
-const httpServer = createServer(app);
+const httpServer = createServer();
 
 // TODO: remove cors after serving front-end
 const io = new Server(httpServer, {
