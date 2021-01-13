@@ -1,3 +1,4 @@
+import { EventNames, EventData } from "@connect-game/shared";
 import {
   GamePlayer,
   GameBoard,
@@ -7,7 +8,6 @@ import {
   GameDirectionPairs,
 } from "./types";
 import { socket } from "../services";
-import { EventNames, EventData } from "../../../shared";
 
 class Game {
   // TODO: preface private method names with _

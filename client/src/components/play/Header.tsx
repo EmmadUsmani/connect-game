@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Text } from "../";
+import { Text } from "..";
 import { GamePlayer, GameWinner } from "../../models";
 import { fonts } from "../../config";
 

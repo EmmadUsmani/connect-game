@@ -7,7 +7,7 @@ import {
   useHistory,
 } from "react-router-dom";
 
-import { Name, Settings } from "./";
+import { Name, Settings } from ".";
 import { GameDefaultSettings, GameMaxNameLen, GameSettings } from "../models";
 
 interface CreateProps {

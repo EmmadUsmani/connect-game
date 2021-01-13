@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Text } from "./";
+import { Text } from ".";
 import { fonts } from "../config";
 
 const Label = styled(Text)`
