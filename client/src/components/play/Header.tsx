@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { GamePlayer, GameWinner } from "@connect-game/shared";
 import { Text } from "..";
-import { GamePlayer, GameWinner } from "../../models";
 import { fonts } from "../../config";
 
 interface HeaderProps {

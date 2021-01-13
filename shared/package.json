@@ -4,7 +4,12 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "private": true,
+  "scripts": {
+    "start": "tsc --w",
+    "build": "tsc"
+  },
   "dependencies": {
-    "cross-env": "7.0.3"
+    "cross-env": "7.0.3",
+    "@connect-game/client": "1.0.0"
   }
 }

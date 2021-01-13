@@ -1,4 +1,4 @@
-import { GameSettings } from "../models";
+import { GameSettings } from "@connect-game/shared";
 
 /* Converts boardSize to str for use in Picker */
 export function boardSizeToStr(boardSize: GameSettings["boardSize"]) {

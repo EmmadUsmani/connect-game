@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import Piece from "./Piece";
-import { GameBoard } from "../../models";
+import { GameBoard } from "@connect-game/shared";
+import { Piece } from ".";
 
 interface BoardProps {
   board: GameBoard;

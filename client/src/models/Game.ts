@@ -1,4 +1,3 @@
-import { EventNames, EventData } from "@connect-game/shared";
 import {
   GamePlayer,
   GameBoard,
@@ -6,18 +5,20 @@ import {
   GamePiece,
   GameWinner,
   GameDirectionPairs,
-} from "./types";
+  Events,
+  EventData,
+} from "@connect-game/shared";
 import { socket } from "../services";
 
 class Game {
   // TODO: preface private method names with _
   // TODO: make numCols and numRows properties
-  // TODO: gameState property to abstract turn, won, draw
+  // TODO: gameState property to abstract turn, won, draw, etc
   // properties should be immutable to work with React
   private _board: GameBoard;
   private _players: GamePlayer[];
   private _currPlayerIdx: number;
-  private _winner: GameWinner; // null if tie
+  private _winner: GameWinner;
   private _winCondition: number;
   private _numFilled: number;
   private static _instance: Game;
@@ -64,12 +65,15 @@ class Game {
     numRows: number = 6,
     winCondition: number = 4
   ): Game {
-    const data: EventData[EventNames.CreateRoom] = {
-      numCols,
-      numRows,
-      winCondition,
+    const data: EventData[Events.CreateRoom] = {
+      settings: {
+        boardSize: [numCols, numRows],
+        winCondition,
+        turnTimer: 0,
+      },
+      name: "asdf",
     };
-    socket.emit(EventNames.CreateRoom, data);
+    socket.emit(Events.CreateRoom, data);
 
     this._instance = new Game(players, numCols, numRows, winCondition);
     return this._instance;

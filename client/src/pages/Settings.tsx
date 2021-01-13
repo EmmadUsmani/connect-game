@@ -1,7 +1,7 @@
 import React from "react";
 
+import { GameSettings, GameOptions } from "@connect-game/shared";
 import { Page, Label, Picker, Button } from "../components";
-import { GameSettings, GameOptions } from "../models";
 import { boardSizeToStr, strToBoardSize } from "../utils";
 
 interface SettingsProps {

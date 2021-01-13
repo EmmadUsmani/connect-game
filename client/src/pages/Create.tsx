@@ -7,8 +7,12 @@ import {
   useHistory,
 } from "react-router-dom";
 
+import {
+  GameDefaultSettings,
+  GameMaxNameLen,
+  GameSettings,
+} from "@connect-game/shared";
 import { Name, Settings } from ".";
-import { GameDefaultSettings, GameMaxNameLen, GameSettings } from "../models";
 
 interface CreateProps {
   onCreate(name: string, settings: GameSettings): void;

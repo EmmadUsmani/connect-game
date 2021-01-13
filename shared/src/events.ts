@@ -1,4 +1,6 @@
-export enum EventNames {
+import { GameSettings } from ".";
+
+export enum Events {
   CreateRoom = "CreateRoom",
 }
 
@@ -6,8 +8,7 @@ export enum EventNames {
 board size */
 export interface EventData {
   CreateRoom: {
-    numCols: number;
-    numRows: number;
-    winCondition: number;
+    settings: GameSettings;
+    name: string;
   };
 }

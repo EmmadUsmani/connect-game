@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { GameColor } from "../../models";
+import { GameColor } from "@connect-game/shared";
 import { colors } from "../../config";
 
 interface PieceProps {

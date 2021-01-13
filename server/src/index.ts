@@ -1,7 +1,7 @@
 import { createServer } from "http";
 import { Server, Socket } from "socket.io";
 
-import { EventNames, EventData } from "@connect-game/shared";
+import { Events, EventData } from "@connect-game/shared";
 
 const httpServer = createServer();
 
@@ -15,12 +15,9 @@ const io = new Server(httpServer, {
 
 io.on("connection", (socket: Socket) => {
   console.log(socket.id);
-  socket.on(
-    EventNames.CreateRoom,
-    (settings: EventData[EventNames.CreateRoom]) => {
-      console.log(settings);
-    }
-  );
+  socket.on(Events.CreateRoom, (data: EventData[Events.CreateRoom]) => {
+    console.log(data.settings.boardSize);
+  });
 });
 
 httpServer.listen(3001, () => {

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
+import { GameBoard, GamePlayer, GameWinner } from "@connect-game/shared";
+import { Game } from "../models";
 import { Button, Link, Page } from "../components";
 import { Board, Header } from "../components/play";
-import { Game, GameBoard, GamePlayer, GameWinner } from "../models";
 
 const Play: React.FC = () => {
   const game = Game.instance;

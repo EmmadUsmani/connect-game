@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently -n tsc,node -c cyan,green \"tsc --w\" \"nodemon build/index.js\"",
     "build": "tsc"
   },

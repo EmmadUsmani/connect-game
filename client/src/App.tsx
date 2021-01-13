@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 
+import { GameSettings, GameColor } from "@connect-game/shared";
+import { Game } from "./models";
 import { Home, Create, Room, Play } from "./pages";
 import { ProtectedRoute } from "./components";
-import { GameSettings, Game, GameColor } from "./models";
 
 const App: React.FC = () => {
   const history = useHistory();
