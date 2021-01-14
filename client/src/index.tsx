@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 
 import App from "./App";
-import { GameContextProvider } from "./context";
+import { GameProvider } from "./context";
 import { fonts, colors } from "./config";
 
 const GlobalStyle = createGlobalStyle`
@@ -24,9 +24,9 @@ ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
     <Router>
-      <GameContextProvider>
+      <GameProvider>
         <App />
-      </GameContextProvider>
+      </GameProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

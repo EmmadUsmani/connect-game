@@ -1,1 +1,1 @@
-export * from "./GameContext";
+export * from "./Game";

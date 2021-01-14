@@ -1,13 +1,13 @@
 import React from "react";
 
 import { Page, Label, Input, Button, Link } from "../components";
-import { Game } from "../models";
+import { useGame } from "../context";
 
 const Room: React.FC = () => {
-  const players = Game.instance.players;
+  const { players, startGame } = useGame();
 
   const handleStart = (): void => {
-    Game.instance.start();
+    startGame();
   };
 
   return (

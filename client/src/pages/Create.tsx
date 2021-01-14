@@ -8,19 +8,18 @@ import {
 } from "react-router-dom";
 
 import {
+  GameColor,
   GameDefaultSettings,
   GameMaxNameLen,
   GameSettings,
 } from "@connect-game/shared";
+import { useGame } from "../context";
 import { Name, Settings } from ".";
 
-interface CreateProps {
-  onCreate(name: string, settings: GameSettings): void;
-}
-
-const Create: React.FC<CreateProps> = ({ onCreate }) => {
+const Create: React.FC = () => {
   const history = useHistory();
   const match = useRouteMatch();
+  const { createRoom } = useGame();
 
   const [name, setName] = useState<string>("");
   const [settings, setSettings] = useState<GameSettings>(GameDefaultSettings);
@@ -42,6 +41,11 @@ const Create: React.FC<CreateProps> = ({ onCreate }) => {
     setSettings(newSettings);
   };
 
+  const handleSettingsSubmit = (): void => {
+    createRoom({ name, color: GameColor.Blue }, settings);
+    history.push("/room");
+  };
+
   return (
     <Switch>
       <Route exact path={`${match.path}/name`}>
@@ -55,7 +59,7 @@ const Create: React.FC<CreateProps> = ({ onCreate }) => {
         <Settings
           settings={settings}
           onChange={handleSettingsChange}
-          onSubmit={() => onCreate(name, settings)}
+          onSubmit={handleSettingsSubmit}
         />
       </Route>
       <Redirect to="/" />

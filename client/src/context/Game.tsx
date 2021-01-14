@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 import {
   GamePlayer,
@@ -7,6 +7,7 @@ import {
   GamePiece,
   GameWinner,
   GameDirectionPairs,
+  GameColor,
   // Events,
   // EventData,
   GameSettings,
@@ -23,7 +24,7 @@ interface GameCtxInterface {
 }
 
 export const GameContext = createContext<GameCtxInterface>({
-  board: [],
+  board: [[]],
   players: [],
   currPlayerIdx: 0,
   winner: undefined,
@@ -32,18 +33,27 @@ export const GameContext = createContext<GameCtxInterface>({
   placePiece: (colNum) => null,
 });
 
-export const GameContextProvider: React.FC = ({ children }) => {
-  const [board, setBoard] = useState<GameBoard>([]);
+export const useGame = () => useContext(GameContext);
+
+export const GameProvider: React.FC = ({ children }) => {
+  const [board, setBoard] = useState<GameBoard>([[]]);
   const [players, setPlayers] = useState<GamePlayer[]>([]);
   const [currPlayerIdx, setCurrPlayerIdx] = useState<number>(0);
   const [winner, setWinner] = useState<GameWinner>(undefined);
   /* Private Attributes */
+  const [lastCoord, setLastCoord] = useState<[number, number]>([0, 0]);
   const [numFilled, setNumFilled] = useState<number>(0);
   const [winCondition, setWinCondition] = useState<number>(0);
+
+  useEffect(() => {
+    checkWinner(...lastCoord);
+    checkTie();
+  }, [board, lastCoord, checkWinner, checkTie]);
 
   const createRoom = (host: GamePlayer, settings: GameSettings): void => {
     // TODO: socket emit create room
     updateSettings(settings);
+    setPlayers([host, { name: "Bob", color: GameColor.Green }]);
   };
 
   const startGame = (): void => {
@@ -69,7 +79,7 @@ export const GameContextProvider: React.FC = ({ children }) => {
     if (rowNum === -1) return;
 
     setNumFilled((numFilled) => numFilled + 1);
-
+    setLastCoord([colNum, rowNum]);
     updatePiece(colNum, rowNum, players[currPlayerIdx]);
     updateCurrPlayer();
   };
@@ -115,18 +125,19 @@ export const GameContextProvider: React.FC = ({ children }) => {
     }
 
     setBoard(newBoard);
-    checkWinner(colNum, rowNum);
-    checkTie();
   };
 
   const updateCurrPlayer = (): void => {
     setCurrPlayerIdx((currPlayerIdx) => (currPlayerIdx + 1) % players.length);
   };
 
-  const checkWinner = (colNum: number, rowNum: number): void => {
+  function checkWinner(colNum: number, rowNum: number): void {
+    console.log(board);
     const [numCols, numRows] = [board.length, board[0].length];
     const player = board[colNum][rowNum];
-    if (!player) return;
+    if (!player) {
+      return;
+    }
 
     // explores a single direction, defined by colOff and rowOff, and checks how many in row
     const explore = (
@@ -156,18 +167,19 @@ export const GameContextProvider: React.FC = ({ children }) => {
         1 +
         explore(colNum + colOff1, rowNum + rowOff1, colOff1, rowOff1, 0) +
         explore(colNum + colOff2, rowNum + rowOff2, colOff2, rowOff2, 0);
+      console.log(count);
       if (count >= winCondition) {
         setWinner(player);
         return;
       }
     }
-  };
+  }
 
-  const checkTie = (): void => {
+  function checkTie(): void {
     const [numCols, numRows] = [board.length, board[0].length];
     if (numFilled === numCols * numRows && winner === undefined)
       setWinner(null);
-  };
+  }
 
   return (
     <GameContext.Provider

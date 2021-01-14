@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
-import { GameBoard, GamePlayer, GameWinner } from "@connect-game/shared";
-import { Game } from "../models";
+import { useGame } from "../context";
 import { Button, Link, Page } from "../components";
 import { Board, Header } from "../components/play";
 
 const Play: React.FC = () => {
-  const game = Game.instance;
-  const [board, setBoard] = useState<GameBoard>(game.board);
-  const [currPlayer, setCurrPlayer] = useState<GamePlayer>(game.currPlayer);
-  const [winner, setWinner] = useState<GameWinner>(game.winner);
-
   const history = useHistory();
+  const { board, players, currPlayerIdx, winner, placePiece } = useGame();
 
   // TODO: refactor to custom hook to use in multiple places (like room)
   useEffect(() => {
@@ -22,17 +17,12 @@ const Play: React.FC = () => {
   }, [history]);
 
   const handleColumnClick = (colNum: number): void => {
-    if (winner) return;
-
-    game.placePiece(colNum);
-    setBoard(game.board);
-    setCurrPlayer(game.currPlayer);
-    setWinner(game.winner);
+    placePiece(colNum);
   };
 
   return (
     <Page>
-      <Header currPlayer={currPlayer} winner={winner} />
+      <Header currPlayer={players[currPlayerIdx]} winner={winner} />
       <Board
         board={board}
         handleColumnClick={handleColumnClick}
