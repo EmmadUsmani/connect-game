@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 
 import {
   GamePlayer,
@@ -44,11 +50,6 @@ export const GameProvider: React.FC = ({ children }) => {
   const [lastCoord, setLastCoord] = useState<[number, number]>([0, 0]);
   const [numFilled, setNumFilled] = useState<number>(0);
   const [winCondition, setWinCondition] = useState<number>(0);
-
-  useEffect(() => {
-    checkWinner(...lastCoord);
-    checkTie();
-  }, [board, lastCoord, checkWinner, checkTie]);
 
   const createRoom = (host: GamePlayer, settings: GameSettings): void => {
     // TODO: socket emit create room
@@ -131,55 +132,65 @@ export const GameProvider: React.FC = ({ children }) => {
     setCurrPlayerIdx((currPlayerIdx) => (currPlayerIdx + 1) % players.length);
   };
 
-  function checkWinner(colNum: number, rowNum: number): void {
-    console.log(board);
-    const [numCols, numRows] = [board.length, board[0].length];
-    const player = board[colNum][rowNum];
-    if (!player) {
-      return;
-    }
-
-    // explores a single direction, defined by colOff and rowOff, and checks how many in row
-    const explore = (
-      colNum: number,
-      rowNum: number,
-      colOff: number,
-      rowOff: number,
-      count: number
-    ): number => {
-      if (colNum < 0 || rowNum < 0 || colNum >= numCols || rowNum >= numRows)
-        return count;
-      if (board[colNum][rowNum] !== player) return count;
-
-      return explore(
-        colNum + colOff,
-        rowNum + rowOff,
-        colOff,
-        rowOff,
-        count + 1
-      );
-    };
-
-    /* for each pair of direction (i.e. North & South), 
-    check if the player's pieces in those directions sum to winCondition */
-    for (const [[colOff1, rowOff1], [colOff2, rowOff2]] of GameDirectionPairs) {
-      const count =
-        1 +
-        explore(colNum + colOff1, rowNum + rowOff1, colOff1, rowOff1, 0) +
-        explore(colNum + colOff2, rowNum + rowOff2, colOff2, rowOff2, 0);
-      console.log(count);
-      if (count >= winCondition) {
-        setWinner(player);
+  const checkWinner = useCallback(
+    (colNum: number, rowNum: number): void => {
+      const [numCols, numRows] = [board.length, board[0].length];
+      const player = board[colNum][rowNum];
+      if (!player) {
         return;
       }
-    }
-  }
 
-  function checkTie(): void {
+      /* explores a single direction, defined by colOff and rowOff, 
+      and checks how many in row */
+      const explore = (
+        colNum: number,
+        rowNum: number,
+        colOff: number,
+        rowOff: number,
+        count: number
+      ): number => {
+        if (colNum < 0 || rowNum < 0 || colNum >= numCols || rowNum >= numRows)
+          return count;
+        if (board[colNum][rowNum] !== player) return count;
+
+        return explore(
+          colNum + colOff,
+          rowNum + rowOff,
+          colOff,
+          rowOff,
+          count + 1
+        );
+      };
+
+      /* for each pair of direction (i.e. North & South), 
+      check if the player's pieces in those directions sum to winCondition */
+      for (const [
+        [colOff1, rowOff1],
+        [colOff2, rowOff2],
+      ] of GameDirectionPairs) {
+        const count =
+          1 +
+          explore(colNum + colOff1, rowNum + rowOff1, colOff1, rowOff1, 0) +
+          explore(colNum + colOff2, rowNum + rowOff2, colOff2, rowOff2, 0);
+        if (count >= winCondition) {
+          setWinner(player);
+          return;
+        }
+      }
+    },
+    [board, winCondition]
+  );
+
+  const checkTie = useCallback((): void => {
     const [numCols, numRows] = [board.length, board[0].length];
     if (numFilled === numCols * numRows && winner === undefined)
       setWinner(null);
-  }
+  }, [board, numFilled, winner]);
+
+  useEffect(() => {
+    checkWinner(...lastCoord);
+    checkTie();
+  }, [lastCoord, checkWinner, checkTie]);
 
   return (
     <GameContext.Provider
