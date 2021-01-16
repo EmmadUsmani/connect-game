@@ -42,7 +42,8 @@ const Create: React.FC = () => {
   };
 
   const handleSettingsSubmit = (): void => {
-    createRoom({ name, color: GameColor.Blue }, settings);
+    // TODO: randomize color
+    createRoom(settings, { name, color: GameColor.Blue });
     history.push("/room");
   };
 

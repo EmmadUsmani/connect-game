@@ -1,7 +1,7 @@
 import { createServer } from "http";
 import { Server, Socket } from "socket.io";
 
-import { Events, EventData } from "@connect-game/shared";
+import { Events, EventData, GameRoom } from "@connect-game/shared";
 
 const httpServer = createServer();
 
@@ -13,10 +13,18 @@ const io = new Server(httpServer, {
   },
 });
 
+/* Map of code to room */
+const rooms: { [key: string]: GameRoom } = {};
+
 io.on("connection", (socket: Socket) => {
-  console.log(socket.id);
   socket.on(Events.CreateRoom, (data: EventData[Events.CreateRoom]) => {
-    console.log(data.settings.boardSize);
+    const { settings, host } = data;
+    // TODO: better code generation
+    const code = Math.random().toString(36).substring(7);
+    rooms[code] = { settings, players: [host] };
+
+    const resData: EventData[Events.RoomCreated] = { code };
+    socket.emit(Events.RoomCreated, resData);
   });
 });
 

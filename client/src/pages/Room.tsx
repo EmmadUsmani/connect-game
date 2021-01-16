@@ -4,7 +4,7 @@ import { Page, Label, Input, Button, Link } from "../components";
 import { useGame } from "../context";
 
 const Room: React.FC = () => {
-  const { players, startGame } = useGame();
+  const { code, players, startGame } = useGame();
 
   const handleStart = (): void => {
     startGame();
@@ -13,7 +13,7 @@ const Room: React.FC = () => {
   return (
     <Page>
       <Label>Room code</Label>
-      <Input type="text" value="A8GTH20" disabled />
+      <Input type="text" value={code} disabled />
       <Label>Players</Label>
       {players.map((player) => (
         <Button color={player.color} key={player.name} disabled>

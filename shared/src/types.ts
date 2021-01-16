@@ -5,6 +5,7 @@ export enum GameColor {
   Orange = "orange",
 }
 
+// TODO: add isHost field?
 export interface GamePlayer {
   name: string;
   color: GameColor;
@@ -73,5 +74,10 @@ export const GameOptions: {
     { label: "30 seconds", value: 30 },
   ],
 };
+
+export interface GameRoom {
+  settings: GameSettings;
+  players: GamePlayer[];
+}
 
 // TODO: move constants to separate file

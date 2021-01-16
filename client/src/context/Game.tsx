@@ -14,34 +14,38 @@ import {
   GameWinner,
   GameDirectionPairs,
   GameColor,
-  // Events,
-  // EventData,
+  Events,
+  EventData,
   GameSettings,
 } from "@connect-game/shared";
+import { server } from "../services";
 
 interface GameCtxInterface {
+  code: string;
   board: GameBoard;
   players: GamePlayer[];
   currPlayerIdx: number;
   winner: GameWinner;
-  createRoom(host: GamePlayer, settings: GameSettings): void;
+  createRoom(settings: GameSettings, host: GamePlayer): void;
   startGame(): void;
   placePiece(colNum: number): void;
 }
 
 export const GameContext = createContext<GameCtxInterface>({
+  code: "",
   board: [[]],
   players: [],
   currPlayerIdx: 0,
   winner: undefined,
-  createRoom: (host, settings) => null,
+  createRoom: (_, _2) => null,
   startGame: () => null,
-  placePiece: (colNum) => null,
+  placePiece: (_) => null,
 });
 
 export const useGame = () => useContext(GameContext);
 
 export const GameProvider: React.FC = ({ children }) => {
+  const [code, setCode] = useState<string>("");
   const [board, setBoard] = useState<GameBoard>([[]]);
   const [players, setPlayers] = useState<GamePlayer[]>([]);
   const [currPlayerIdx, setCurrPlayerIdx] = useState<number>(0);
@@ -51,9 +55,10 @@ export const GameProvider: React.FC = ({ children }) => {
   const [numFilled, setNumFilled] = useState<number>(0);
   const [winCondition, setWinCondition] = useState<number>(0);
 
-  const createRoom = (host: GamePlayer, settings: GameSettings): void => {
-    // TODO: socket emit create room
+  const createRoom = (settings: GameSettings, host: GamePlayer): void => {
+    server.createRoom(settings, host);
     updateSettings(settings);
+    // TODO: remove placeholder player
     setPlayers([host, { name: "Bob", color: GameColor.Green }]);
   };
 
@@ -187,6 +192,14 @@ export const GameProvider: React.FC = ({ children }) => {
       setWinner(null);
   }, [board, numFilled, winner]);
 
+  /* Register listeners */
+  useEffect(() => {
+    server.listen(Events.RoomCreated, (data: EventData[Events.RoomCreated]) =>
+      setCode(data.code)
+    );
+  }, []);
+
+  /* Check winner after each move */
   useEffect(() => {
     checkWinner(...lastCoord);
     checkTie();
@@ -195,6 +208,7 @@ export const GameProvider: React.FC = ({ children }) => {
   return (
     <GameContext.Provider
       value={{
+        code,
         board,
         players,
         currPlayerIdx,

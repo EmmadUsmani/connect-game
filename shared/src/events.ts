@@ -1,14 +1,16 @@
-import { GameSettings } from ".";
+import { GameSettings, GamePlayer } from "./types";
 
 export enum Events {
   CreateRoom = "CreateRoom",
+  RoomCreated = "RoomCreated",
 }
 
-/* TODO: consider using Game types instead of redefining things like 
-board size */
 export interface EventData {
   CreateRoom: {
     settings: GameSettings;
-    name: string;
+    host: GamePlayer;
+  };
+  RoomCreated: {
+    code: string;
   };
 }
