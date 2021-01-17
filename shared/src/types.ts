@@ -31,3 +31,5 @@ export interface GameRoom {
   settings: GameSettings;
   players: GamePlayer[];
 }
+
+export type GameRooms = { [key: string]: GameRoom };

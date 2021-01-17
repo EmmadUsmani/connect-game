@@ -235,6 +235,7 @@ export const GameProvider: React.FC = ({ children }) => {
     server.listen(Events.RoomCreated, roomCreatedListener);
     server.listen(Events.RoomJoined, roomJoinedListener);
     server.listen(Events.PlayerJoined, playerJoinedListener);
+    // TODO: RoomNotFound, NameTaken
   }, []);
 
   return (

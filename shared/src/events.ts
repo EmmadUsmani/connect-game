@@ -5,6 +5,8 @@ export enum Events {
   RoomCreated = "RoomCreated",
   JoinRoom = "JoinRoom",
   RoomJoined = "RoomJoined",
+  RoomNotFound = "RoomNotFound",
+  NameTaken = "NameTaken",
   PlayerJoined = "PlayerJoined",
 }
 

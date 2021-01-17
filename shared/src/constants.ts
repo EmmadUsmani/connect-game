@@ -1,7 +1,5 @@
 import { GamePlayer, GameColor, GameDirection, GameSettings } from "./types";
 
-export const GameMaxNameLen = 16;
-
 export const uninitializedPlayer: GamePlayer = {
   name: "",
   color: GameColor.Blue,
@@ -52,3 +50,46 @@ export const GameOptions: {
     { label: "30 seconds", value: 30 },
   ],
 };
+
+export const GameMaxNameLen = 16;
+
+export const GameCodeLen = 7;
+
+export const GameCodeChars = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+];
