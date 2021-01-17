@@ -16,7 +16,6 @@ import {
   Events,
   EventData,
   GameSettings,
-  GameColor,
   uninitializedPlayer,
 } from "@connect-game/shared";
 import { server } from "../services";
@@ -50,16 +49,20 @@ export const GameContext = createContext<GameCtxInterface>({
 export const useGame = () => useContext(GameContext);
 
 export const GameProvider: React.FC = ({ children }) => {
+  /* Public Attributes */
   const [code, setCode] = useState<string>("");
   const [board, setBoard] = useState<GameBoard>([[]]);
   const [players, setPlayers] = useState<GamePlayer[]>([]);
   const [you, setYou] = useState<GamePlayer>(uninitializedPlayer);
   const [currPlayerIdx, setCurrPlayerIdx] = useState<number>(0);
   const [winner, setWinner] = useState<GameWinner>(undefined);
+
   /* Private Attributes */
   const [lastCoord, setLastCoord] = useState<[number, number]>([0, 0]);
   const [numFilled, setNumFilled] = useState<number>(0);
   const [winCondition, setWinCondition] = useState<number>(0);
+
+  /******************** Public Methods ********************/
 
   const createRoom = (settings: GameSettings, host: GamePlayer): void => {
     server.createRoom(settings, host);
@@ -74,6 +77,7 @@ export const GameProvider: React.FC = ({ children }) => {
     setCode(code);
   };
 
+  // TODO: prevent non host from starting game
   const startGame = (): void => {
     const [numCols, numRows] = [board.length, board[0].length];
     createBoard(numCols, numRows);
@@ -113,7 +117,6 @@ export const GameProvider: React.FC = ({ children }) => {
     createBoard(numCols, numRows);
   };
 
-  // TODO: refactor to utils?
   const createBoard = (numCols: number, numRows: number): void => {
     const board: GameBoard = [];
     for (let i = 0; i < numCols; i++) {
@@ -148,6 +151,8 @@ export const GameProvider: React.FC = ({ children }) => {
   const updateCurrPlayer = (): void => {
     setCurrPlayerIdx((currPlayerIdx) => (currPlayerIdx + 1) % players.length);
   };
+
+  /*** Game Loop ***/
 
   const checkWinner = useCallback(
     (colNum: number, rowNum: number): void => {
@@ -204,31 +209,33 @@ export const GameProvider: React.FC = ({ children }) => {
       setWinner(null);
   }, [board, numFilled, winner]);
 
-  /* Register listeners */
-  // TODO: move listener funcs to outside of hook
-  useEffect(() => {
-    server.listen(Events.RoomCreated, (data: EventData[Events.RoomCreated]) =>
-      setCode(data.code)
-    );
-    server.listen(Events.RoomJoined, (data: EventData[Events.RoomJoined]) => {
-      const { room, player } = data;
-      setPlayers(room.players);
-      setYou(player);
-    });
-    server.listen(
-      Events.PlayerJoined,
-      (data: EventData[Events.PlayerJoined]) => {
-        const { player } = data;
-        setPlayers((players) => [...players, player]);
-      }
-    );
-  }, []);
-
-  /* Check winner after each move */
+  /* Check winner/tie after each move (when lastCoord changed) */
   useEffect(() => {
     checkWinner(...lastCoord);
     checkTie();
   }, [lastCoord, checkWinner, checkTie]);
+
+  /*** Server Listeners ***/
+
+  const roomCreatedListener = (data: EventData[Events.RoomCreated]) => {
+    setCode(data.code);
+  };
+
+  const roomJoinedListener = (data: EventData[Events.RoomJoined]) => {
+    setPlayers(data.room.players);
+    setYou(data.player);
+  };
+
+  const playerJoinedListener = (data: EventData[Events.PlayerJoined]) => {
+    setPlayers((players) => [...players, data.player]);
+  };
+
+  /* Register listeners */
+  useEffect(() => {
+    server.listen(Events.RoomCreated, roomCreatedListener);
+    server.listen(Events.RoomJoined, roomJoinedListener);
+    server.listen(Events.PlayerJoined, playerJoinedListener);
+  }, []);
 
   return (
     <GameContext.Provider
