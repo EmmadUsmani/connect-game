@@ -42,13 +42,17 @@ io.on("connection", (socket: Socket) => {
     const player: GamePlayer = { name: playerName, color: GameColor.Orange };
 
     // TODO: handle error case where room doesn't exist
+    // TODO: check if name is taken
     const room = rooms[code];
     room.players.push(player);
     socket.join(code);
 
-    const resData: EventData[Events.RoomJoined] = { room, player };
-    // send to all clients in room
-    io.in(code).emit(Events.RoomJoined, resData);
+    // send to client
+    const roomJoinedData: EventData[Events.RoomJoined] = { room, player };
+    socket.emit(Events.RoomJoined, roomJoinedData);
+    // send to other clients in room
+    const playerJoinedData: EventData[Events.PlayerJoined] = { player };
+    socket.to(code).emit(Events.PlayerJoined, playerJoinedData);
   });
 });
 

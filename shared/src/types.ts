@@ -80,4 +80,9 @@ export interface GameRoom {
   players: GamePlayer[];
 }
 
+export const uninitializedPlayer: GamePlayer = {
+  name: "",
+  color: GameColor.Blue,
+};
+
 // TODO: move constants to separate file

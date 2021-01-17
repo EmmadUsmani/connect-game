@@ -4,7 +4,7 @@ import { Page, Label, Input, Button, Link } from "../components";
 import { useGame } from "../context";
 
 const Room: React.FC = () => {
-  const { code, players, startGame } = useGame();
+  const { code, players, you, startGame } = useGame();
 
   const handleStart = (): void => {
     startGame();
@@ -17,7 +17,7 @@ const Room: React.FC = () => {
       <Label>Players</Label>
       {players.map((player) => (
         <Button color={player.color} key={player.name} disabled>
-          {player.name}
+          {player.name + (player.name === you.name ? " ✨" : "")}
         </Button>
       ))}
       <Link to="/play">
@@ -31,3 +31,5 @@ const Room: React.FC = () => {
 };
 
 export default Room;
+
+// TODO: remove/replace you emoji

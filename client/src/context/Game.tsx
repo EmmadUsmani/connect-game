@@ -16,6 +16,8 @@ import {
   Events,
   EventData,
   GameSettings,
+  GameColor,
+  uninitializedPlayer,
 } from "@connect-game/shared";
 import { server } from "../services";
 
@@ -23,6 +25,7 @@ interface GameCtxInterface {
   code: string;
   board: GameBoard;
   players: GamePlayer[];
+  you: GamePlayer;
   currPlayerIdx: number;
   winner: GameWinner;
   createRoom(settings: GameSettings, host: GamePlayer): void;
@@ -35,6 +38,7 @@ export const GameContext = createContext<GameCtxInterface>({
   code: "",
   board: [[]],
   players: [],
+  you: uninitializedPlayer,
   currPlayerIdx: 0,
   winner: undefined,
   createRoom: (_, _2) => null,
@@ -49,6 +53,7 @@ export const GameProvider: React.FC = ({ children }) => {
   const [code, setCode] = useState<string>("");
   const [board, setBoard] = useState<GameBoard>([[]]);
   const [players, setPlayers] = useState<GamePlayer[]>([]);
+  const [you, setYou] = useState<GamePlayer>(uninitializedPlayer);
   const [currPlayerIdx, setCurrPlayerIdx] = useState<number>(0);
   const [winner, setWinner] = useState<GameWinner>(undefined);
   /* Private Attributes */
@@ -60,6 +65,7 @@ export const GameProvider: React.FC = ({ children }) => {
     server.createRoom(settings, host);
     updateSettings(settings);
     setPlayers([host]);
+    setYou(host);
   };
 
   const joinRoom = (code: string, playerName: string): void => {
@@ -199,14 +205,23 @@ export const GameProvider: React.FC = ({ children }) => {
   }, [board, numFilled, winner]);
 
   /* Register listeners */
+  // TODO: move listener funcs to outside of hook
   useEffect(() => {
     server.listen(Events.RoomCreated, (data: EventData[Events.RoomCreated]) =>
       setCode(data.code)
     );
     server.listen(Events.RoomJoined, (data: EventData[Events.RoomJoined]) => {
-      const { room } = data;
+      const { room, player } = data;
       setPlayers(room.players);
+      setYou(player);
     });
+    server.listen(
+      Events.PlayerJoined,
+      (data: EventData[Events.PlayerJoined]) => {
+        const { player } = data;
+        setPlayers((players) => [...players, player]);
+      }
+    );
   }, []);
 
   /* Check winner after each move */
@@ -221,6 +236,7 @@ export const GameProvider: React.FC = ({ children }) => {
         code,
         board,
         players,
+        you,
         currPlayerIdx,
         winner,
         createRoom,

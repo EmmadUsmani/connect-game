@@ -5,6 +5,7 @@ export enum Events {
   RoomCreated = "RoomCreated",
   JoinRoom = "JoinRoom",
   RoomJoined = "RoomJoined",
+  PlayerJoined = "PlayerJoined",
 }
 
 export interface EventData {
@@ -21,6 +22,9 @@ export interface EventData {
   };
   RoomJoined: {
     room: GameRoom;
+    player: GamePlayer;
+  };
+  PlayerJoined: {
     player: GamePlayer;
   };
 }
