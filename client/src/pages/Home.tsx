@@ -18,7 +18,9 @@ const Home: React.FC<HomeProps> = ({ onLoad }) => {
       <Link to="/create/name">
         <Button>Create Game</Button>
       </Link>
-      <Button>Join Game</Button>
+      <Link to="/join/name">
+        <Button>Join Game</Button>
+      </Link>
     </Page>
   );
 };

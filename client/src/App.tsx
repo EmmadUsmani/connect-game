@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import { Home, Create, Room, Play } from "./pages";
+import { Home, Create, Join, Room, Play } from "./pages";
 import { ProtectedRoute } from "./components";
 
 const App: React.FC = () => {
@@ -15,6 +15,9 @@ const App: React.FC = () => {
     <Switch>
       <ProtectedRoute accessible={isLoaded} path="/create">
         <Create />
+      </ProtectedRoute>
+      <ProtectedRoute accessible={isLoaded} path="/join">
+        <Join />
       </ProtectedRoute>
       <ProtectedRoute accessible={isLoaded} path="/room">
         <Room />

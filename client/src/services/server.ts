@@ -19,4 +19,9 @@ function createRoom(settings: GameSettings, host: GamePlayer) {
   socket.emit(Events.CreateRoom, data);
 }
 
-export const server = { listen, createRoom };
+function joinRoom(code: string, playerName: string) {
+  const data: EventData[Events.JoinRoom] = { code, playerName };
+  socket.emit(Events.JoinRoom, data);
+}
+
+export const server = { listen, createRoom, joinRoom };

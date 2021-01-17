@@ -13,7 +13,6 @@ import {
   GamePiece,
   GameWinner,
   GameDirectionPairs,
-  GameColor,
   Events,
   EventData,
   GameSettings,
@@ -27,6 +26,7 @@ interface GameCtxInterface {
   currPlayerIdx: number;
   winner: GameWinner;
   createRoom(settings: GameSettings, host: GamePlayer): void;
+  joinRoom(code: string, playerName: string): void;
   startGame(): void;
   placePiece(colNum: number): void;
 }
@@ -38,6 +38,7 @@ export const GameContext = createContext<GameCtxInterface>({
   currPlayerIdx: 0,
   winner: undefined,
   createRoom: (_, _2) => null,
+  joinRoom: (_, _2) => null,
   startGame: () => null,
   placePiece: (_) => null,
 });
@@ -58,8 +59,13 @@ export const GameProvider: React.FC = ({ children }) => {
   const createRoom = (settings: GameSettings, host: GamePlayer): void => {
     server.createRoom(settings, host);
     updateSettings(settings);
-    // TODO: remove placeholder player
-    setPlayers([host, { name: "Bob", color: GameColor.Green }]);
+    setPlayers([host]);
+  };
+
+  const joinRoom = (code: string, playerName: string): void => {
+    // TODO: handle nonexistant room
+    server.joinRoom(code, playerName);
+    setCode(code);
   };
 
   const startGame = (): void => {
@@ -197,6 +203,10 @@ export const GameProvider: React.FC = ({ children }) => {
     server.listen(Events.RoomCreated, (data: EventData[Events.RoomCreated]) =>
       setCode(data.code)
     );
+    server.listen(Events.RoomJoined, (data: EventData[Events.RoomJoined]) => {
+      const { room } = data;
+      setPlayers(room.players);
+    });
   }, []);
 
   /* Check winner after each move */
@@ -214,6 +224,7 @@ export const GameProvider: React.FC = ({ children }) => {
         currPlayerIdx,
         winner,
         createRoom,
+        joinRoom,
         startGame,
         placePiece,
       }}

@@ -1,8 +1,10 @@
-import { GameSettings, GamePlayer } from "./types";
+import { GameSettings, GamePlayer, GameRoom } from "./types";
 
 export enum Events {
   CreateRoom = "CreateRoom",
   RoomCreated = "RoomCreated",
+  JoinRoom = "JoinRoom",
+  RoomJoined = "RoomJoined",
 }
 
 export interface EventData {
@@ -12,5 +14,13 @@ export interface EventData {
   };
   RoomCreated: {
     code: string;
+  };
+  JoinRoom: {
+    code: string;
+    playerName: string;
+  };
+  RoomJoined: {
+    room: GameRoom;
+    player: GamePlayer;
   };
 }
