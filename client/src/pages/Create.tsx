@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 
 import {
-  GameColor,
   GameDefaultSettings,
   GameMaxNameLen,
   GameSettings,
@@ -42,8 +41,7 @@ const Create: React.FC = () => {
   };
 
   const handleSettingsSubmit = (): void => {
-    // TODO: randomize color
-    createRoom(settings, { name, color: GameColor.Blue });
+    createRoom(settings, name);
     history.push("/room");
   };
 

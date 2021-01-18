@@ -27,7 +27,7 @@ interface GameCtxInterface {
   you: GamePlayer;
   currPlayerIdx: number;
   winner: GameWinner;
-  createRoom(settings: GameSettings, host: GamePlayer): void;
+  createRoom(settings: GameSettings, hostName: string): void;
   joinRoom(code: string, playerName: string): void;
   startGame(): void;
   placePiece(colNum: number): void;
@@ -64,11 +64,9 @@ export const GameProvider: React.FC = ({ children }) => {
 
   /******************** Public Methods ********************/
 
-  const createRoom = (settings: GameSettings, host: GamePlayer): void => {
-    server.createRoom(settings, host);
+  const createRoom = (settings: GameSettings, hostName: string): void => {
+    server.createRoom(settings, hostName);
     updateSettings(settings);
-    setPlayers([host]);
-    setYou(host);
   };
 
   const joinRoom = (code: string, playerName: string): void => {
@@ -219,6 +217,8 @@ export const GameProvider: React.FC = ({ children }) => {
 
   const roomCreatedListener = (data: EventData[Events.RoomCreated]) => {
     setCode(data.code);
+    setPlayers([data.player]);
+    setYou(data.player);
   };
 
   const roomJoinedListener = (data: EventData[Events.RoomJoined]) => {

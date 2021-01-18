@@ -13,10 +13,11 @@ export enum Events {
 export interface EventData {
   CreateRoom: {
     settings: GameSettings;
-    host: GamePlayer;
+    hostName: string;
   };
   RoomCreated: {
     code: string;
+    player: GamePlayer;
   };
   JoinRoom: {
     code: string;

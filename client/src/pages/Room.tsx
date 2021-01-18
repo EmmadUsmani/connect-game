@@ -31,5 +31,3 @@ const Room: React.FC = () => {
 };
 
 export default Room;
-
-// TODO: remove/replace you emoji
