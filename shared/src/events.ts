@@ -8,6 +8,7 @@ export enum Events {
   RoomNotFound = "RoomNotFound",
   NameTaken = "NameTaken",
   PlayerJoined = "PlayerJoined",
+  StartGame = "StartGame",
 }
 
 export interface EventData {

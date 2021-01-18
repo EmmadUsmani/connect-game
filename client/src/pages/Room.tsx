@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Page, Label, Input, Button, Link } from "../components";
+import { Page, Label, Input, Button } from "../components";
 import { useGame } from "../context";
 
 const Room: React.FC = () => {
@@ -20,11 +20,9 @@ const Room: React.FC = () => {
           {player.name + (player.name === you.name ? " ✨" : "")}
         </Button>
       ))}
-      <Link to="/play">
-        <Button onClick={handleStart} style={{ marginTop: 20 }}>
-          Start Game
-        </Button>
-      </Link>
+      <Button onClick={handleStart} style={{ marginTop: 20 }}>
+        Start Game
+      </Button>
       <Button>Copy Link</Button>
     </Page>
   );

@@ -1,5 +1,3 @@
-import { Socket } from "socket.io";
-
 import {
   Events,
   EventData,
@@ -7,12 +5,13 @@ import {
   GamePlayer,
   GameRoom,
 } from "@connect-game/shared";
+import { ExtendedSocket } from ".";
 import { generateRoomCode, generateColor } from "../utils";
 
 // TODO: close room once all users have left
 const rooms: GameRooms = {};
 
-export function initRoomListeners(socket: Socket) {
+export function initRoomListeners(socket: ExtendedSocket) {
   socket.on(Events.CreateRoom, (data: EventData[Events.CreateRoom]) => {
     const { settings, hostName } = data;
 
@@ -25,6 +24,7 @@ export function initRoomListeners(socket: Socket) {
     const player = { name: hostName, color: generateColor(room) };
     room.players.push(player);
     socket.join(code);
+    socket.code = code;
 
     // send to client
     const resData: EventData[Events.RoomCreated] = { code, player };
@@ -54,6 +54,7 @@ export function initRoomListeners(socket: Socket) {
     const player: GamePlayer = { name: playerName, color: generateColor(room) };
     room.players.push(player);
     socket.join(code);
+    socket.code = code;
 
     // send to client
     const roomJoinedData: EventData[Events.RoomJoined] = { room, player };
@@ -61,6 +62,12 @@ export function initRoomListeners(socket: Socket) {
 
     // send to other clients in room
     const playerJoinedData: EventData[Events.PlayerJoined] = { player };
-    socket.to(code).emit(Events.PlayerJoined, playerJoinedData);
+    socket.to(socket.code).emit(Events.PlayerJoined, playerJoinedData);
+  });
+
+  socket.on(Events.StartGame, () => {
+    // send to other clients in room
+    console.log("start game", socket.code);
+    socket.to(socket.code).emit(Events.StartGame);
   });
 }

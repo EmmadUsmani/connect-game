@@ -63,6 +63,8 @@ export const GameProvider: React.FC = ({ children }) => {
   const [numFilled, setNumFilled] = useState<number>(0);
   const [winCondition, setWinCondition] = useState<number>(0);
 
+  const history = useHistory();
+
   /******************** Public Methods ********************/
 
   const createRoom = (settings: GameSettings, hostName: string): void => {
@@ -77,11 +79,9 @@ export const GameProvider: React.FC = ({ children }) => {
 
   // TODO: prevent non host from starting game
   const startGame = (): void => {
-    const [numCols, numRows] = [board.length, board[0].length];
-    createBoard(numCols, numRows);
-    setWinner(undefined);
-    setCurrPlayerIdx(0);
-    setNumFilled(0);
+    server.startGame();
+    initGame();
+    history.push("/play");
   };
 
   const placePiece = (colNum: number): void => {
@@ -106,14 +106,22 @@ export const GameProvider: React.FC = ({ children }) => {
 
   /******************** Private Methods ********************/
 
-  const updateSettings = (settings: GameSettings): void => {
+  const updateSettings = useCallback((settings: GameSettings): void => {
     const {
       boardSize: [numCols, numRows],
       winCondition,
     } = settings;
     setWinCondition(winCondition);
     createBoard(numCols, numRows);
-  };
+  }, []);
+
+  const initGame = useCallback((): void => {
+    const [numCols, numRows] = [board.length, board[0].length];
+    createBoard(numCols, numRows);
+    setWinner(undefined);
+    setCurrPlayerIdx(0);
+    setNumFilled(0);
+  }, [board]);
 
   const createBoard = (numCols: number, numRows: number): void => {
     const board: GameBoard = [];
@@ -214,6 +222,8 @@ export const GameProvider: React.FC = ({ children }) => {
   }, [lastCoord, checkWinner, checkTie]);
 
   /*** Server Listeners ***/
+  /* TODO: refactor listener registration/remove 
+  (perhaps to custom hook) for cleaner code */
 
   const roomCreatedListener = (data: EventData[Events.RoomCreated]) => {
     setCode(data.code);
@@ -221,25 +231,31 @@ export const GameProvider: React.FC = ({ children }) => {
     setYou(data.player);
   };
 
-  const roomJoinedListener = (data: EventData[Events.RoomJoined]) => {
-    setPlayers(data.room.players);
-    setYou(data.player);
-    updateSettings(data.room.settings);
-  };
+  const roomJoinedListener = useCallback(
+    (data: EventData[Events.RoomJoined]) => {
+      setPlayers(data.room.players);
+      setYou(data.player);
+      updateSettings(data.room.settings);
+    },
+    [updateSettings]
+  );
 
   const playerJoinedListener = (data: EventData[Events.PlayerJoined]) => {
     setPlayers((players) => [...players, data.player]);
   };
 
-  const history = useHistory();
-
-  const roomNotFoundListener = () => {
+  const roomNotFoundListener = useCallback(() => {
     history.push("/");
-  };
+  }, [history]);
 
-  const nameTakenListener = () => {
+  const nameTakenListener = useCallback(() => {
     history.push("/");
-  };
+  }, [history]);
+
+  const startGameListener = useCallback(() => {
+    initGame();
+    history.push("/play");
+  }, [history, initGame]);
 
   /* Register listeners */
   useEffect(() => {
@@ -248,7 +264,22 @@ export const GameProvider: React.FC = ({ children }) => {
     server.listen(Events.RoomNotFound, roomNotFoundListener);
     server.listen(Events.NameTaken, nameTakenListener);
     server.listen(Events.PlayerJoined, playerJoinedListener);
-  }, []);
+    server.listen(Events.StartGame, startGameListener);
+
+    return () => {
+      server.removeListener(Events.RoomCreated, roomCreatedListener);
+      server.removeListener(Events.RoomJoined, roomJoinedListener);
+      server.removeListener(Events.RoomNotFound, roomNotFoundListener);
+      server.removeListener(Events.NameTaken, nameTakenListener);
+      server.removeListener(Events.PlayerJoined, playerJoinedListener);
+      server.removeListener(Events.StartGame, startGameListener);
+    };
+  }, [
+    roomJoinedListener,
+    roomNotFoundListener,
+    nameTakenListener,
+    startGameListener,
+  ]);
 
   return (
     <GameContext.Provider
