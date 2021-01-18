@@ -67,7 +67,6 @@ export function initRoomListeners(socket: ExtendedSocket) {
 
   socket.on(Events.StartGame, () => {
     // send to other clients in room
-    console.log("start game", socket.code);
     socket.to(socket.code).emit(Events.StartGame);
   });
 }

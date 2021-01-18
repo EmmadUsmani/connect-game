@@ -7,7 +7,7 @@ import { Board, Header } from "../components/play";
 
 const Play: React.FC = () => {
   const history = useHistory();
-  const { board, players, currPlayerIdx, winner, placePiece } = useGame();
+  const { board, players, currPlayerIdx, you, winner, placePiece } = useGame();
 
   // TODO: refactor to custom hook to use in multiple places (like room)
   useEffect(() => {
@@ -22,14 +22,16 @@ const Play: React.FC = () => {
 
   return (
     <Page>
-      <Header currPlayer={players[currPlayerIdx]} winner={winner} />
+      <Header currPlayer={players[currPlayerIdx]} you={you} winner={winner} />
       <Board
         board={board}
         handleColumnClick={handleColumnClick}
-        clickable={!winner}
+        clickable={
+          winner === undefined && players[currPlayerIdx].name === you.name
+        }
         pieceSize={60}
       />
-      {winner || winner === null ? (
+      {winner !== undefined ? (
         <Link to="/room">
           <Button style={{ marginTop: 20 }}>Back to lobby</Button>
         </Link>

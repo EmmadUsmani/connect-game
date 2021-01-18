@@ -7,6 +7,7 @@ import { fonts } from "../../config";
 
 interface HeaderProps {
   currPlayer: GamePlayer;
+  you: GamePlayer;
   winner?: GameWinner;
 }
 
@@ -18,15 +19,18 @@ const StyledSpan = styled.span`
   color: ${(props) => props.color};
 `;
 
-const Header: React.FC<HeaderProps> = ({ currPlayer, winner }) => {
+const Header: React.FC<HeaderProps> = ({ currPlayer, you, winner }) => {
+  const isYou = currPlayer.name === you.name;
   let message: React.ReactNode;
   switch (winner) {
     // no player has won yet
     case undefined:
       message = (
         <>
-          <StyledSpan color={currPlayer.color}>{currPlayer.name}</StyledSpan>'s
-          turn
+          <StyledSpan color={currPlayer.color}>
+            {isYou ? "Your" : currPlayer.name}
+          </StyledSpan>
+          {isYou ? " turn" : "'s turn"}
         </>
       );
       break;
@@ -38,7 +42,10 @@ const Header: React.FC<HeaderProps> = ({ currPlayer, winner }) => {
     default:
       message = (
         <>
-          <StyledSpan color={winner.color}>{winner.name}</StyledSpan> won!
+          <StyledSpan color={winner.color}>
+            {isYou ? "You" : winner.name}
+          </StyledSpan>{" "}
+          won!
         </>
       );
       break;

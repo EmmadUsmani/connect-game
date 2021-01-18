@@ -34,13 +34,18 @@ const Board: React.FC<BoardProps> = ({
   clickable,
   pieceSize,
 }) => {
+  const handleClick = (colNum: number): void => {
+    if (!clickable) return;
+    handleColumnClick(colNum);
+  };
+
   return (
     <StyledBoardDiv>
       {board.map((col, idx) => (
         <StyledColDiv
           clickable={clickable}
           pieceSize={pieceSize}
-          onClick={() => handleColumnClick(idx)}
+          onClick={() => handleClick(idx)}
           key={idx}
         >
           {col.map((player, idx) => (

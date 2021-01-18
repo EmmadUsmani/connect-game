@@ -9,6 +9,7 @@ export enum Events {
   NameTaken = "NameTaken",
   PlayerJoined = "PlayerJoined",
   StartGame = "StartGame",
+  PlacePiece = "PlacePiece",
 }
 
 export interface EventData {
@@ -30,5 +31,9 @@ export interface EventData {
   };
   PlayerJoined: {
     player: GamePlayer;
+  };
+  PlacePiece: {
+    colNum: number;
+    rowNum: number;
   };
 }

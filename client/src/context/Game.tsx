@@ -86,6 +86,7 @@ export const GameProvider: React.FC = ({ children }) => {
 
   const placePiece = (colNum: number): void => {
     if (winner || winner === null) return;
+    if (players[currPlayerIdx].name !== you.name) return;
     const column = board[colNum];
     let rowNum = -1;
 
@@ -98,6 +99,7 @@ export const GameProvider: React.FC = ({ children }) => {
 
     if (rowNum === -1) return;
 
+    server.placePiece(colNum, rowNum);
     setNumFilled((numFilled) => numFilled + 1);
     setLastCoord([colNum, rowNum]);
     updatePiece(colNum, rowNum, players[currPlayerIdx]);
@@ -135,28 +137,27 @@ export const GameProvider: React.FC = ({ children }) => {
     setBoard(board);
   };
 
-  const updatePiece = (
-    colNum: number,
-    rowNum: number,
-    piece: GamePiece
-  ): void => {
-    const newBoard: GameBoard = [];
-    const [numCols, numRows] = [board.length, board[0].length];
+  const updatePiece = useCallback(
+    (colNum: number, rowNum: number, piece: GamePiece): void => {
+      const newBoard: GameBoard = [];
+      const [numCols, numRows] = [board.length, board[0].length];
 
-    for (let i = 0; i < numCols; i++) {
-      const newColumn: GameColumn = [];
-      for (let j = 0; j < numRows; j++) {
-        newColumn.push(i === colNum && j === rowNum ? piece : board[i][j]);
+      for (let i = 0; i < numCols; i++) {
+        const newColumn: GameColumn = [];
+        for (let j = 0; j < numRows; j++) {
+          newColumn.push(i === colNum && j === rowNum ? piece : board[i][j]);
+        }
+        newBoard.push(newColumn);
       }
-      newBoard.push(newColumn);
-    }
 
-    setBoard(newBoard);
-  };
+      setBoard(newBoard);
+    },
+    [board]
+  );
 
-  const updateCurrPlayer = (): void => {
+  const updateCurrPlayer = useCallback((): void => {
     setCurrPlayerIdx((currPlayerIdx) => (currPlayerIdx + 1) % players.length);
-  };
+  }, [players]);
 
   /*** Game Loop ***/
 
@@ -257,6 +258,18 @@ export const GameProvider: React.FC = ({ children }) => {
     history.push("/play");
   }, [history, initGame]);
 
+  const placePieceListener = useCallback(
+    (data: EventData[Events.PlacePiece]) => {
+      const { colNum, rowNum } = data;
+
+      setNumFilled((numFilled) => numFilled + 1);
+      setLastCoord([colNum, rowNum]);
+      updatePiece(colNum, rowNum, players[currPlayerIdx]);
+      updateCurrPlayer();
+    },
+    [currPlayerIdx, players, updatePiece, updateCurrPlayer]
+  );
+
   /* Register listeners */
   useEffect(() => {
     server.listen(Events.RoomCreated, roomCreatedListener);
@@ -265,6 +278,7 @@ export const GameProvider: React.FC = ({ children }) => {
     server.listen(Events.NameTaken, nameTakenListener);
     server.listen(Events.PlayerJoined, playerJoinedListener);
     server.listen(Events.StartGame, startGameListener);
+    server.listen(Events.PlacePiece, placePieceListener);
 
     return () => {
       server.removeListener(Events.RoomCreated, roomCreatedListener);
@@ -273,12 +287,14 @@ export const GameProvider: React.FC = ({ children }) => {
       server.removeListener(Events.NameTaken, nameTakenListener);
       server.removeListener(Events.PlayerJoined, playerJoinedListener);
       server.removeListener(Events.StartGame, startGameListener);
+      server.removeListener(Events.PlacePiece, placePieceListener);
     };
   }, [
     roomJoinedListener,
     roomNotFoundListener,
     nameTakenListener,
     startGameListener,
+    placePieceListener,
   ]);
 
   return (

@@ -28,10 +28,16 @@ function startGame(): void {
   socket.emit(Events.StartGame);
 }
 
+function placePiece(colNum: number, rowNum: number): void {
+  const data: EventData[Events.PlacePiece] = { colNum, rowNum };
+  socket.emit(Events.PlacePiece, data);
+}
+
 export const server = {
   listen,
   removeListener,
   createRoom,
   joinRoom,
   startGame,
+  placePiece,
 };
