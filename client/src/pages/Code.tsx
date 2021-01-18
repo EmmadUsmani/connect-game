@@ -25,5 +25,4 @@ const Code: React.FC<CodeProps> = ({ value, onChange, onSubmit }) => {
 
 export default Code;
 
-// TODO: submit on enter key press (using form?)
 // TODO: refactor Name & Code into single reusable component?

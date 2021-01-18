@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
+import { useHistory } from "react-router-dom";
 
 import {
   GamePlayer,
@@ -70,7 +71,6 @@ export const GameProvider: React.FC = ({ children }) => {
   };
 
   const joinRoom = (code: string, playerName: string): void => {
-    // TODO: handle nonexistant room
     server.joinRoom(code, playerName);
     setCode(code);
   };
@@ -224,18 +224,30 @@ export const GameProvider: React.FC = ({ children }) => {
   const roomJoinedListener = (data: EventData[Events.RoomJoined]) => {
     setPlayers(data.room.players);
     setYou(data.player);
+    updateSettings(data.room.settings);
   };
 
   const playerJoinedListener = (data: EventData[Events.PlayerJoined]) => {
     setPlayers((players) => [...players, data.player]);
   };
 
+  const history = useHistory();
+
+  const roomNotFoundListener = () => {
+    history.push("/");
+  };
+
+  const nameTakenListener = () => {
+    history.push("/");
+  };
+
   /* Register listeners */
   useEffect(() => {
     server.listen(Events.RoomCreated, roomCreatedListener);
     server.listen(Events.RoomJoined, roomJoinedListener);
+    server.listen(Events.RoomNotFound, roomNotFoundListener);
+    server.listen(Events.NameTaken, nameTakenListener);
     server.listen(Events.PlayerJoined, playerJoinedListener);
-    // TODO: RoomNotFound, NameTaken
   }, []);
 
   return (

@@ -24,5 +24,3 @@ const Name: React.FC<NameProps> = ({ value, onChange, onSubmit }) => {
 };
 
 export default Name;
-
-// TODO: submit on enter key press (using form?)
