@@ -77,7 +77,6 @@ export const GameProvider: React.FC = ({ children }) => {
     setCode(code);
   };
 
-  // TODO: prevent non host from starting game
   const startGame = (): void => {
     server.startGame();
     initGame();
@@ -223,8 +222,6 @@ export const GameProvider: React.FC = ({ children }) => {
   }, [lastCoord, checkWinner, checkTie]);
 
   /*** Server Listeners ***/
-  /* TODO: refactor listener registration/remove 
-  (perhaps to custom hook) for cleaner code */
 
   const roomCreatedListener = (data: EventData[Events.RoomCreated]) => {
     setCode(data.code);

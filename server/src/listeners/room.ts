@@ -8,7 +8,6 @@ import {
 import { ExtendedSocket } from ".";
 import { generateRoomCode, generateColor } from "../utils";
 
-// TODO: close room once all users have left
 const rooms: GameRooms = {};
 
 export function initRoomListeners(socket: ExtendedSocket) {

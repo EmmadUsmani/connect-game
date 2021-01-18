@@ -9,7 +9,6 @@ function listen(event: string, listener: Function): void {
   socket.on(event, listener);
 }
 
-// TODO: store listeners and create "removeAllListeners" func
 function removeListener(event: string, listener: Function): void {
   socket.off(event, listener);
 }

@@ -5,7 +5,6 @@ import { initListeners } from "./listeners";
 
 const httpServer = createServer();
 
-// TODO: remove cors after serving front-end
 const io = new Server(httpServer, {
   cors: {
     origin: "http://localhost:3000",

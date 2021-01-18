@@ -9,7 +9,6 @@ const Play: React.FC = () => {
   const history = useHistory();
   const { board, players, currPlayerIdx, you, winner, placePiece } = useGame();
 
-  // TODO: refactor to custom hook to use in multiple places (like room)
   useEffect(() => {
     return history.listen(() => {
       if (history.action === "POP") history.push("/");

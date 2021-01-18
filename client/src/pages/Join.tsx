@@ -35,7 +35,6 @@ const Join: React.FC = () => {
   const handleCodeChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    // TODO: check if code is valid format
     setCode(event.target.value);
   };
 

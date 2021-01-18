@@ -5,7 +5,6 @@ export enum GameColor {
   Orange = "orange",
 }
 
-// TODO: add isHost field?
 export interface GamePlayer {
   name: string;
   color: GameColor;
