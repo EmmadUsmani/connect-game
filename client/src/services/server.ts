@@ -4,13 +4,19 @@ import { GameSettings, Events, EventData } from "@connect-game/shared";
 import { SERVER_URL } from "../config";
 
 const socket = io(SERVER_URL);
+const listeners: [string, Function][] = [];
 
 function listen(event: string, listener: Function): void {
   socket.on(event, listener);
+  listeners.push([event, listener]);
 }
 
-function removeListener(event: string, listener: Function): void {
-  socket.off(event, listener);
+function removeAllListeners(): void {
+  for (let i = listeners.length - 1; i >= 0; i--) {
+    const [event, listener] = listeners[i];
+    socket.off(event, listener);
+    listeners.pop();
+  }
 }
 
 function createRoom(settings: GameSettings, hostName: string): void {
@@ -34,7 +40,7 @@ function placePiece(colNum: number, rowNum: number): void {
 
 export const server = {
   listen,
-  removeListener,
+  removeAllListeners,
   createRoom,
   joinRoom,
   startGame,

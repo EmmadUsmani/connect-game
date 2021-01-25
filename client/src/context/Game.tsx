@@ -277,15 +277,7 @@ export const GameProvider: React.FC = ({ children }) => {
     server.listen(Events.StartGame, startGameListener);
     server.listen(Events.PlacePiece, placePieceListener);
 
-    return () => {
-      server.removeListener(Events.RoomCreated, roomCreatedListener);
-      server.removeListener(Events.RoomJoined, roomJoinedListener);
-      server.removeListener(Events.RoomNotFound, roomNotFoundListener);
-      server.removeListener(Events.NameTaken, nameTakenListener);
-      server.removeListener(Events.PlayerJoined, playerJoinedListener);
-      server.removeListener(Events.StartGame, startGameListener);
-      server.removeListener(Events.PlacePiece, placePieceListener);
-    };
+    return server.removeAllListeners;
   }, [
     roomJoinedListener,
     roomNotFoundListener,
