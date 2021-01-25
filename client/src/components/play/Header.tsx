@@ -20,17 +20,19 @@ const StyledSpan = styled.span`
 `;
 
 const Header: React.FC<HeaderProps> = ({ currPlayer, you, winner }) => {
-  const isYou = currPlayer.name === you.name;
+  const yourTurn = currPlayer.name === you.name;
+  const youWon = winner && winner.name === you.name;
   let message: React.ReactNode;
+
   switch (winner) {
     // no player has won yet
     case undefined:
       message = (
         <>
           <StyledSpan color={currPlayer.color}>
-            {isYou ? "Your" : currPlayer.name}
+            {yourTurn ? "Your" : currPlayer.name}
           </StyledSpan>
-          {isYou ? " turn" : "'s turn"}
+          {yourTurn ? " turn" : "'s turn"}
         </>
       );
       break;
@@ -43,7 +45,7 @@ const Header: React.FC<HeaderProps> = ({ currPlayer, you, winner }) => {
       message = (
         <>
           <StyledSpan color={winner.color}>
-            {isYou ? "You" : winner.name}
+            {youWon ? "You" : winner.name}
           </StyledSpan>{" "}
           won!
         </>
