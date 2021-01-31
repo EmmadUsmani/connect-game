@@ -71,7 +71,18 @@ export function initRoomListeners(socket: ExtendedSocket) {
     socket.to(socket.code).emit(Events.StartGame);
   });
 
-  socket.on("disconnect", (reason) => {
+  socket.on("disconnect", () => {
+    if (!socket.code || !socket.name) return;
+
+    const room = rooms[socket.code];
+    room.players = room.players.filter((player) => player.name !== socket.name);
+
+    if (room.players.length === 0) {
+      delete rooms[socket.code];
+    }
+
+    console.log(rooms);
+
     const leaveRoomData: EventData[Events.LeaveRoom] = {
       playerName: socket.name,
     };
