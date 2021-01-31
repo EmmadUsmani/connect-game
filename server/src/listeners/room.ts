@@ -24,6 +24,7 @@ export function initRoomListeners(socket: ExtendedSocket) {
     room.players.push(player);
     socket.join(code);
     socket.code = code;
+    socket.name = hostName;
 
     // send to client
     const resData: EventData[Events.RoomCreated] = { code, player };
@@ -33,7 +34,7 @@ export function initRoomListeners(socket: ExtendedSocket) {
   socket.on(Events.JoinRoom, (data: EventData[Events.JoinRoom]) => {
     const { code, playerName } = data;
 
-    // check if room exits
+    // check if room exists
     if (!(code in rooms)) {
       socket.emit(Events.RoomNotFound);
       return;
@@ -48,6 +49,7 @@ export function initRoomListeners(socket: ExtendedSocket) {
         return;
       }
     }
+    socket.name = playerName;
 
     // create player & join room
     const player: GamePlayer = { name: playerName, color: generateColor(room) };
@@ -67,5 +69,12 @@ export function initRoomListeners(socket: ExtendedSocket) {
   socket.on(Events.StartGame, () => {
     // send to other clients in room
     socket.to(socket.code).emit(Events.StartGame);
+  });
+
+  socket.on("disconnect", (reason) => {
+    const leaveRoomData: EventData[Events.LeaveRoom] = {
+      playerName: socket.name,
+    };
+    socket.to(socket.code).emit(Events.LeaveRoom, leaveRoomData);
   });
 }

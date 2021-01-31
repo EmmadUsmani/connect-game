@@ -5,6 +5,7 @@ import { initPlayListeners } from "./play";
 
 export interface ExtendedSocket extends Socket {
   code: string;
+  name: string;
 }
 
 export function initListeners(io: Server): void {

@@ -6,7 +6,7 @@ export enum GameColor {
 }
 
 export interface GamePlayer {
-  name: string;
+  name: string; // unique
   color: GameColor;
 }
 

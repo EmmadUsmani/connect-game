@@ -267,6 +267,13 @@ export const GameProvider: React.FC = ({ children }) => {
     [currPlayerIdx, players, updatePiece, updateCurrPlayer]
   );
 
+  const leaveRoomListener = (data: EventData[Events.LeaveRoom]) => {
+    const { playerName } = data;
+    setPlayers((players) =>
+      players.filter((player) => player.name !== playerName)
+    );
+  };
+
   /* Register listeners */
   useEffect(() => {
     server.listen(Events.RoomCreated, roomCreatedListener);
@@ -276,6 +283,7 @@ export const GameProvider: React.FC = ({ children }) => {
     server.listen(Events.PlayerJoined, playerJoinedListener);
     server.listen(Events.StartGame, startGameListener);
     server.listen(Events.PlacePiece, placePieceListener);
+    server.listen(Events.LeaveRoom, leaveRoomListener);
 
     return server.removeAllListeners;
   }, [
