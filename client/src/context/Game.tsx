@@ -269,6 +269,7 @@ export const GameProvider: React.FC = ({ children }) => {
 
   const leaveRoomListener = (data: EventData[Events.LeaveRoom]) => {
     const { playerName } = data;
+    setCurrPlayerIdx((currPlayerIdx) => currPlayerIdx % (players.length - 1));
     setPlayers((players) =>
       players.filter((player) => player.name !== playerName)
     );
