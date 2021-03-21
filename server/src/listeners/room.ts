@@ -81,8 +81,6 @@ export function initRoomListeners(socket: ExtendedSocket) {
       delete rooms[socket.code];
     }
 
-    console.log(rooms);
-
     const leaveRoomData: EventData[Events.LeaveRoom] = {
       playerName: socket.name,
     };

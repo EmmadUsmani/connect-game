@@ -267,13 +267,16 @@ export const GameProvider: React.FC = ({ children }) => {
     [currPlayerIdx, players, updatePiece, updateCurrPlayer]
   );
 
-  const leaveRoomListener = (data: EventData[Events.LeaveRoom]) => {
-    const { playerName } = data;
-    setCurrPlayerIdx((currPlayerIdx) => currPlayerIdx % (players.length - 1));
-    setPlayers((players) =>
-      players.filter((player) => player.name !== playerName)
-    );
-  };
+  const leaveRoomListener = useCallback(
+    (data: EventData[Events.LeaveRoom]) => {
+      const { playerName } = data;
+      setCurrPlayerIdx((currPlayerIdx) => currPlayerIdx % (players.length - 1));
+      setPlayers((players) =>
+        players.filter((player) => player.name !== playerName)
+      );
+    },
+    [players]
+  );
 
   /* Register listeners */
   useEffect(() => {
@@ -293,6 +296,7 @@ export const GameProvider: React.FC = ({ children }) => {
     nameTakenListener,
     startGameListener,
     placePieceListener,
+    leaveRoomListener,
   ]);
 
   return (
