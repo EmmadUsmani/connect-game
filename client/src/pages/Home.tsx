@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 
 import { Text, Button, Page, Link } from "../components";
 import { fonts } from "../config";
+import { usePreventBackNav } from "../hooks";
 
 interface HomeProps {
   onLoad(): void;
@@ -9,6 +10,8 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ onLoad }) => {
   useEffect(onLoad, [onLoad]);
+
+  usePreventBackNav();
 
   return (
     <Page>

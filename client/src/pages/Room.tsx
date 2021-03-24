@@ -2,9 +2,11 @@ import React from "react";
 
 import { Page, Label, Input, Button } from "../components";
 import { useGame } from "../context";
+import { usePreventBackNav } from "../hooks";
 
 const Room: React.FC = () => {
   const { code, players, you, startGame } = useGame();
+  usePreventBackNav();
 
   const handleStart = (): void => {
     startGame();

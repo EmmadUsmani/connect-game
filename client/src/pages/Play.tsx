@@ -1,19 +1,13 @@
-import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
 
 import { useGame } from "../context";
+import { usePreventBackNav } from "../hooks";
 import { Button, Link, Page } from "../components";
 import { Board, Header } from "../components/play";
 
 const Play: React.FC = () => {
-  const history = useHistory();
   const { board, players, currPlayerIdx, you, winner, placePiece } = useGame();
-
-  useEffect(() => {
-    return history.listen(() => {
-      if (history.action === "POP") history.push("/");
-    });
-  }, [history]);
+  usePreventBackNav();
 
   const handleColumnClick = (colNum: number): void => {
     placePiece(colNum);
