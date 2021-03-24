@@ -32,6 +32,7 @@ interface GameCtxInterface {
   joinRoom(code: string, playerName: string): void;
   startGame(): void;
   placePiece(colNum: number): void;
+  clearState(): void;
 }
 
 export const GameContext = createContext<GameCtxInterface>({
@@ -45,6 +46,7 @@ export const GameContext = createContext<GameCtxInterface>({
   joinRoom: (_, _2) => null,
   startGame: () => null,
   placePiece: (_) => null,
+  clearState: () => null,
 });
 
 export const useGame = () => useContext(GameContext);
@@ -103,6 +105,19 @@ export const GameProvider: React.FC = ({ children }) => {
     setLastCoord([colNum, rowNum]);
     updatePiece(colNum, rowNum, players[currPlayerIdx]);
     updateCurrPlayer();
+  };
+
+  const clearState = (): void => {
+    if (you === uninitializedPlayer) return;
+    setCode("");
+    setBoard([[]]);
+    setPlayers([]);
+    setYou(uninitializedPlayer);
+    setCurrPlayerIdx(0);
+    setWinner(undefined);
+    setLastCoord([0, 0]);
+    setNumFilled(0);
+    setWinCondition(0);
   };
 
   /******************** Private Methods ********************/
@@ -312,6 +327,7 @@ export const GameProvider: React.FC = ({ children }) => {
         joinRoom,
         startGame,
         placePiece,
+        clearState,
       }}
     >
       {children}
