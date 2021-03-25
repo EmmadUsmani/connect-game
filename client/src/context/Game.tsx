@@ -285,12 +285,30 @@ export const GameProvider: React.FC = ({ children }) => {
   const leaveRoomListener = useCallback(
     (data: EventData[Events.LeaveRoom]) => {
       const { playerName } = data;
+
       setCurrPlayerIdx((currPlayerIdx) => currPlayerIdx % (players.length - 1));
       setPlayers((players) =>
         players.filter((player) => player.name !== playerName)
       );
     },
     [players]
+  );
+
+  const reassignHostListener = useCallback(
+    (data: EventData[Events.ReassignHost]) => {
+      const { playerName } = data;
+
+      if (playerName === you.name) {
+        setYou({ ...you, isHost: true });
+      }
+
+      const newPlayers = [...players];
+      for (const p of newPlayers) {
+        if (p.name === playerName) p.isHost = true;
+      }
+      setPlayers(newPlayers);
+    },
+    [you, players]
   );
 
   /* Register listeners */
@@ -303,6 +321,7 @@ export const GameProvider: React.FC = ({ children }) => {
     server.listen(Events.StartGame, startGameListener);
     server.listen(Events.PlacePiece, placePieceListener);
     server.listen(Events.LeaveRoom, leaveRoomListener);
+    server.listen(Events.ReassignHost, reassignHostListener);
 
     return server.removeAllListeners;
   }, [
@@ -312,6 +331,7 @@ export const GameProvider: React.FC = ({ children }) => {
     startGameListener,
     placePieceListener,
     leaveRoomListener,
+    reassignHostListener,
   ]);
 
   return (

@@ -4,6 +4,7 @@ import {
   GameCodeLen,
   GameCodeChars,
   GameColor,
+  GamePlayer,
 } from "@connect-game/shared";
 
 export function generateRoomCode(rooms: GameRooms): string {
@@ -27,6 +28,10 @@ export function generateColor(room: GameRoom): GameColor {
   }
 
   return randomFrom(Array.from(availableColors));
+}
+
+export function reassignHost(room: GameRoom): GamePlayer {
+  return randomFrom(room.players);
 }
 
 function randomFrom<T>(arr: T[]): T {

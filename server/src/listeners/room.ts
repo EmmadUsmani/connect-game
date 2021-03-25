@@ -6,7 +6,7 @@ import {
   GameRoom,
 } from "@connect-game/shared";
 import { ExtendedSocket } from ".";
-import { generateRoomCode, generateColor } from "../utils";
+import { generateRoomCode, generateColor, reassignHost } from "../utils";
 
 const rooms: GameRooms = {};
 
@@ -79,12 +79,34 @@ export function initRoomListeners(socket: ExtendedSocket) {
     if (!socket.code || !socket.name) return;
 
     const room = rooms[socket.code];
-    room.players = room.players.filter((player) => player.name !== socket.name);
 
+    // update room.players & get leaving player
+    const remaining: GamePlayer[] = [];
+    let player: GamePlayer;
+    for (const p of room.players) {
+      p.name !== socket.name ? remaining.push(p) : (player = p);
+    }
+    room.players = remaining;
+
+    // delete room if empty
     if (room.players.length === 0) {
       delete rooms[socket.code];
+      return;
     }
 
+    // reassign host if host left
+    if (player!.isHost) {
+      const newHost = reassignHost(room);
+      newHost.isHost = true;
+
+      // send reassignHost event to other clients in room
+      const reassignHostData: EventData[Events.ReassignHost] = {
+        playerName: newHost.name,
+      };
+      socket.to(socket.code).emit(Events.ReassignHost, reassignHostData);
+    }
+
+    // send leaveRoom event to other clients in room
     const leaveRoomData: EventData[Events.LeaveRoom] = {
       playerName: socket.name,
     };

@@ -11,6 +11,7 @@ export enum Events {
   StartGame = "StartGame",
   PlacePiece = "PlacePiece",
   LeaveRoom = "LeaveRoom",
+  ReassignHost = "ReassignHost",
 }
 
 export interface EventData {
@@ -38,6 +39,9 @@ export interface EventData {
     rowNum: number;
   };
   LeaveRoom: {
+    playerName: string;
+  };
+  ReassignHost: {
     playerName: string;
   };
 }
