@@ -39,14 +39,14 @@ const Settings: React.FC<SettingsProps> = ({
           onChange({ ...settings, winCondition: parseInt(event.target.value) })
         }
       />
-      <Label>Turn timer</Label>
+      {/* <Label>Turn timer</Label>
       <Picker
         value={settings.turnTimer}
         options={GameOptions.turnTimers}
         onChange={(event) =>
           onChange({ ...settings, turnTimer: parseInt(event.target.value) })
         }
-      />
+      /> */}
       <Button onClick={onSubmit} style={{ marginTop: 10 }}>
         Create Game
       </Button>

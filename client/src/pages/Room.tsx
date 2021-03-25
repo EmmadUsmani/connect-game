@@ -31,7 +31,7 @@ const Room: React.FC = () => {
       >
         Start Game
       </Button>
-      <Button>Copy Link</Button>
+      {/* <Button>Copy Link</Button> */}
     </Page>
   );
 };
