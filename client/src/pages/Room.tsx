@@ -19,7 +19,9 @@ const Room: React.FC = () => {
       <Label>Players</Label>
       {players.map((player) => (
         <Button color={player.color} key={player.name} disabled>
-          {player.name + (player.name === you.name ? " ✨" : "")}
+          {player.name +
+            (player.isHost ? " 👑" : "") +
+            (player.name === you.name ? " ✨" : "")}
         </Button>
       ))}
       <Button onClick={handleStart} style={{ marginTop: 20 }}>

@@ -3,6 +3,7 @@ import { GamePlayer, GameColor, GameDirection, GameSettings } from "./types";
 export const uninitializedPlayer: GamePlayer = {
   name: "",
   color: GameColor.Blue,
+  isHost: false,
 };
 
 export const GameDirections: { [key: string]: GameDirection } = {

@@ -8,6 +8,7 @@ export enum GameColor {
 export interface GamePlayer {
   name: string; // unique
   color: GameColor;
+  isHost: boolean;
 }
 
 export type GamePiece = GamePlayer | undefined;

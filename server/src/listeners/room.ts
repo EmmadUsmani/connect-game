@@ -20,7 +20,7 @@ export function initRoomListeners(socket: ExtendedSocket) {
     rooms[code] = room;
 
     // create player & join room
-    const player = { name: hostName, color: generateColor(room) };
+    const player = { name: hostName, color: generateColor(room), isHost: true };
     room.players.push(player);
     socket.join(code);
     socket.code = code;
@@ -52,7 +52,11 @@ export function initRoomListeners(socket: ExtendedSocket) {
     socket.name = playerName;
 
     // create player & join room
-    const player: GamePlayer = { name: playerName, color: generateColor(room) };
+    const player: GamePlayer = {
+      name: playerName,
+      color: generateColor(room),
+      isHost: false,
+    };
     room.players.push(player);
     socket.join(code);
     socket.code = code;
