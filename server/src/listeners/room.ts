@@ -75,10 +75,12 @@ export function initRoomListeners(socket: ExtendedSocket) {
     socket.to(socket.code).emit(Events.StartGame);
   });
 
-  socket.on("disconnect", () => {
+  const leaveRoomHandler = () => {
     if (!socket.code || !socket.name) return;
 
     const room = rooms[socket.code];
+
+    if (!room) return;
 
     // update room.players & get leaving player
     const remaining: GamePlayer[] = [];
@@ -111,5 +113,13 @@ export function initRoomListeners(socket: ExtendedSocket) {
       playerName: socket.name,
     };
     socket.to(socket.code).emit(Events.LeaveRoom, leaveRoomData);
-  });
+
+    // remove code and name from socket
+    socket.code = "";
+    socket.name = "";
+  };
+
+  socket.on(Events.LeaveRoom, leaveRoomHandler);
+
+  socket.on("disconnect", leaveRoomHandler);
 }

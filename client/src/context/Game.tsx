@@ -30,6 +30,7 @@ interface GameCtxInterface {
   winner: GameWinner;
   createRoom(settings: GameSettings, hostName: string): void;
   joinRoom(code: string, playerName: string): void;
+  leaveRoom(): void;
   startGame(): void;
   placePiece(colNum: number): void;
   clearState(): void;
@@ -44,6 +45,7 @@ export const GameContext = createContext<GameCtxInterface>({
   winner: undefined,
   createRoom: (_, _2) => null,
   joinRoom: (_, _2) => null,
+  leaveRoom: () => null,
   startGame: () => null,
   placePiece: (_) => null,
   clearState: () => null,
@@ -77,6 +79,10 @@ export const GameProvider: React.FC = ({ children }) => {
   const joinRoom = (code: string, playerName: string): void => {
     server.joinRoom(code, playerName);
     setCode(code);
+  };
+
+  const leaveRoom = (): void => {
+    server.leaveRoom(you.name);
   };
 
   const startGame = (): void => {
@@ -345,6 +351,7 @@ export const GameProvider: React.FC = ({ children }) => {
         winner,
         createRoom,
         joinRoom,
+        leaveRoom,
         startGame,
         placePiece,
         clearState,

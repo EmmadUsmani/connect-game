@@ -6,8 +6,16 @@ import { Button, Link, Page } from "../components";
 import { Board, Header } from "../components/play";
 
 const Play: React.FC = () => {
-  const { board, players, currPlayerIdx, you, winner, placePiece } = useGame();
-  usePreventBackNav();
+  const {
+    board,
+    players,
+    currPlayerIdx,
+    you,
+    winner,
+    placePiece,
+    leaveRoom,
+  } = useGame();
+  usePreventBackNav(leaveRoom);
 
   const handleColumnClick = (colNum: number): void => {
     placePiece(colNum);
