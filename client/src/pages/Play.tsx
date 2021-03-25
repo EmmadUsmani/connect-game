@@ -21,7 +21,7 @@ const Play: React.FC = () => {
     placePiece(colNum);
   };
 
-  return (
+  return players.length !== 0 ? (
     <Page>
       <Header currPlayer={players[currPlayerIdx]} you={you} winner={winner} />
       <Board
@@ -38,7 +38,7 @@ const Play: React.FC = () => {
         </Link>
       ) : null}
     </Page>
-  );
+  ) : null;
 };
 
 export default Play;
