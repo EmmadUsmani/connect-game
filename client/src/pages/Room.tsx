@@ -9,7 +9,7 @@ const Room: React.FC = () => {
   usePreventBackNav();
 
   const handleStart = (): void => {
-    startGame();
+    if (you.isHost) startGame();
   };
 
   return (
@@ -24,7 +24,11 @@ const Room: React.FC = () => {
             (player.name === you.name ? " ✨" : "")}
         </Button>
       ))}
-      <Button onClick={handleStart} style={{ marginTop: 20 }}>
+      <Button
+        onClick={handleStart}
+        disabled={!you.isHost}
+        style={{ marginTop: 20 }}
+      >
         Start Game
       </Button>
       <Button>Copy Link</Button>
