@@ -6,7 +6,7 @@ const usePreventBackNav = (): void => {
 
   useEffect(() => {
     return history.listen(() => {
-      if (history.action === "POP") history.push("/");
+      if (history.action === "POP") history.replace("/");
     });
   }, [history]);
 };
