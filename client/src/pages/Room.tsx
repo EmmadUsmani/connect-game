@@ -9,7 +9,7 @@ const Room: React.FC = () => {
   usePreventBackNav(leaveRoom);
 
   const handleStart = (): void => {
-    startGame();
+    if (you.isHost) startGame();
   };
 
   return (
