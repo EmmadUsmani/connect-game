@@ -1,9 +1,8 @@
 import { io } from "socket.io-client";
 
 import { GameSettings, Events, EventData } from "@connect-game/shared";
-import { SERVER_URL } from "../config";
 
-const socket = io(SERVER_URL);
+const socket = io("/");
 const listeners: [string, Function][] = [];
 
 function listen(event: string, listener: Function): void {
