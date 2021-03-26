@@ -7,11 +7,13 @@
     "build": "tsc"
   },
   "dependencies": {
+    "@connect-game/shared": "1.0.0",
     "cross-env": "7.0.3",
-    "socket.io": "^3.0.5",
-    "@connect-game/shared": "1.0.0"
+    "express": "^4.17.1",
+    "socket.io": "^3.0.5"
   },
   "devDependencies": {
+    "@types/express": "^4.17.11",
     "@types/node": "^14.14.20",
     "concurrently": "^5.3.0",
     "nodemon": "^2.0.7"
