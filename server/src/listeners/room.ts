@@ -51,6 +51,12 @@ export function initRoomListeners(socket: ExtendedSocket) {
     }
     socket.name = playerName;
 
+    // check if game has been started
+    if (room.playing) {
+      socket.emit(Events.GameStarted);
+      return;
+    }
+
     // create player & join room
     const player: GamePlayer = {
       name: playerName,

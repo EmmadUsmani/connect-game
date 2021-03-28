@@ -278,6 +278,10 @@ export const GameProvider: React.FC = ({ children }) => {
     history.push("/");
   }, [history]);
 
+  const gameStartedListener = useCallback(() => {
+    history.push("/");
+  }, [history]);
+
   const startGameListener = useCallback(() => {
     initGame();
     history.push("/play");
@@ -334,6 +338,7 @@ export const GameProvider: React.FC = ({ children }) => {
     server.listen(Events.RoomJoined, roomJoinedListener);
     server.listen(Events.RoomNotFound, roomNotFoundListener);
     server.listen(Events.NameTaken, nameTakenListener);
+    server.listen(Events.GameStarted, gameStartedListener);
     server.listen(Events.PlayerJoined, playerJoinedListener);
     server.listen(Events.StartGame, startGameListener);
     server.listen(Events.EndGame, endGameListener);
@@ -346,6 +351,7 @@ export const GameProvider: React.FC = ({ children }) => {
     roomJoinedListener,
     roomNotFoundListener,
     nameTakenListener,
+    gameStartedListener,
     startGameListener,
     endGameListener,
     placePieceListener,

@@ -7,6 +7,7 @@ export enum Events {
   RoomJoined = "RoomJoined",
   RoomNotFound = "RoomNotFound",
   NameTaken = "NameTaken",
+  GameStarted = "GameStarted",
   PlayerJoined = "PlayerJoined",
   StartGame = "StartGame",
   EndGame = "EndGame",
