@@ -2,7 +2,7 @@ import React from "react";
 
 import { useGame } from "../context";
 import { usePreventBackNav } from "../hooks";
-import { Button, Link, Page } from "../components";
+import { Button, Page } from "../components";
 import { Board, Header } from "../components/play";
 
 const Play: React.FC = () => {
@@ -14,11 +14,16 @@ const Play: React.FC = () => {
     winner,
     placePiece,
     leaveRoom,
+    endGame,
   } = useGame();
   usePreventBackNav(leaveRoom);
 
   const handleColumnClick = (colNum: number): void => {
     placePiece(colNum);
+  };
+
+  const handleBackClick = (): void => {
+    if (you.isHost) endGame();
   };
 
   return players.length !== 0 ? (
@@ -32,10 +37,10 @@ const Play: React.FC = () => {
         }
         pieceSize={60}
       />
-      {winner !== undefined ? (
-        <Link to="/room">
-          <Button style={{ marginTop: 20 }}>Back to lobby</Button>
-        </Link>
+      {winner !== undefined && you.isHost ? (
+        <Button onClick={handleBackClick} style={{ marginTop: 20 }}>
+          Back to lobby
+        </Button>
       ) : null}
     </Page>
   ) : null;

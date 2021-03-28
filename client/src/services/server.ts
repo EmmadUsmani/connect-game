@@ -37,6 +37,10 @@ function startGame(): void {
   socket.emit(Events.StartGame);
 }
 
+function endGame(): void {
+  socket.emit(Events.EndGame);
+}
+
 function placePiece(colNum: number, rowNum: number): void {
   const data: EventData[Events.PlacePiece] = { colNum, rowNum };
   socket.emit(Events.PlacePiece, data);
@@ -49,5 +53,6 @@ export const server = {
   joinRoom,
   leaveRoom,
   startGame,
+  endGame,
   placePiece,
 };

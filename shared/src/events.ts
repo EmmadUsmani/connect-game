@@ -9,6 +9,7 @@ export enum Events {
   NameTaken = "NameTaken",
   PlayerJoined = "PlayerJoined",
   StartGame = "StartGame",
+  EndGame = "EndGame",
   PlacePiece = "PlacePiece",
   LeaveRoom = "LeaveRoom",
   ReassignHost = "ReassignHost",

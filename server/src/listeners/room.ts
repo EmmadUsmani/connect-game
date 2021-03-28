@@ -78,6 +78,14 @@ export function initRoomListeners(socket: ExtendedSocket) {
     socket.to(socket.code).emit(Events.StartGame);
   });
 
+  socket.on(Events.EndGame, () => {
+    // change room state
+    rooms[socket.code].playing = false;
+
+    // send to other clients in room
+    socket.to(socket.code).emit(Events.EndGame);
+  });
+
   const leaveRoomHandler = () => {
     if (!socket.code || !socket.name) return;
 

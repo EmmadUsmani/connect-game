@@ -32,6 +32,7 @@ interface GameCtxInterface {
   joinRoom(code: string, playerName: string): void;
   leaveRoom(): void;
   startGame(): void;
+  endGame(): void;
   placePiece(colNum: number): void;
   clearState(): void;
 }
@@ -47,6 +48,7 @@ export const GameContext = createContext<GameCtxInterface>({
   joinRoom: (_, _2) => null,
   leaveRoom: () => null,
   startGame: () => null,
+  endGame: () => null,
   placePiece: (_) => null,
   clearState: () => null,
 });
@@ -89,6 +91,11 @@ export const GameProvider: React.FC = ({ children }) => {
     server.startGame();
     initGame();
     history.push("/play");
+  };
+
+  const endGame = (): void => {
+    server.endGame();
+    history.push("/room");
   };
 
   const placePiece = (colNum: number): void => {
@@ -276,6 +283,10 @@ export const GameProvider: React.FC = ({ children }) => {
     history.push("/play");
   }, [history, initGame]);
 
+  const endGameListener = useCallback(() => {
+    history.push("/room");
+  }, [history]);
+
   const placePieceListener = useCallback(
     (data: EventData[Events.PlacePiece]) => {
       const { colNum, rowNum } = data;
@@ -325,6 +336,7 @@ export const GameProvider: React.FC = ({ children }) => {
     server.listen(Events.NameTaken, nameTakenListener);
     server.listen(Events.PlayerJoined, playerJoinedListener);
     server.listen(Events.StartGame, startGameListener);
+    server.listen(Events.EndGame, endGameListener);
     server.listen(Events.PlacePiece, placePieceListener);
     server.listen(Events.LeaveRoom, leaveRoomListener);
     server.listen(Events.ReassignHost, reassignHostListener);
@@ -335,6 +347,7 @@ export const GameProvider: React.FC = ({ children }) => {
     roomNotFoundListener,
     nameTakenListener,
     startGameListener,
+    endGameListener,
     placePieceListener,
     leaveRoomListener,
     reassignHostListener,
@@ -353,6 +366,7 @@ export const GameProvider: React.FC = ({ children }) => {
         joinRoom,
         leaveRoom,
         startGame,
+        endGame,
         placePiece,
         clearState,
       }}
