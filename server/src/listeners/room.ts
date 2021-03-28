@@ -16,7 +16,7 @@ export function initRoomListeners(socket: ExtendedSocket) {
 
     // create room
     const code = generateRoomCode(rooms);
-    const room: GameRoom = { settings, players: [] };
+    const room: GameRoom = { settings, players: [], playing: false };
     rooms[code] = room;
 
     // create player & join room
@@ -71,6 +71,9 @@ export function initRoomListeners(socket: ExtendedSocket) {
   });
 
   socket.on(Events.StartGame, () => {
+    // change room state
+    rooms[socket.code].playing = true;
+
     // send to other clients in room
     socket.to(socket.code).emit(Events.StartGame);
   });

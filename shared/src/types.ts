@@ -30,6 +30,7 @@ export interface GameSettings {
 export interface GameRoom {
   settings: GameSettings;
   players: GamePlayer[];
+  playing: boolean;
 }
 
 export type GameRooms = { [key: string]: GameRoom };
