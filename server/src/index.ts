@@ -26,6 +26,8 @@ const io = new Server(httpServer, {
 
 initListeners(io);
 
-httpServer.listen(3001, () => {
-  console.log("Listening on port 3001");
+const port = process.env.PORT || 3001;
+
+httpServer.listen(port, () => {
+  console.log("Listening on port " + port);
 });

@@ -7,9 +7,15 @@
   "author": "Emmad Usmani <emmadusmani@berkeley.edu>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "start": "node server/build/index.js"
+  },
   "workspaces": [
     "client",
     "server",
     "shared"
-  ]
+  ],
+  "engines": {
+    "node": "12.18.4"
+  }
 }
