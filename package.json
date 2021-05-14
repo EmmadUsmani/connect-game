@@ -9,7 +9,8 @@
   "private": true,
   "scripts": {
     "start": "node server/build/index.js",
-    "build": "yarn workspaces foreach -t run build"
+    "build": "yarn workspaces foreach -t run build",
+    "develop": "yarn workspaces foreach -vpi --exclude connect-game run start"
   },
   "workspaces": [
     "client",
