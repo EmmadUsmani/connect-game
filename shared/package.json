@@ -9,7 +9,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@connect-game/client": "1.0.0",
-    "cross-env": "7.0.3"
+    "cross-env": "7.0.3",
+    "typescript": "^4.2.4"
   }
 }
