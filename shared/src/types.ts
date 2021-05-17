@@ -28,6 +28,7 @@ export interface GameSettings {
 }
 
 export interface GameRoom {
+  code: string;
   settings: GameSettings;
   players: GamePlayer[];
   playing: boolean;

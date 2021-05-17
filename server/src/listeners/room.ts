@@ -16,7 +16,7 @@ export function initRoomListeners(socket: ExtendedSocket) {
 
     // create room
     const code = generateRoomCode(rooms);
-    const room: GameRoom = { settings, players: [], playing: false };
+    const room: GameRoom = { code, settings, players: [], playing: false };
     rooms[code] = room;
 
     // create player & join room
@@ -27,8 +27,8 @@ export function initRoomListeners(socket: ExtendedSocket) {
     socket.name = hostName;
 
     // send to client
-    const resData: EventData[Events.RoomCreated] = { code, player };
-    socket.emit(Events.RoomCreated, resData);
+    const resData: EventData[Events.RoomJoined] = { room, player };
+    socket.emit(Events.RoomJoined, resData);
   });
 
   socket.on(Events.JoinRoom, (data: EventData[Events.JoinRoom]) => {
