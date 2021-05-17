@@ -3,15 +3,15 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import { Home, Create, Join, Room, Play } from "./pages";
 import { ProtectedRoute } from "./components";
-import { useGame } from "./context";
+// import { useGame } from "./context";
 
 const App: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const { clearState } = useGame();
+  // const { clearState } = useGame();
 
   const handleLoad = (): void => {
     setIsLoaded(true);
-    clearState();
+    // clearState();
   };
 
   return (

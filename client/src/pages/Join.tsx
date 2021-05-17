@@ -8,13 +8,13 @@ import {
 } from "react-router-dom";
 
 import { GameMaxNameLen } from "@connect-game/shared";
-import { useGame } from "../context";
+// import { useGame } from "../context";
 import { Code, Name } from ".";
 
 const Join: React.FC = () => {
   const history = useHistory();
   const match = useRouteMatch();
-  const { joinRoom } = useGame();
+  // const { joinRoom } = useGame();
 
   const [name, setName] = useState<string>("");
   const [code, setCode] = useState<string>("");
@@ -39,7 +39,7 @@ const Join: React.FC = () => {
   };
 
   const handleCodeSubmit = (): void => {
-    joinRoom(code, name);
+    // joinRoom(code, name);
     history.push(`/room`);
   };
 
