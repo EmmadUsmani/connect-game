@@ -1,6 +1,6 @@
 import { GamePlayer, GameColor, GameDirection, GameSettings } from "./types";
 
-export const uninitializedPlayer: GamePlayer = {
+export const UninitializedPlayer: GamePlayer = {
   name: "",
   color: GameColor.Blue,
   isHost: false,
