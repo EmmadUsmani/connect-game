@@ -11,6 +11,7 @@ import {
 import {
   joinRoomAction,
   leaveRoomAction,
+  placePieceAction,
   playerJoinedAction,
   reassignHostAction,
   startGameAction,
@@ -24,6 +25,7 @@ interface GameCtxInterface {
   joinRoom(code: string, playerName: string): void;
   leaveRoom(): void;
   startGame(): void;
+  placePiece(colNum: number): void;
 }
 
 export const GameContext = createContext<GameCtxInterface>({
@@ -32,6 +34,7 @@ export const GameContext = createContext<GameCtxInterface>({
   joinRoom: (_, _2) => null,
   leaveRoom: () => null,
   startGame: () => null,
+  placePiece: () => null,
 });
 
 export const useGame = () => useContext(GameContext);
@@ -56,6 +59,27 @@ export const GameProvider: React.FC = ({ children }) => {
     server.startGame();
     dispatch(startGameAction());
     history.push("/play"); // TODO: move to button
+  };
+
+  const placePiece = (colNum: number): void => {
+    const { board, currPlayerIdx, winner, you } = gameState.play;
+    const { players } = gameState.room;
+
+    if (winner || winner === null) return;
+    if (players[currPlayerIdx].name !== you.name) return;
+
+    const column = board[colNum];
+    let rowNum = -1;
+    for (let j = 0; j < column.length; j++) {
+      if (!column[j]) {
+        rowNum = j;
+        break;
+      }
+    }
+    if (rowNum === -1) return;
+
+    server.placePiece(colNum, rowNum);
+    dispatch(placePieceAction({ colNum, rowNum }));
   };
 
   /* Register listeners */
@@ -87,6 +111,10 @@ export const GameProvider: React.FC = ({ children }) => {
       history.push("/play");
     });
 
+    server.listen(Events.PlacePiece, (data: EventData[Events.PlacePiece]) => {
+      dispatch(placePieceAction(data));
+    });
+
     return server.removeAllListeners;
   }, []);
 
@@ -98,6 +126,7 @@ export const GameProvider: React.FC = ({ children }) => {
         joinRoom,
         leaveRoom,
         startGame,
+        placePiece,
       }}
     >
       {children}

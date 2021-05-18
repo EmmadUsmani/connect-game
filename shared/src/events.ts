@@ -10,7 +10,7 @@ export enum Events {
   PlayerJoined = "PlayerJoined",
   StartGame = "StartGame", // TODO: separate GameStarted for other clients?
   EndGame = "EndGame",
-  PlacePiece = "PlacePiece",
+  PlacePiece = "PlacePiece", // TODO: piecePlaced for symmetry?
   LeaveRoom = "LeaveRoom", // TODO: create separate PlayerLeft action for better naming
   ReassignHost = "ReassignHost",
 }

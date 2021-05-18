@@ -6,6 +6,7 @@ export const PLAYER_JOINED = "PLAYER_JOINED";
 export const LEAVE_ROOM = "LEAVE_ROOM"; // TODO: rename PLAYER_LEFT
 export const REASSIGN_HOST = "REASSIGN_HOST";
 export const START_GAME = "START_GAME";
+export const PLACE_PIECE = "PLACE_PIECE";
 
 // action ts types
 export interface JoinRoomAction {
@@ -32,12 +33,18 @@ export interface StartGameAction {
   type: typeof START_GAME;
 }
 
+export interface PlacePieceAction {
+  type: typeof PLACE_PIECE;
+  data: EventData[Events.PlacePiece];
+}
+
 export type Action =
   | JoinRoomAction
   | PlayerJoinedAction
   | LeaveRoomAction
   | ReassignHostAction
-  | StartGameAction;
+  | StartGameAction
+  | PlacePieceAction;
 
 // action creators
 export const joinRoomAction = (
@@ -57,3 +64,7 @@ export const reassignHostAction = (
 ): ReassignHostAction => ({ type: REASSIGN_HOST, data });
 
 export const startGameAction = (): StartGameAction => ({ type: START_GAME });
+
+export const placePieceAction = (
+  data: PlacePieceAction["data"]
+): PlacePieceAction => ({ type: PLACE_PIECE, data });

@@ -1,5 +1,5 @@
 import { GameState, InitialGameState } from "@connect-game/shared";
-import { createBoard } from "../../utils";
+import { createBoard, updatePiece, updateWinner } from "../../utils";
 import {
   Action,
   JOIN_ROOM,
@@ -7,11 +7,15 @@ import {
   LEAVE_ROOM,
   REASSIGN_HOST,
   START_GAME,
+  PLACE_PIECE,
   JoinRoomAction,
   PlayerJoinedAction,
   LeaveRoomAction,
   ReassignHostAction,
+  PlacePieceAction,
 } from "./actions";
+
+// TODO: seperate reducer into sepearte functions to allow for shared var names
 
 export const gameReducer = (state: GameState, action: Action): GameState => {
   switch (action.type) {
@@ -88,6 +92,33 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
           winner: InitialGameState.play.winner,
           lastCoord: InitialGameState.play.lastCoord,
           numFilled: InitialGameState.play.numFilled,
+          you: state.play.you,
+        },
+      };
+
+    case PLACE_PIECE:
+      const placePieceData = action.data as PlacePieceAction["data"];
+      const updatedBoard = updatePiece(
+        placePieceData.colNum,
+        placePieceData.rowNum,
+        state.play.board,
+        state.room.players[state.play.currPlayerIdx]
+      );
+      return {
+        ...state,
+        play: {
+          board: updatedBoard,
+          winner: updateWinner(
+            placePieceData.colNum,
+            placePieceData.rowNum,
+            updatedBoard,
+            state.play.numFilled + 1,
+            state.room.settings.winCondition
+          ),
+          currPlayerIdx:
+            (state.play.currPlayerIdx + 1) % state.room.players.length,
+          lastCoord: [placePieceData.colNum, placePieceData.rowNum],
+          numFilled: state.play.numFilled + 1,
           you: state.play.you,
         },
       };
