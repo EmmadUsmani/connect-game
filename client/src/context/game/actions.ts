@@ -3,7 +3,7 @@ import { Events, EventData } from "@connect-game/shared";
 // action names
 export const JOIN_ROOM = "JOIN_ROOM";
 export const PLAYER_JOINED = "PLAYER_JOINED";
-export const LEAVE_ROOM = "LEAVE_ROOM"; // TODO: rename PLAYER_LEFT
+export const PLAYER_LEFT = "PLAYER_LEFT";
 export const REASSIGN_HOST = "REASSIGN_HOST";
 export const START_GAME = "START_GAME";
 export const PLACE_PIECE = "PLACE_PIECE";
@@ -19,9 +19,9 @@ export interface PlayerJoinedAction {
   data: EventData[Events.PlayerJoined];
 }
 
-export interface LeaveRoomAction {
-  type: typeof LEAVE_ROOM;
-  data: EventData[Events.LeaveRoom];
+export interface PlayerLeftAction {
+  type: typeof PLAYER_LEFT;
+  data: EventData[Events.PlayerLeft];
 }
 
 export interface ReassignHostAction {
@@ -41,7 +41,7 @@ export interface PlacePieceAction {
 export type Action =
   | JoinRoomAction
   | PlayerJoinedAction
-  | LeaveRoomAction
+  | PlayerLeftAction
   | ReassignHostAction
   | StartGameAction
   | PlacePieceAction;
@@ -55,9 +55,9 @@ export const playerJoinedAction = (
   data: PlayerJoinedAction["data"]
 ): PlayerJoinedAction => ({ type: PLAYER_JOINED, data });
 
-export const leaveRoomAction = (
-  data: LeaveRoomAction["data"]
-): LeaveRoomAction => ({ type: LEAVE_ROOM, data });
+export const playerLeftAction = (
+  data: PlayerLeftAction["data"]
+): PlayerLeftAction => ({ type: PLAYER_LEFT, data });
 
 export const reassignHostAction = (
   data: ReassignHostAction["data"]

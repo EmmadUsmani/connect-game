@@ -125,11 +125,11 @@ export function initRoomListeners(socket: ExtendedSocket) {
       socket.to(socket.code).emit(Events.ReassignHost, reassignHostData);
     }
 
-    // send leaveRoom event to other clients in room
-    const leaveRoomData: EventData[Events.LeaveRoom] = {
+    // send playerLeft event to other clients in room
+    const playerLeftData: EventData[Events.PlayerLeft] = {
       playerName: socket.name,
     };
-    socket.to(socket.code).emit(Events.LeaveRoom, leaveRoomData);
+    socket.to(socket.code).emit(Events.PlayerLeft, playerLeftData);
 
     // remove code and name from socket
     socket.code = "";

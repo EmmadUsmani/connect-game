@@ -28,9 +28,8 @@ function joinRoom(code: string, playerName: string): void {
   socket.emit(Events.JoinRoom, data);
 }
 
-function leaveRoom(playerName: string): void {
-  const data: EventData[Events.LeaveRoom] = { playerName };
-  socket.emit(Events.LeaveRoom, data);
+function leaveRoom(): void {
+  socket.emit(Events.LeaveRoom);
 }
 
 function startGame(): void {

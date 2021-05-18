@@ -4,15 +4,15 @@ import {
   Action,
   JOIN_ROOM,
   PLAYER_JOINED,
-  LEAVE_ROOM,
   REASSIGN_HOST,
   START_GAME,
   PLACE_PIECE,
   JoinRoomAction,
   PlayerJoinedAction,
-  LeaveRoomAction,
+  PlayerLeftAction,
   ReassignHostAction,
   PlacePieceAction,
+  PLAYER_LEFT,
 } from "./actions";
 
 function joinRoomReducer(data: JoinRoomAction["data"]): GameState {
@@ -37,9 +37,9 @@ function playerJoinedReducer(
   };
 }
 
-function leaveRoomReducer(
+function playerLeftReducer(
   state: GameState,
-  data: LeaveRoomAction["data"]
+  data: PlayerLeftAction["data"]
 ): GameState {
   const {
     room: { players },
@@ -154,8 +154,8 @@ export function gameReducer(state: GameState, action: Action): GameState {
       return joinRoomReducer(action.data);
     case PLAYER_JOINED:
       return playerJoinedReducer(state, action.data);
-    case LEAVE_ROOM:
-      return leaveRoomReducer(state, action.data);
+    case PLAYER_LEFT:
+      return playerLeftReducer(state, action.data);
     case REASSIGN_HOST:
       return reassignHostReducer(state, action.data);
     case START_GAME:

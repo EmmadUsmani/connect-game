@@ -10,9 +10,9 @@ import {
 } from "@connect-game/shared";
 import {
   joinRoomAction,
-  leaveRoomAction,
   placePieceAction,
   playerJoinedAction,
+  playerLeftAction,
   reassignHostAction,
   startGameAction,
 } from "./actions";
@@ -54,7 +54,7 @@ export const GameProvider: React.FC = ({ children }) => {
   };
 
   const leaveRoom = (): void => {
-    server.leaveRoom(gameState.play.you.name);
+    server.leaveRoom();
     // TODO: clear state when leaving room to prevent flash of old room when joining again
   };
 
@@ -103,8 +103,8 @@ export const GameProvider: React.FC = ({ children }) => {
       }
     );
 
-    server.listen(Events.LeaveRoom, (data: EventData[Events.LeaveRoom]) => {
-      dispatch(leaveRoomAction(data));
+    server.listen(Events.PlayerLeft, (data: EventData[Events.PlayerLeft]) => {
+      dispatch(playerLeftAction(data));
     });
 
     server.listen(

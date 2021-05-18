@@ -4,15 +4,16 @@ export enum Events {
   CreateRoom = "CreateRoom",
   JoinRoom = "JoinRoom",
   RoomJoined = "RoomJoined",
-  RoomNotFound = "RoomNotFound",
-  NameTaken = "NameTaken",
-  InProgress = "InProgress",
   PlayerJoined = "PlayerJoined",
+  LeaveRoom = "LeaveRoom",
+  PlayerLeft = "PlayerLeft",
+  ReassignHost = "ReassignHost",
   StartGame = "StartGame", // TODO: separate GameStarted for other clients?
   EndGame = "EndGame", // TODO: separate GameEnded?
   PlacePiece = "PlacePiece", // TODO: piecePlaced for symmetry?
-  LeaveRoom = "LeaveRoom", // TODO: create separate PlayerLeft action for better naming
-  ReassignHost = "ReassignHost",
+  RoomNotFound = "RoomNotFound",
+  NameTaken = "NameTaken",
+  InProgress = "InProgress",
 }
 
 export interface EventData {
@@ -31,14 +32,14 @@ export interface EventData {
   PlayerJoined: {
     player: GamePlayer;
   };
-  PlacePiece: {
-    colNum: number;
-    rowNum: number;
-  };
-  LeaveRoom: {
+  PlayerLeft: {
     playerName: string;
   };
   ReassignHost: {
     playerName: string;
+  };
+  PlacePiece: {
+    colNum: number;
+    rowNum: number;
   };
 }
