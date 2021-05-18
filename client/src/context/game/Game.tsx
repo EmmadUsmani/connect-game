@@ -61,12 +61,12 @@ export const GameProvider: React.FC = ({ children }) => {
   const startGame = (): void => {
     server.startGame();
     dispatch(startGameAction());
-    history.push("/play"); // TODO: move to button
+    history.push("/play");
   };
 
   const endGame = (): void => {
     server.endGame();
-    history.push("/room"); // TODO: move to button
+    history.push("/room");
   };
 
   const placePiece = (colNum: number): void => {

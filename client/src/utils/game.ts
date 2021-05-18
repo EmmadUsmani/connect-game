@@ -4,7 +4,6 @@ import {
   GamePiece,
   GameWinner,
   GameDirectionPairs,
-  GameSettings,
 } from "@connect-game/shared";
 
 /* Creates blank board with given dimmensions */
@@ -83,16 +82,4 @@ export function updateWinner(
   if (numFilled === numCols * numRows) return null;
 
   return undefined;
-}
-
-// TODO move these to sepearte file; create.ts / ui.ts
-/* Converts boardSize to str for use in Picker */
-export function boardSizeToStr(boardSize: GameSettings["boardSize"]) {
-  return boardSize.join(",");
-}
-
-export function strToBoardSize(str: string) {
-  return str
-    .split(",")
-    .map((num) => parseInt(num)) as GameSettings["boardSize"];
 }
