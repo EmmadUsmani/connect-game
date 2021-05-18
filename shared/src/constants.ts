@@ -6,8 +6,6 @@ import {
   GameState,
 } from "./types";
 
-// TODO: rename constants to not use Game
-
 export const UninitializedPlayer: GamePlayer = {
   name: "",
   color: GameColor.Blue,
@@ -37,7 +35,7 @@ export const InitialGameState: GameState = {
   },
 };
 
-export const GameDirections: { [key: string]: GameDirection } = {
+export const Directions: { [key: string]: GameDirection } = {
   North: [0, 1],
   South: [0, -1],
   East: [1, 0],
@@ -48,14 +46,14 @@ export const GameDirections: { [key: string]: GameDirection } = {
   SouthEast: [1, -1],
 };
 
-export const GameDirectionPairs = [
-  [GameDirections.North, GameDirections.South],
-  [GameDirections.East, GameDirections.West],
-  [GameDirections.NorthWest, GameDirections.SouthEast],
-  [GameDirections.NorthEast, GameDirections.SouthWest],
+export const DirectionPairs = [
+  [Directions.North, Directions.South],
+  [Directions.East, Directions.West],
+  [Directions.NorthWest, Directions.SouthEast],
+  [Directions.NorthEast, Directions.SouthWest],
 ];
 
-export const GameOptions: {
+export const Options: {
   boardSizes: { label: string; value: GameSettings["boardSize"] }[];
   winConditions: { label: string; value: GameSettings["winCondition"] }[];
   turnTimers: { label: string; value: GameSettings["turnTimer"] }[];
@@ -77,11 +75,11 @@ export const GameOptions: {
   ],
 };
 
-export const GameMaxNameLen = 16;
+export const MaxNameLen = 16;
 
-export const GameCodeLen = 7;
+export const CodeLen = 7;
 
-export const GameCodeChars = [
+export const CodeChars = [
   "A",
   "B",
   "C",

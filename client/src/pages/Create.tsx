@@ -10,7 +10,7 @@ import {
 import {
   GameSettings,
   DefaultSettings,
-  GameMaxNameLen,
+  MaxNameLen,
 } from "@connect-game/shared";
 import { useGame } from "../context/game";
 import { Name, Settings } from ".";
@@ -27,7 +27,7 @@ const Create: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     const newName = event.target.value;
-    if (newName.length > GameMaxNameLen) return;
+    if (newName.length > MaxNameLen) return;
     setName(newName);
   };
 

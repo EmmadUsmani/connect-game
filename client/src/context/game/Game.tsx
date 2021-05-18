@@ -128,7 +128,7 @@ export const GameProvider: React.FC = ({ children }) => {
     });
 
     return server.removeAllListeners;
-  }, []);
+  }, [history]);
 
   return (
     <GameContext.Provider

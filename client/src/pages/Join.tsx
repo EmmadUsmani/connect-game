@@ -7,7 +7,7 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 
-import { GameMaxNameLen } from "@connect-game/shared";
+import { MaxNameLen } from "@connect-game/shared";
 import { useGame } from "../context/game";
 import { Code, Name } from ".";
 
@@ -23,7 +23,7 @@ const Join: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     const newName = event.target.value;
-    if (newName.length > GameMaxNameLen) return;
+    if (newName.length > MaxNameLen) return;
     setName(newName);
   };
 

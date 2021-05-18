@@ -3,7 +3,7 @@ import {
   GameColumn,
   GamePiece,
   GameWinner,
-  GameDirectionPairs,
+  DirectionPairs,
 } from "@connect-game/shared";
 
 /* Creates blank board with given dimmensions */
@@ -70,7 +70,7 @@ export function updateWinner(
 
   /* for each pair of direction (i.e. North & South), 
   check if the player's pieces in those directions sum to winCondition */
-  for (const [[colOff1, rowOff1], [colOff2, rowOff2]] of GameDirectionPairs) {
+  for (const [[colOff1, rowOff1], [colOff2, rowOff2]] of DirectionPairs) {
     const count =
       1 +
       explore(colNum + colOff1, rowNum + rowOff1, colOff1, rowOff1, 0) +

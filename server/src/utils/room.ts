@@ -1,16 +1,16 @@
 import {
   GameRoom,
   GameRooms,
-  GameCodeLen,
-  GameCodeChars,
+  CodeLen,
+  CodeChars,
   GameColor,
   GamePlayer,
 } from "@connect-game/shared";
 
 export function generateRoomCode(rooms: GameRooms): string {
   let code = "";
-  for (let i = 0; i < GameCodeLen; i++) {
-    const char = randomFrom(GameCodeChars);
+  for (let i = 0; i < CodeLen; i++) {
+    const char = randomFrom(CodeChars);
     code += char;
   }
   return code in rooms ? generateRoomCode(rooms) : code;

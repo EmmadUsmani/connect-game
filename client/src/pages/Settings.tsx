@@ -1,6 +1,6 @@
 import React from "react";
 
-import { GameSettings, GameOptions } from "@connect-game/shared";
+import { GameSettings, Options } from "@connect-game/shared";
 import { Page, Label, Picker, Button } from "../components";
 import { boardSizeToStr, strToBoardSize } from "../utils";
 
@@ -20,7 +20,7 @@ const Settings: React.FC<SettingsProps> = ({
       <Label>Board size</Label>
       <Picker
         value={boardSizeToStr(settings.boardSize)}
-        options={GameOptions.boardSizes.map(({ label, value }) => ({
+        options={Options.boardSizes.map(({ label, value }) => ({
           label,
           value: boardSizeToStr(value),
         }))}
@@ -34,7 +34,7 @@ const Settings: React.FC<SettingsProps> = ({
       <Label>Win condition</Label>
       <Picker
         value={settings.winCondition}
-        options={GameOptions.winConditions}
+        options={Options.winConditions}
         onChange={(event) =>
           onChange({ ...settings, winCondition: parseInt(event.target.value) })
         }
