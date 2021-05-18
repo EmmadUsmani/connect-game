@@ -25,6 +25,7 @@ interface GameCtxInterface {
   joinRoom(code: string, playerName: string): void;
   leaveRoom(): void;
   startGame(): void;
+  endGame(): void;
   placePiece(colNum: number): void;
 }
 
@@ -34,6 +35,7 @@ export const GameContext = createContext<GameCtxInterface>({
   joinRoom: (_, _2) => null,
   leaveRoom: () => null,
   startGame: () => null,
+  endGame: () => null,
   placePiece: () => null,
 });
 
@@ -53,12 +55,18 @@ export const GameProvider: React.FC = ({ children }) => {
 
   const leaveRoom = (): void => {
     server.leaveRoom(gameState.play.you.name);
+    // TODO: clear state when leaving room to prevent flash of old room when joining again
   };
 
   const startGame = (): void => {
     server.startGame();
     dispatch(startGameAction());
     history.push("/play"); // TODO: move to button
+  };
+
+  const endGame = (): void => {
+    server.endGame();
+    history.push("/room"); // TODO: move to button
   };
 
   const placePiece = (colNum: number): void => {
@@ -115,6 +123,10 @@ export const GameProvider: React.FC = ({ children }) => {
       dispatch(placePieceAction(data));
     });
 
+    server.listen(Events.EndGame, () => {
+      history.push("/room");
+    });
+
     return server.removeAllListeners;
   }, []);
 
@@ -126,6 +138,7 @@ export const GameProvider: React.FC = ({ children }) => {
         joinRoom,
         leaveRoom,
         startGame,
+        endGame,
         placePiece,
       }}
     >
