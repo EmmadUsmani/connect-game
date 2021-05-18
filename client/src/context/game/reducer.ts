@@ -22,7 +22,7 @@ function joinRoomReducer(data: JoinRoomAction["data"]): GameState {
   } = data;
 
   return {
-    room: { code, settings, players, playing: false },
+    room: { code, settings, players, inProgress: false },
     play: { ...InitialGameState.play, you: player },
   };
 }

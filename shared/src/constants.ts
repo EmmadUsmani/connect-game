@@ -25,7 +25,7 @@ export const InitialGameState: GameState = {
     code: "",
     settings: DefaultSettings,
     players: [],
-    playing: false,
+    inProgress: false,
   },
   play: {
     board: [[]],

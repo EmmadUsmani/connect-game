@@ -16,7 +16,7 @@ export function initRoomListeners(socket: ExtendedSocket) {
 
     // create room
     const code = generateRoomCode(rooms);
-    const room: GameRoom = { code, settings, players: [], playing: false };
+    const room: GameRoom = { code, settings, players: [], inProgress: false };
     rooms[code] = room;
 
     // create player & join room

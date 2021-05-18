@@ -31,7 +31,7 @@ export interface GameRoom {
   code: string;
   settings: GameSettings;
   players: GamePlayer[];
-  playing: boolean; //TODO: rename to inProgress
+  inProgress: boolean;
 }
 
 export type GameRooms = { [key: string]: GameRoom };
