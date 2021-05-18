@@ -8,7 +8,12 @@ import {
   InitialGameState,
 } from "@connect-game/shared";
 import { gameReducer } from "./reducer";
-import { joinRoomAction, leaveRoomAction, playerJoinedAction } from "./actions";
+import {
+  joinRoomAction,
+  leaveRoomAction,
+  playerJoinedAction,
+  reassignHostAction,
+} from "./actions";
 import { server } from "../../services";
 
 interface GameCtxInterface {
@@ -58,6 +63,13 @@ export const GameProvider: React.FC = ({ children }) => {
     server.listen(Events.LeaveRoom, (data: EventData[Events.LeaveRoom]) => {
       dispatch(leaveRoomAction(data));
     });
+
+    server.listen(
+      Events.ReassignHost,
+      (data: EventData[Events.ReassignHost]) => {
+        dispatch(reassignHostAction(data));
+      }
+    );
 
     return server.removeAllListeners;
   }, []);

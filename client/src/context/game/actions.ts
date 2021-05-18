@@ -4,6 +4,7 @@ import { Events, EventData } from "@connect-game/shared";
 export const JOIN_ROOM = "JOIN_ROOM";
 export const PLAYER_JOINED = "PLAYER_JOINED";
 export const LEAVE_ROOM = "LEAVE_ROOM"; // TODO: rename PLAYER_LEFT
+export const REASSIGN_HOST = "REASSIGN_HOST";
 
 // action ts types
 export interface JoinRoomAction {
@@ -21,7 +22,16 @@ export interface LeaveRoomAction {
   data: EventData[Events.LeaveRoom];
 }
 
-export type Action = JoinRoomAction | PlayerJoinedAction | LeaveRoomAction;
+export interface ReassignHostAction {
+  type: typeof REASSIGN_HOST;
+  data: EventData[Events.ReassignHost];
+}
+
+export type Action =
+  | JoinRoomAction
+  | PlayerJoinedAction
+  | LeaveRoomAction
+  | ReassignHostAction;
 
 // action creators
 export const joinRoomAction = (
@@ -35,3 +45,7 @@ export const playerJoinedAction = (
 export const leaveRoomAction = (
   data: LeaveRoomAction["data"]
 ): LeaveRoomAction => ({ type: LEAVE_ROOM, data });
+
+export const reassignHostAction = (
+  data: ReassignHostAction["data"]
+): ReassignHostAction => ({ type: REASSIGN_HOST, data });

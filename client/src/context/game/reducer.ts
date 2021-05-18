@@ -4,9 +4,11 @@ import {
   JOIN_ROOM,
   PLAYER_JOINED,
   LEAVE_ROOM,
+  REASSIGN_HOST,
   JoinRoomAction,
   PlayerJoinedAction,
   LeaveRoomAction,
+  ReassignHostAction,
 } from "./actions";
 
 export const gameReducer = (state: GameState, action: Action): GameState => {
@@ -51,6 +53,26 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
           ...state.play,
           currPlayerIdx:
             state.play.currPlayerIdx % (state.room.players.length - 1),
+        },
+      };
+
+    case REASSIGN_HOST:
+      const reassignHostData = data as ReassignHostAction["data"];
+      return {
+        room: {
+          ...state.room,
+          players: state.room.players.map((player) =>
+            player.name === reassignHostData.playerName
+              ? { ...player, isHost: true }
+              : { ...player, isHost: false }
+          ),
+        },
+        play: {
+          ...state.play,
+          you: {
+            ...state.play.you,
+            isHost: state.play.you.name === reassignHostData.playerName,
+          },
         },
       };
 
