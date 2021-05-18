@@ -31,7 +31,21 @@ export interface GameRoom {
   code: string;
   settings: GameSettings;
   players: GamePlayer[];
-  playing: boolean;
+  playing: boolean; //TODO: rename to inProgress
 }
 
 export type GameRooms = { [key: string]: GameRoom };
+
+export interface GamePlay {
+  board: GameBoard;
+  currPlayerIdx: number;
+  winner: GameWinner;
+  lastCoord: [number, number];
+  numFilled: number;
+  you: GamePlayer;
+}
+
+export interface GameState {
+  room: GameRoom;
+  play: GamePlay;
+}

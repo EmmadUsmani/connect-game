@@ -15,13 +15,13 @@ const Room: React.FC = () => {
   return (
     <Page>
       <Label>Room code</Label>
-      <Input type="text" value={gameState.code} disabled />
+      <Input type="text" value={gameState.room.code} disabled />
       <Label>Players</Label>
-      {gameState.players.map((player) => (
+      {gameState.room.players.map((player) => (
         <Button color={player.color} key={player.name} disabled>
           {player.name +
             (player.isHost ? " 👑" : "") +
-            (player.name === gameState.you.name ? " ✨" : "")}
+            (player.name === gameState.play.you.name ? " ✨" : "")}
         </Button>
       ))}
       {/* <Button

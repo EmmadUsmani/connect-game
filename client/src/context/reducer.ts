@@ -1,41 +1,11 @@
 import {
+  GameState,
   GameBoard,
   GameColumn,
-  GameDefaultSettings,
-  GamePlayer,
-  GameSettings,
-  GameWinner,
-  UninitializedPlayer,
+  InitialGameState,
 } from "@connect-game/shared";
 
-export interface GameState {
-  code: string;
-  board: GameBoard;
-  players: GamePlayer[];
-  you: GamePlayer;
-  currPlayerIdx: number;
-  winner: GameWinner;
-  lastCoord: [number, number];
-  numFilled: number;
-  settings: GameSettings;
-}
-
-/* TODO: consider creating seperate room & play (or game?) slices, 
-room: {settings, code, players, playing} 
-would match the structure of shared types
-perhaps rename to global
-*/
-export const initialGameState: GameState = {
-  code: "",
-  board: [[]],
-  players: [],
-  you: UninitializedPlayer,
-  currPlayerIdx: 0,
-  winner: undefined,
-  lastCoord: [0, 0],
-  numFilled: 0,
-  settings: GameDefaultSettings,
-};
+// TODO: strict typing for actions
 
 // helper functions
 const createBoard = (numCols: number, numRows: number): GameBoard => {
@@ -50,11 +20,8 @@ const createBoard = (numCols: number, numRows: number): GameBoard => {
   return board;
 };
 
-// action types
+// action types // TODO: action creators
 export const JOIN_ROOM = "JOIN_ROOM";
-// export const START_GAME = "START_GAME";
-
-// TODO: action creators
 
 export const gameReducer = (state: GameState, action: any): GameState => {
   const { type, data } = action;
@@ -62,22 +29,19 @@ export const gameReducer = (state: GameState, action: any): GameState => {
   switch (type) {
     case JOIN_ROOM:
       return {
-        ...state,
-        code: data.room.code,
-        you: data.player,
-        players: data.room.players,
-        settings: data.room.settings,
+        room: {
+          code: data.room.code,
+          settings: data.room.settings,
+          players: data.room.players,
+          playing: false,
+        },
+        play: {
+          ...state.play,
+          you: data.player,
+        },
       };
 
-    // case START_GAME:
-    //   return {
-    //     ...state,
-    //     board: createBoard(state.board.length, state.board[0].length),
-    //     winner: undefined,
-    //     currPlayerIdx: 0,
-    //     numFilled: 0,
-    //   };
     default:
-      return initialGameState;
+      return InitialGameState;
   }
 };

@@ -8,9 +8,9 @@ import {
 } from "react-router-dom";
 
 import {
-  GameDefaultSettings,
-  GameMaxNameLen,
   GameSettings,
+  DefaultSettings,
+  GameMaxNameLen,
 } from "@connect-game/shared";
 import { useGame } from "../context";
 import { Name, Settings } from ".";
@@ -21,7 +21,7 @@ const Create: React.FC = () => {
   const { createRoom } = useGame();
 
   const [name, setName] = useState<string>("");
-  const [settings, setSettings] = useState<GameSettings>(GameDefaultSettings);
+  const [settings, setSettings] = useState<GameSettings>(DefaultSettings);
 
   const handleNameChange = (
     event: React.ChangeEvent<HTMLInputElement>

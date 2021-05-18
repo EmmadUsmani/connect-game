@@ -1,7 +1,13 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
 
-import { Events, EventData, GameSettings } from "@connect-game/shared";
-import { JOIN_ROOM, GameState, initialGameState, gameReducer } from "./reducer";
+import {
+  Events,
+  EventData,
+  GameSettings,
+  GameState,
+  InitialGameState,
+} from "@connect-game/shared";
+import { JOIN_ROOM, gameReducer } from "./reducer";
 import { server } from "../services";
 
 interface GameCtxInterface {
@@ -10,14 +16,14 @@ interface GameCtxInterface {
 }
 
 export const GameContext = createContext<GameCtxInterface>({
-  gameState: initialGameState,
+  gameState: InitialGameState,
   createRoom: (_, _2) => null,
 });
 
 export const useGame = () => useContext(GameContext);
 
 export const GameProvider: React.FC = ({ children }) => {
-  const [gameState, dispatch] = useReducer(gameReducer, initialGameState);
+  const [gameState, dispatch] = useReducer(gameReducer, InitialGameState);
 
   const createRoom = (settings: GameSettings, hostName: string): void => {
     server.createRoom(settings, hostName);

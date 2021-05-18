@@ -1,9 +1,40 @@
-import { GamePlayer, GameColor, GameDirection, GameSettings } from "./types";
+import {
+  GamePlayer,
+  GameColor,
+  GameDirection,
+  GameSettings,
+  GameState,
+} from "./types";
+
+// TODO: rename constants to not use Game
 
 export const UninitializedPlayer: GamePlayer = {
   name: "",
   color: GameColor.Blue,
   isHost: false,
+};
+
+export const DefaultSettings: GameSettings = {
+  boardSize: [7, 6],
+  winCondition: 4,
+  turnTimer: 0,
+};
+
+export const InitialGameState: GameState = {
+  room: {
+    code: "",
+    settings: DefaultSettings,
+    players: [],
+    playing: false,
+  },
+  play: {
+    board: [[]],
+    currPlayerIdx: 0,
+    winner: undefined,
+    lastCoord: [0, 0],
+    numFilled: 0,
+    you: UninitializedPlayer,
+  },
 };
 
 export const GameDirections: { [key: string]: GameDirection } = {
@@ -23,12 +54,6 @@ export const GameDirectionPairs = [
   [GameDirections.NorthWest, GameDirections.SouthEast],
   [GameDirections.NorthEast, GameDirections.SouthWest],
 ];
-
-export const GameDefaultSettings: GameSettings = {
-  boardSize: [7, 6],
-  winCondition: 4,
-  turnTimer: 0,
-};
 
 export const GameOptions: {
   boardSizes: { label: string; value: GameSettings["boardSize"] }[];
