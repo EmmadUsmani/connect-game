@@ -52,8 +52,8 @@ export function initRoomListeners(socket: ExtendedSocket) {
     socket.name = playerName;
 
     // check if game has been started
-    if (room.playing) {
-      socket.emit(Events.GameStarted);
+    if (room.inProgress) {
+      socket.emit(Events.InProgress);
       return;
     }
 
@@ -78,7 +78,7 @@ export function initRoomListeners(socket: ExtendedSocket) {
 
   socket.on(Events.StartGame, () => {
     // change room state
-    rooms[socket.code].playing = true;
+    rooms[socket.code].inProgress = true;
 
     // send to other clients in room
     socket.to(socket.code).emit(Events.StartGame);
@@ -86,7 +86,7 @@ export function initRoomListeners(socket: ExtendedSocket) {
 
   socket.on(Events.EndGame, () => {
     // change room state
-    rooms[socket.code].playing = false;
+    rooms[socket.code].inProgress = false;
 
     // send to other clients in room
     socket.to(socket.code).emit(Events.EndGame);

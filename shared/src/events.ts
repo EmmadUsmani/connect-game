@@ -6,7 +6,7 @@ export enum Events {
   RoomJoined = "RoomJoined",
   RoomNotFound = "RoomNotFound",
   NameTaken = "NameTaken",
-  GameStarted = "GameStarted", //TODO: rename GameStarted to InProgress
+  InProgress = "InProgress",
   PlayerJoined = "PlayerJoined",
   StartGame = "StartGame", // TODO: separate GameStarted for other clients?
   EndGame = "EndGame", // TODO: separate GameEnded?
