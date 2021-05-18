@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
+import { useHistory } from "react-router-dom";
 
 import {
   Events,
@@ -7,13 +8,14 @@ import {
   GameState,
   InitialGameState,
 } from "@connect-game/shared";
-import { gameReducer } from "./reducer";
 import {
   joinRoomAction,
   leaveRoomAction,
   playerJoinedAction,
   reassignHostAction,
+  startGameAction,
 } from "./actions";
+import { gameReducer } from "./reducer";
 import { server } from "../../services";
 
 interface GameCtxInterface {
@@ -21,6 +23,7 @@ interface GameCtxInterface {
   createRoom(settings: GameSettings, hostName: string): void;
   joinRoom(code: string, playerName: string): void;
   leaveRoom(): void;
+  startGame(): void;
 }
 
 export const GameContext = createContext<GameCtxInterface>({
@@ -28,12 +31,14 @@ export const GameContext = createContext<GameCtxInterface>({
   createRoom: (_, _2) => null,
   joinRoom: (_, _2) => null,
   leaveRoom: () => null,
+  startGame: () => null,
 });
 
 export const useGame = () => useContext(GameContext);
 
 export const GameProvider: React.FC = ({ children }) => {
   const [gameState, dispatch] = useReducer(gameReducer, InitialGameState);
+  const history = useHistory();
 
   const createRoom = (settings: GameSettings, hostName: string): void => {
     server.createRoom(settings, hostName);
@@ -45,6 +50,12 @@ export const GameProvider: React.FC = ({ children }) => {
 
   const leaveRoom = (): void => {
     server.leaveRoom(gameState.play.you.name);
+  };
+
+  const startGame = (): void => {
+    server.startGame();
+    dispatch(startGameAction());
+    history.push("/play"); // TODO: move to button
   };
 
   /* Register listeners */
@@ -71,6 +82,11 @@ export const GameProvider: React.FC = ({ children }) => {
       }
     );
 
+    server.listen(Events.StartGame, () => {
+      dispatch(startGameAction());
+      history.push("/play");
+    });
+
     return server.removeAllListeners;
   }, []);
 
@@ -81,6 +97,7 @@ export const GameProvider: React.FC = ({ children }) => {
         createRoom,
         joinRoom,
         leaveRoom,
+        startGame,
       }}
     >
       {children}

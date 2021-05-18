@@ -5,6 +5,7 @@ export const JOIN_ROOM = "JOIN_ROOM";
 export const PLAYER_JOINED = "PLAYER_JOINED";
 export const LEAVE_ROOM = "LEAVE_ROOM"; // TODO: rename PLAYER_LEFT
 export const REASSIGN_HOST = "REASSIGN_HOST";
+export const START_GAME = "START_GAME";
 
 // action ts types
 export interface JoinRoomAction {
@@ -27,11 +28,16 @@ export interface ReassignHostAction {
   data: EventData[Events.ReassignHost];
 }
 
+export interface StartGameAction {
+  type: typeof START_GAME;
+}
+
 export type Action =
   | JoinRoomAction
   | PlayerJoinedAction
   | LeaveRoomAction
-  | ReassignHostAction;
+  | ReassignHostAction
+  | StartGameAction;
 
 // action creators
 export const joinRoomAction = (
@@ -49,3 +55,5 @@ export const leaveRoomAction = (
 export const reassignHostAction = (
   data: ReassignHostAction["data"]
 ): ReassignHostAction => ({ type: REASSIGN_HOST, data });
+
+export const startGameAction = (): StartGameAction => ({ type: START_GAME });

@@ -1,4 +1,17 @@
-import { GameSettings } from "@connect-game/shared";
+import { GameBoard, GameColumn, GameSettings } from "@connect-game/shared";
+
+/* Creates blank board with given dimmensions */
+export function createBoard(numCols: number, numRows: number): GameBoard {
+  const board: GameBoard = [];
+  for (let i = 0; i < numCols; i++) {
+    const column: GameColumn = [];
+    for (let j = 0; j < numRows; j++) {
+      column.push(undefined);
+    }
+    board.push(column);
+  }
+  return board;
+}
 
 /* Converts boardSize to str for use in Picker */
 export function boardSizeToStr(boardSize: GameSettings["boardSize"]) {

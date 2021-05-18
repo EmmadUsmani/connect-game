@@ -8,10 +8,10 @@ export enum Events {
   NameTaken = "NameTaken",
   GameStarted = "GameStarted", //TODO: rename GameStarted to InProgress
   PlayerJoined = "PlayerJoined",
-  StartGame = "StartGame",
+  StartGame = "StartGame", // TODO: separate GameStarted for other clients?
   EndGame = "EndGame",
   PlacePiece = "PlacePiece",
-  LeaveRoom = "LeaveRoom", // TODO: create sepeparate PlayerLeft action for better naming
+  LeaveRoom = "LeaveRoom", // TODO: create separate PlayerLeft action for better naming
   ReassignHost = "ReassignHost",
 }
 

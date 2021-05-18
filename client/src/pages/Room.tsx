@@ -5,12 +5,12 @@ import { useGame } from "../context/game";
 import { usePreventBackNav } from "../hooks";
 
 const Room: React.FC = () => {
-  const { gameState, leaveRoom } = useGame();
+  const { gameState, leaveRoom, startGame } = useGame();
   usePreventBackNav(leaveRoom);
 
-  // const handleStart = (): void => {
-  //   if (gameState.you.isHost) startGame();
-  // };
+  const handleStart = (): void => {
+    if (gameState.play.you.isHost) startGame();
+  };
 
   return (
     <Page>
@@ -24,13 +24,13 @@ const Room: React.FC = () => {
             (player.name === gameState.play.you.name ? " ✨" : "")}
         </Button>
       ))}
-      {/* <Button
+      <Button
         onClick={handleStart}
-        disabled={!you.isHost}
+        disabled={!gameState.play.you.isHost}
         style={{ marginTop: 20 }}
       >
         Start Game
-      </Button> */}
+      </Button>
       {/* <Button>Copy Link</Button> */}
     </Page>
   );

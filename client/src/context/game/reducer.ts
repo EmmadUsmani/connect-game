@@ -1,10 +1,12 @@
 import { GameState, InitialGameState } from "@connect-game/shared";
+import { createBoard } from "../../utils";
 import {
   Action,
   JOIN_ROOM,
   PLAYER_JOINED,
   LEAVE_ROOM,
   REASSIGN_HOST,
+  START_GAME,
   JoinRoomAction,
   PlayerJoinedAction,
   LeaveRoomAction,
@@ -12,11 +14,9 @@ import {
 } from "./actions";
 
 export const gameReducer = (state: GameState, action: Action): GameState => {
-  const { type, data } = action;
-
-  switch (type) {
+  switch (action.type) {
     case JOIN_ROOM:
-      const joinRoomData = data as JoinRoomAction["data"];
+      const joinRoomData = action.data as JoinRoomAction["data"];
       return {
         room: {
           code: joinRoomData.room.code,
@@ -31,7 +31,7 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
       };
 
     case PLAYER_JOINED:
-      const playerJoinedData = data as PlayerJoinedAction["data"];
+      const playerJoinedData = action.data as PlayerJoinedAction["data"];
       return {
         ...state,
         room: {
@@ -41,7 +41,7 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
       };
 
     case LEAVE_ROOM:
-      const leaveRoomData = data as LeaveRoomAction["data"];
+      const leaveRoomData = action.data as LeaveRoomAction["data"];
       return {
         room: {
           ...state.room,
@@ -57,7 +57,7 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
       };
 
     case REASSIGN_HOST:
-      const reassignHostData = data as ReassignHostAction["data"];
+      const reassignHostData = action.data as ReassignHostAction["data"];
       return {
         room: {
           ...state.room,
@@ -73,6 +73,22 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
             ...state.play.you,
             isHost: state.play.you.name === reassignHostData.playerName,
           },
+        },
+      };
+
+    case START_GAME:
+      return {
+        ...state,
+        play: {
+          board: createBoard(
+            state.room.settings.boardSize[0],
+            state.room.settings.boardSize[1]
+          ),
+          currPlayerIdx: InitialGameState.play.currPlayerIdx,
+          winner: InitialGameState.play.winner,
+          lastCoord: InitialGameState.play.lastCoord,
+          numFilled: InitialGameState.play.numFilled,
+          you: state.play.you,
         },
       };
 
