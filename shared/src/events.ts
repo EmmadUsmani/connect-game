@@ -8,9 +8,9 @@ export enum Events {
   LeaveRoom = "LeaveRoom",
   PlayerLeft = "PlayerLeft",
   ReassignHost = "ReassignHost",
-  StartGame = "StartGame", // TODO: separate GameStarted for other clients?
-  EndGame = "EndGame", // TODO: separate GameEnded?
-  PlacePiece = "PlacePiece", // TODO: piecePlaced for symmetry?
+  StartGame = "StartGame",
+  EndGame = "EndGame",
+  PlacePiece = "PlacePiece",
   RoomNotFound = "RoomNotFound",
   NameTaken = "NameTaken",
   InProgress = "InProgress",
