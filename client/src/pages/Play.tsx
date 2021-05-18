@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useGame } from "../context";
+import { useGame } from "../context/game";
 import { usePreventBackNav } from "../hooks";
 import { Button, Page } from "../components";
 import { Board, Header } from "../components/play";

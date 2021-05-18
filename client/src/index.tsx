@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 
 import App from "./App";
-import { GameProvider } from "./context";
+import { GameProvider } from "./context/game";
 import { fonts, colors } from "./config";
 
 const GlobalStyle = createGlobalStyle`

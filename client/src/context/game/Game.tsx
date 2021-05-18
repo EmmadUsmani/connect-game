@@ -7,8 +7,9 @@ import {
   GameState,
   InitialGameState,
 } from "@connect-game/shared";
-import { JOIN_ROOM, gameReducer } from "./reducer";
-import { server } from "../services";
+import { gameReducer } from "./reducer";
+import { joinRoom } from "./actions";
+import { server } from "../../services";
 
 interface GameCtxInterface {
   gameState: GameState;
@@ -32,7 +33,7 @@ export const GameProvider: React.FC = ({ children }) => {
   /* Register listeners */
   useEffect(() => {
     server.listen(Events.RoomJoined, (data: EventData[Events.RoomJoined]) => {
-      dispatch({ type: JOIN_ROOM, data });
+      dispatch(joinRoom(data));
     });
     return server.removeAllListeners;
   }, []);

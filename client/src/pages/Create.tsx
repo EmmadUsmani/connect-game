@@ -12,7 +12,7 @@ import {
   DefaultSettings,
   GameMaxNameLen,
 } from "@connect-game/shared";
-import { useGame } from "../context";
+import { useGame } from "../context/game";
 import { Name, Settings } from ".";
 
 const Create: React.FC = () => {
