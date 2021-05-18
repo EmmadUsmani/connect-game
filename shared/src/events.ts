@@ -11,7 +11,7 @@ export enum Events {
   StartGame = "StartGame",
   EndGame = "EndGame",
   PlacePiece = "PlacePiece",
-  LeaveRoom = "LeaveRoom",
+  LeaveRoom = "LeaveRoom", // TODO: create sepeparate PlayerLeft action for better naming
   ReassignHost = "ReassignHost",
 }
 

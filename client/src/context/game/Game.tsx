@@ -8,19 +8,21 @@ import {
   InitialGameState,
 } from "@connect-game/shared";
 import { gameReducer } from "./reducer";
-import { joinRoomAction, playerJoinedAction } from "./actions";
+import { joinRoomAction, leaveRoomAction, playerJoinedAction } from "./actions";
 import { server } from "../../services";
 
 interface GameCtxInterface {
   gameState: GameState;
   createRoom(settings: GameSettings, hostName: string): void;
   joinRoom(code: string, playerName: string): void;
+  leaveRoom(): void;
 }
 
 export const GameContext = createContext<GameCtxInterface>({
   gameState: InitialGameState,
   createRoom: (_, _2) => null,
   joinRoom: (_, _2) => null,
+  leaveRoom: () => null,
 });
 
 export const useGame = () => useContext(GameContext);
@@ -36,6 +38,10 @@ export const GameProvider: React.FC = ({ children }) => {
     server.joinRoom(code, playerName);
   };
 
+  const leaveRoom = (): void => {
+    server.leaveRoom(gameState.play.you.name);
+  };
+
   /* Register listeners */
   useEffect(() => {
     server.listen(Events.RoomJoined, (data: EventData[Events.RoomJoined]) => {
@@ -49,6 +55,10 @@ export const GameProvider: React.FC = ({ children }) => {
       }
     );
 
+    server.listen(Events.LeaveRoom, (data: EventData[Events.LeaveRoom]) => {
+      dispatch(leaveRoomAction(data));
+    });
+
     return server.removeAllListeners;
   }, []);
 
@@ -58,6 +68,7 @@ export const GameProvider: React.FC = ({ children }) => {
         gameState,
         createRoom,
         joinRoom,
+        leaveRoom,
       }}
     >
       {children}

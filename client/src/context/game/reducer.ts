@@ -3,8 +3,10 @@ import {
   Action,
   JOIN_ROOM,
   PLAYER_JOINED,
+  LEAVE_ROOM,
   JoinRoomAction,
   PlayerJoinedAction,
+  LeaveRoomAction,
 } from "./actions";
 
 export const gameReducer = (state: GameState, action: Action): GameState => {
@@ -33,6 +35,22 @@ export const gameReducer = (state: GameState, action: Action): GameState => {
         room: {
           ...state.room,
           players: [...state.room.players, playerJoinedData.player],
+        },
+      };
+
+    case LEAVE_ROOM:
+      const leaveRoomData = data as LeaveRoomAction["data"];
+      return {
+        room: {
+          ...state.room,
+          players: state.room.players.filter(
+            (player) => player.name !== leaveRoomData.playerName
+          ),
+        },
+        play: {
+          ...state.play,
+          currPlayerIdx:
+            state.play.currPlayerIdx % (state.room.players.length - 1),
         },
       };
 

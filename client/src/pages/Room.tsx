@@ -5,8 +5,8 @@ import { useGame } from "../context/game";
 import { usePreventBackNav } from "../hooks";
 
 const Room: React.FC = () => {
-  const { gameState } = useGame();
-  // usePreventBackNav(leaveRoom);
+  const { gameState, leaveRoom } = useGame();
+  usePreventBackNav(leaveRoom);
 
   // const handleStart = (): void => {
   //   if (gameState.you.isHost) startGame();
