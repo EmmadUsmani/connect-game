@@ -85,6 +85,7 @@ export function updateWinner(
   return undefined;
 }
 
+// TODO move these to sepearte file; create.ts / ui.ts
 /* Converts boardSize to str for use in Picker */
 export function boardSizeToStr(boardSize: GameSettings["boardSize"]) {
   return boardSize.join(",");
