@@ -8,17 +8,19 @@ import {
   InitialGameState,
 } from "@connect-game/shared";
 import { gameReducer } from "./reducer";
-import { joinRoom } from "./actions";
+import { joinRoomAction, playerJoinedAction } from "./actions";
 import { server } from "../../services";
 
 interface GameCtxInterface {
   gameState: GameState;
   createRoom(settings: GameSettings, hostName: string): void;
+  joinRoom(code: string, playerName: string): void;
 }
 
 export const GameContext = createContext<GameCtxInterface>({
   gameState: InitialGameState,
   createRoom: (_, _2) => null,
+  joinRoom: (_, _2) => null,
 });
 
 export const useGame = () => useContext(GameContext);
@@ -30,11 +32,23 @@ export const GameProvider: React.FC = ({ children }) => {
     server.createRoom(settings, hostName);
   };
 
+  const joinRoom = (code: string, playerName: string): void => {
+    server.joinRoom(code, playerName);
+  };
+
   /* Register listeners */
   useEffect(() => {
     server.listen(Events.RoomJoined, (data: EventData[Events.RoomJoined]) => {
-      dispatch(joinRoom(data));
+      dispatch(joinRoomAction(data));
     });
+
+    server.listen(
+      Events.PlayerJoined,
+      (data: EventData[Events.PlayerJoined]) => {
+        dispatch(playerJoinedAction(data));
+      }
+    );
+
     return server.removeAllListeners;
   }, []);
 
@@ -43,6 +57,7 @@ export const GameProvider: React.FC = ({ children }) => {
       value={{
         gameState,
         createRoom,
+        joinRoom,
       }}
     >
       {children}
