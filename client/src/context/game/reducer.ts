@@ -15,115 +15,154 @@ import {
   PlacePieceAction,
 } from "./actions";
 
-// TODO: seperate reducer into sepearte functions to allow for shared var names
+function joinRoomReducer(data: JoinRoomAction["data"]): GameState {
+  const {
+    room: { code, settings, players },
+    player,
+  } = data;
 
-export const gameReducer = (state: GameState, action: Action): GameState => {
+  return {
+    room: { code, settings, players, playing: false },
+    play: { ...InitialGameState.play, you: player },
+  };
+}
+
+function playerJoinedReducer(
+  state: GameState,
+  data: PlayerJoinedAction["data"]
+): GameState {
+  return {
+    ...state,
+    room: { ...state.room, players: [...state.room.players, data.player] },
+  };
+}
+
+function leaveRoomReducer(
+  state: GameState,
+  data: LeaveRoomAction["data"]
+): GameState {
+  const {
+    room: { players },
+    play: { currPlayerIdx },
+  } = state;
+
+  return {
+    room: {
+      ...state.room,
+      players: players.filter((player) => player.name !== data.playerName),
+    },
+    play: {
+      ...state.play,
+      currPlayerIdx: currPlayerIdx % (players.length - 1),
+    },
+  };
+}
+
+function reassignHostReducer(
+  state: GameState,
+  data: ReassignHostAction["data"]
+): GameState {
+  const {
+    room: { players },
+    play: { you },
+  } = state;
+
+  return {
+    room: {
+      ...state.room,
+      players: players.map((player) =>
+        player.name === data.playerName
+          ? { ...player, isHost: true }
+          : { ...player, isHost: false }
+      ),
+    },
+    play: {
+      ...state.play,
+      you: {
+        ...you,
+        isHost: you.name === data.playerName,
+      },
+    },
+  };
+}
+
+function startGameReducer(state: GameState): GameState {
+  const {
+    room: {
+      settings: { boardSize },
+    },
+    play: { you },
+  } = state;
+  const {
+    play: { currPlayerIdx, winner, lastCoord, numFilled },
+  } = InitialGameState;
+
+  return {
+    ...state,
+    play: {
+      board: createBoard(boardSize[0], boardSize[1]),
+      currPlayerIdx,
+      winner,
+      lastCoord,
+      numFilled,
+      you,
+    },
+  };
+}
+
+function placePieceReducer(
+  state: GameState,
+  data: PlacePieceAction["data"]
+): GameState {
+  const {
+    room: {
+      settings: { winCondition },
+      players,
+    },
+    play: { board, currPlayerIdx, numFilled, you },
+  } = state;
+  const { colNum, rowNum } = data;
+
+  const updatedBoard = updatePiece(
+    colNum,
+    rowNum,
+    board,
+    players[currPlayerIdx]
+  );
+  return {
+    ...state,
+    play: {
+      board: updatedBoard,
+      winner: updateWinner(
+        colNum,
+        rowNum,
+        updatedBoard,
+        numFilled + 1,
+        winCondition
+      ),
+      currPlayerIdx: (currPlayerIdx + 1) % players.length,
+      lastCoord: [colNum, rowNum],
+      numFilled: numFilled + 1,
+      you,
+    },
+  };
+}
+
+export function gameReducer(state: GameState, action: Action): GameState {
   switch (action.type) {
     case JOIN_ROOM:
-      const joinRoomData = action.data as JoinRoomAction["data"];
-      return {
-        room: {
-          code: joinRoomData.room.code,
-          settings: joinRoomData.room.settings,
-          players: joinRoomData.room.players,
-          playing: false,
-        },
-        play: {
-          ...InitialGameState.play,
-          you: joinRoomData.player,
-        },
-      };
-
+      return joinRoomReducer(action.data);
     case PLAYER_JOINED:
-      const playerJoinedData = action.data as PlayerJoinedAction["data"];
-      return {
-        ...state,
-        room: {
-          ...state.room,
-          players: [...state.room.players, playerJoinedData.player],
-        },
-      };
-
+      return playerJoinedReducer(state, action.data);
     case LEAVE_ROOM:
-      const leaveRoomData = action.data as LeaveRoomAction["data"];
-      return {
-        room: {
-          ...state.room,
-          players: state.room.players.filter(
-            (player) => player.name !== leaveRoomData.playerName
-          ),
-        },
-        play: {
-          ...state.play,
-          currPlayerIdx:
-            state.play.currPlayerIdx % (state.room.players.length - 1),
-        },
-      };
-
+      return leaveRoomReducer(state, action.data);
     case REASSIGN_HOST:
-      const reassignHostData = action.data as ReassignHostAction["data"];
-      return {
-        room: {
-          ...state.room,
-          players: state.room.players.map((player) =>
-            player.name === reassignHostData.playerName
-              ? { ...player, isHost: true }
-              : { ...player, isHost: false }
-          ),
-        },
-        play: {
-          ...state.play,
-          you: {
-            ...state.play.you,
-            isHost: state.play.you.name === reassignHostData.playerName,
-          },
-        },
-      };
-
+      return reassignHostReducer(state, action.data);
     case START_GAME:
-      return {
-        ...state,
-        play: {
-          board: createBoard(
-            state.room.settings.boardSize[0],
-            state.room.settings.boardSize[1]
-          ),
-          currPlayerIdx: InitialGameState.play.currPlayerIdx,
-          winner: InitialGameState.play.winner,
-          lastCoord: InitialGameState.play.lastCoord,
-          numFilled: InitialGameState.play.numFilled,
-          you: state.play.you,
-        },
-      };
-
+      return startGameReducer(state);
     case PLACE_PIECE:
-      const placePieceData = action.data as PlacePieceAction["data"];
-      const updatedBoard = updatePiece(
-        placePieceData.colNum,
-        placePieceData.rowNum,
-        state.play.board,
-        state.room.players[state.play.currPlayerIdx]
-      );
-      return {
-        ...state,
-        play: {
-          board: updatedBoard,
-          winner: updateWinner(
-            placePieceData.colNum,
-            placePieceData.rowNum,
-            updatedBoard,
-            state.play.numFilled + 1,
-            state.room.settings.winCondition
-          ),
-          currPlayerIdx:
-            (state.play.currPlayerIdx + 1) % state.room.players.length,
-          lastCoord: [placePieceData.colNum, placePieceData.rowNum],
-          numFilled: state.play.numFilled + 1,
-          you: state.play.you,
-        },
-      };
-
+      return placePieceReducer(state, action.data);
     default:
       return InitialGameState;
   }
-};
+}
