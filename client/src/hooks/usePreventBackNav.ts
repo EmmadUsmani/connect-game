@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
-const usePreventBackNav = (callback?: () => void): void => {
+export default function usePreventBackNav(callback?: () => void): void {
   const history = useHistory();
 
   useEffect(() => {
@@ -12,6 +12,4 @@ const usePreventBackNav = (callback?: () => void): void => {
       }
     });
   }, [callback, history]);
-};
-
-export default usePreventBackNav;
+}
