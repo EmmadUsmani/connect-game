@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 import { MaxNameLen } from "@connect-game/shared";
-import { useGame } from "../context/game";
+import { useGame } from "../context";
 import { Code, Name } from ".";
 
 const Join: React.FC = () => {

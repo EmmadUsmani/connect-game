@@ -29,7 +29,7 @@ interface GameCtxInterface {
   placePiece(colNum: number): void;
 }
 
-export const GameContext = createContext<GameCtxInterface>({
+const GameContext = createContext<GameCtxInterface>({
   gameState: InitialGameState,
   createRoom: (_, _2) => null,
   joinRoom: (_, _2) => null,
@@ -90,6 +90,7 @@ export const GameProvider: React.FC = ({ children }) => {
     dispatch(placePieceAction({ colNum, rowNum }));
   };
 
+  // TODO: error event listeners (do with error msg ui)
   /* Register listeners */
   useEffect(() => {
     server.listen(Events.RoomJoined, (data: EventData[Events.RoomJoined]) => {
