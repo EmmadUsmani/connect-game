@@ -24,8 +24,6 @@ const Play: React.FC = () => {
     if (you.isHost) endGame();
   };
 
-  console.log(theme.sizes.game.piece);
-
   return players.length !== 0 ? (
     <Page>
       <Header currPlayer={players[currPlayerIdx]} you={you} winner={winner} />

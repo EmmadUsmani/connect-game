@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { DefaultTheme, ThemeContext, ThemeProvider } from "styled-components";
 import { useDimensions } from "../hooks";
 import { useGame } from ".";
@@ -50,7 +50,7 @@ export const AppThemeProvider: React.FC = ({ children }) => {
     },
   } = useGame();
 
-  const theme = defaultTheme;
+  const [theme, setTheme] = useState<DefaultTheme>(defaultTheme);
 
   useEffect(() => {
     const margin = 200;
@@ -58,9 +58,13 @@ export const AppThemeProvider: React.FC = ({ children }) => {
     // board width = piece size * (2 * numcols - 1) + margin
     const pieceSizeW = (width - margin) / (2 * columns - 1);
     const pieceSizeH = (height - margin) / (2 * rows - 1);
+    const pieceSize = Math.floor(Math.min(pieceSizeH, pieceSizeW, 65));
 
-    theme.sizes.game.piece = Math.floor(Math.min(pieceSizeH, pieceSizeW, 65));
-  }, [width, height, columns, rows, theme.sizes.game]);
+    setTheme((theme) => ({
+      ...theme,
+      sizes: { ...theme.sizes, game: { piece: pieceSize } },
+    }));
+  }, [width, height, columns, rows]);
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
