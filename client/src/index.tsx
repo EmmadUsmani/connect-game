@@ -22,12 +22,12 @@ const GlobalStyle = createGlobalStyle`
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <AppThemeProvider>
-        <GlobalStyle />
-        <GameProvider>
+      <GameProvider>
+        <AppThemeProvider>
+          <GlobalStyle />
           <App />
-        </GameProvider>
-      </AppThemeProvider>
+        </AppThemeProvider>
+      </GameProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

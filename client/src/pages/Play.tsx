@@ -1,16 +1,18 @@
 import React from "react";
 
-import { useGame } from "../context";
+import { useGame, useTheme } from "../context";
 import { usePreventBackNav } from "../hooks";
 import { Button, Page } from "../components";
 import { Board, Header } from "../components/play";
 
 const Play: React.FC = () => {
   const { gameState, leaveRoom, placePiece, endGame } = useGame();
-  usePreventBackNav(leaveRoom);
-
   const { board, currPlayerIdx, winner, you } = gameState.play;
   const { players } = gameState.room;
+
+  const theme = useTheme();
+
+  usePreventBackNav(leaveRoom);
 
   const handleColumnClick = (colNum: number): void => {
     placePiece(colNum);
@@ -29,7 +31,7 @@ const Play: React.FC = () => {
         clickable={
           winner === undefined && players[currPlayerIdx].name === you.name
         }
-        pieceSize={60}
+        pieceSize={theme.sizes.game.piece.size}
       />
       {winner !== undefined && you.isHost ? (
         <Button onClick={handleBackClick} style={{ marginTop: 20 }}>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+// TODO: remove this export?
 export interface Dimensions {
   width: number;
   height: number;

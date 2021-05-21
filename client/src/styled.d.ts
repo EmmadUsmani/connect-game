@@ -22,10 +22,9 @@ declare module "styled-components" {
         extraSmall: number; // label
       };
       game: {
-        pieces: {
-          large: number;
-          medium: number;
-          small: number;
+        piece: {
+          sizes: number[];
+          size: number; // chosen value
         };
       };
       button: number; // width
