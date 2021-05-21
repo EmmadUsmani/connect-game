@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Input = styled.input`
   margin-bottom: 20px;
-  width: 400px;
+  width: ${(props) => props.theme.sizes.button}px;
   height: 75px;
   box-sizing: border-box;
   text-align: center;

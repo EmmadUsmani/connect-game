@@ -11,7 +11,7 @@ const Button = styled.div<ButtonProps>`
   justify-content: center;
   margin: 0px auto 20px;
   cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
-  width: 400px;
+  width: ${(props) => props.theme.sizes.button}px;
   height: 75px;
   background-color: ${(props) =>
     props.color ? props.color : props.theme.colors.primary};

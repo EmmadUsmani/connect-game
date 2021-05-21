@@ -11,7 +11,7 @@ const StyledSelect = styled.select`
   -moz-appearance: none; // first 2 lines hide dropdown arrow
   -webkit-appearance: none;
   margin-bottom: 20px;
-  width: 400px;
+  width: ${(props) => props.theme.sizes.button}px;
   height: 75px;
   cursor: pointer;
   text-align-last: center;
