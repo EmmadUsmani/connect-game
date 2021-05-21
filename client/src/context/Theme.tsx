@@ -52,6 +52,29 @@ export const AppThemeProvider: React.FC = ({ children }) => {
 
   const [theme, setTheme] = useState<DefaultTheme>(defaultTheme);
 
+  // Scale elements on small screens
+  useEffect(() => {
+    if (width <= 550) {
+      setTheme((theme) => ({
+        ...theme,
+        sizes: {
+          ...theme.sizes,
+          text: {
+            extraLarge: 64,
+            large: 48,
+            medium: 36,
+            small: 30,
+            extraSmall: 24,
+          },
+          button: 300,
+        },
+      }));
+    } else {
+      setTheme(defaultTheme);
+    }
+  }, [width]);
+
+  // Scale piece size
   useEffect(() => {
     const margin = 200;
 
