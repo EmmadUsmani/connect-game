@@ -76,11 +76,12 @@ export const AppThemeProvider: React.FC = ({ children }) => {
 
   // Scale piece size
   useEffect(() => {
-    const margin = 200;
+    const marginW = 200;
+    const marginH = 250;
 
     // board width = piece size * (2 * numcols - 1) + margin
-    const pieceSizeW = (width - margin) / (2 * columns - 1);
-    const pieceSizeH = (height - margin) / (2 * rows - 1);
+    const pieceSizeW = (width - marginW) / (2 * columns - 1);
+    const pieceSizeH = (height - marginH) / (2 * rows - 1);
     const pieceSize = Math.floor(Math.min(pieceSizeH, pieceSizeW, 65));
 
     setTheme((theme) => ({
