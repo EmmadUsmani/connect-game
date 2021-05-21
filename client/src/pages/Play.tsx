@@ -5,6 +5,8 @@ import { usePreventBackNav } from "../hooks";
 import { Button, Page } from "../components";
 import { Board, Header } from "../components/play";
 
+// TODO: fix back to lobby button scroll (perhaps make hidden)
+
 const Play: React.FC = () => {
   const { gameState, leaveRoom, placePiece, endGame } = useGame();
   const { board, currPlayerIdx, winner, you } = gameState.play;
@@ -22,6 +24,8 @@ const Play: React.FC = () => {
     if (you.isHost) endGame();
   };
 
+  console.log(theme.sizes.game.piece);
+
   return players.length !== 0 ? (
     <Page>
       <Header currPlayer={players[currPlayerIdx]} you={you} winner={winner} />
@@ -31,7 +35,7 @@ const Play: React.FC = () => {
         clickable={
           winner === undefined && players[currPlayerIdx].name === you.name
         }
-        pieceSize={theme.sizes.game.piece.size}
+        pieceSize={theme.sizes.game.piece}
       />
       {winner !== undefined && you.isHost ? (
         <Button onClick={handleBackClick} style={{ marginTop: 20 }}>

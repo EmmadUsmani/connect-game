@@ -27,10 +27,7 @@ const defaultTheme: DefaultTheme = {
       extraSmall: 30,
     },
     game: {
-      piece: {
-        sizes: [70, 60, 45, 30, 20],
-        size: 70,
-      },
+      piece: 70,
     },
     button: 400,
   },
@@ -56,22 +53,14 @@ export const AppThemeProvider: React.FC = ({ children }) => {
   const theme = defaultTheme;
 
   useEffect(() => {
-    const epsilon = 100;
-    const sizes = theme.sizes.game.piece.sizes;
+    const margin = 200;
 
-    // if window width < board width + epsilon, choose a smaller piece size
-    let i = 0;
-    while (
-      width < sizes[i] * (2 * columns - 1) + epsilon &&
-      i < sizes.length - 1
-    )
-      i++;
+    // board width = piece size * (2 * numcols - 1) + margin
+    const pieceSizeW = (width - margin) / (2 * columns - 1);
+    const pieceSizeH = (height - margin) / (2 * rows - 1);
 
-    while (height < sizes[i] * (2 * rows - 1) + epsilon && i < sizes.length - 1)
-      i++;
-
-    theme.sizes.game.piece.size = sizes[i];
-  }, [width, height, columns, rows]);
+    theme.sizes.game.piece = Math.floor(Math.min(pieceSizeH, pieceSizeW, 65));
+  }, [width, height, columns, rows, theme.sizes.game]);
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
