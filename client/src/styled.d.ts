@@ -24,7 +24,10 @@ declare module "styled-components" {
       game: {
         piece: number;
       };
-      button: number; // width
+      button: {
+        width: number;
+        height: number;
+      };
     };
     fonts: {
       primary: string;

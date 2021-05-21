@@ -29,7 +29,10 @@ const defaultTheme: DefaultTheme = {
     game: {
       piece: 70,
     },
-    button: 400,
+    button: {
+      width: 400,
+      height: 75,
+    },
   },
   fonts: {
     primary: "Quicksand",
@@ -61,12 +64,15 @@ export const AppThemeProvider: React.FC = ({ children }) => {
           ...theme.sizes,
           text: {
             extraLarge: 64,
-            large: 48,
+            large: 42,
             medium: 36,
             small: 30,
             extraSmall: 24,
           },
-          button: 300,
+          button: {
+            width: 300,
+            height: 50,
+          },
         },
       }));
     } else {
@@ -76,7 +82,7 @@ export const AppThemeProvider: React.FC = ({ children }) => {
 
   // Scale piece size
   useEffect(() => {
-    const marginW = 200;
+    const marginW = width <= 550 ? 100 : 200;
     const marginH = 250;
 
     // board width = piece size * (2 * numcols - 1) + margin
