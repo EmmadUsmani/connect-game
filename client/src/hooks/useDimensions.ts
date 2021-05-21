@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
-// TODO: remove this export?
-export interface Dimensions {
+interface Dimensions {
   width: number;
   height: number;
 }
@@ -23,3 +22,7 @@ export default function useDimensions(): Dimensions {
 
   return dimensions;
 }
+
+/* Hook inspired by QoP's StackOverflow answer:
+https://stackoverflow.com/a/36862446
+*/
