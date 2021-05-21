@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { colors, fonts } from "../config";
-
 const Input = styled.input`
   margin-bottom: 20px;
   width: 400px;
@@ -10,11 +8,11 @@ const Input = styled.input`
   text-align: center;
   outline: none;
   border-style: solid;
-  border-color: ${colors.primary};
-  background-color: ${colors.secondary};
-  color: ${colors.text.primary};
-  font-family: ${fonts.primary};
-  font-size: ${fonts.sizes.small}px;
+  border-color: ${(props) => props.theme.colors.primary};
+  background-color: ${(props) => props.theme.colors.secondary};
+  color: ${(props) => props.theme.colors.text.primary};
+  font-family: ${(props) => props.theme.fonts.primary};
+  font-size: ${(props) => props.theme.sizes.text.small}px;
 `;
 
 export default Input;

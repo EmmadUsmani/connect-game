@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { GamePlayer, GameWinner } from "@connect-game/shared";
 import { Text } from "..";
-import { fonts } from "../../config";
+import { useTheme } from "../../context";
 
 interface HeaderProps {
   currPlayer: GamePlayer;
@@ -20,6 +20,8 @@ const StyledSpan = styled.span`
 `;
 
 const Header: React.FC<HeaderProps> = ({ currPlayer, you, winner }) => {
+  const theme = useTheme();
+
   const yourTurn = currPlayer.name === you.name;
   const youWon = winner && winner.name === you.name;
   let message: React.ReactNode;
@@ -53,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ currPlayer, you, winner }) => {
       break;
   }
 
-  return <StyledText size={fonts.sizes.large}>{message}</StyledText>;
+  return <StyledText size={theme.sizes.text.large}>{message}</StyledText>;
 };
 
 export default Header;

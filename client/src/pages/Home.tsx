@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 
 import { Text, Button, Page, Link } from "../components";
-import { fonts } from "../config";
 import { usePreventBackNav } from "../hooks";
+import { useTheme } from "../context";
 
 interface HomeProps {
   onLoad(): void;
@@ -13,9 +13,11 @@ const Home: React.FC<HomeProps> = ({ onLoad }) => {
 
   usePreventBackNav();
 
+  const theme = useTheme();
+
   return (
     <Page>
-      <Text size={fonts.sizes.extraLarge} style={{ marginBottom: 60 }}>
+      <Text size={theme.sizes.text.extraLarge} style={{ marginBottom: 60 }}>
         Connect
       </Text>
       <Link to="/create/name">

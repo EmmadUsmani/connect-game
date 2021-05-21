@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { colors, fonts } from "../config";
-
 interface ButtonProps {
   color?: string;
   disabled?: boolean;
@@ -15,10 +13,11 @@ const Button = styled.div<ButtonProps>`
   cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
   width: 400px;
   height: 75px;
-  background-color: ${(props) => (props.color ? props.color : colors.primary)};
-  color: ${colors.text.secondary};
+  background-color: ${(props) =>
+    props.color ? props.color : props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.text.secondary};
   opacity: ${(props) => (props.disabled && !props.color ? "50%" : "100%")};
-  font-size: ${fonts.sizes.small}px;
+  font-size: ${(props) => props.theme.sizes.text.small}px;
 `;
 
 export default Button;

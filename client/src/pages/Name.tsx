@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Page, Text, Input, Button } from "../components";
-import { fonts } from "../config";
+import { useTheme } from "../context";
 
 interface NameProps {
   value: string;
@@ -10,9 +10,11 @@ interface NameProps {
 }
 
 const Name: React.FC<NameProps> = ({ value, onChange, onSubmit }) => {
+  const theme = useTheme();
+
   return (
     <Page>
-      <Text size={fonts.sizes.large} style={{ marginBottom: 60 }}>
+      <Text size={theme.sizes.text.large} style={{ marginBottom: 60 }}>
         Enter your name
       </Text>
       <Input type="text" value={value} onChange={onChange} />

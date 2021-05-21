@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 import { GameColor } from "@connect-game/shared";
-import { colors } from "../../config";
 
 interface PieceProps {
   size: number;
@@ -22,7 +21,8 @@ const StyledDiv = styled.div<StyledDivProps>`
   height: ${(props) => props.size}px;
   margin: ${(props) => props.size / 2}px 0px;
   background-color: ${(props) => props.color};
-  border-color: ${(props) => (props.color ? "transparent" : colors.game.piece)};
+  border-color: ${(props) =>
+    props.color ? "transparent" : props.theme.colors.game.piece};
 `;
 
 const Piece: React.FC<PieceProps> = ({ size, color }) => {
