@@ -1,51 +1,18 @@
 import React, { useContext, useState, useEffect } from "react";
 import { DefaultTheme, ThemeContext, ThemeProvider } from "styled-components";
+
 import { useDimensions } from "../hooks";
 import { useGame } from ".";
+import { defaultTheme, smallTheme } from "../config";
 
 /* Uses styled-components theme context:
 https://styled-components.com/docs/advanced#theming */
-
-/* TODO: refactor and improve code, should move theme obj
-to another file and keep logic here */
-
-const defaultTheme: DefaultTheme = {
-  colors: {
-    primary: "#626262", // dark grey
-    secondary: "#F6F6F6", // light grey
-    text: {
-      primary: "#626262", // dark grey
-      secondary: "#FFFFFF", // white
-    },
-    game: {
-      piece: "#B6B6B6", // medium grey
-    },
-  },
-  sizes: {
-    text: {
-      extraLarge: 72,
-      large: 64,
-      medium: 48,
-      small: 36,
-      extraSmall: 30,
-    },
-    game: {
-      piece: 70,
-    },
-    button: {
-      width: 400,
-      height: 75,
-    },
-  },
-  fonts: {
-    primary: "Quicksand",
-  },
-};
 
 export const useTheme = () => useContext(ThemeContext);
 
 export const AppThemeProvider: React.FC = ({ children }) => {
   const { width, height } = useDimensions();
+
   const {
     gameState: {
       room: {
@@ -57,27 +24,16 @@ export const AppThemeProvider: React.FC = ({ children }) => {
   } = useGame();
 
   const [theme, setTheme] = useState<DefaultTheme>(defaultTheme);
+  const {
+    sizes: {
+      page: { marginHorizontal, marginVertical },
+    },
+  } = theme;
 
-  // Scale elements on small screens
+  // Set theme based on screen size
   useEffect(() => {
     if (width <= 550) {
-      setTheme((theme) => ({
-        ...theme,
-        sizes: {
-          ...theme.sizes,
-          text: {
-            extraLarge: 64,
-            large: 42,
-            medium: 36,
-            small: 30,
-            extraSmall: 24,
-          },
-          button: {
-            width: 300,
-            height: 50,
-          },
-        },
-      }));
+      setTheme(smallTheme);
     } else {
       setTheme(defaultTheme);
     }
@@ -85,12 +41,9 @@ export const AppThemeProvider: React.FC = ({ children }) => {
 
   // Scale piece size
   useEffect(() => {
-    const marginW = width <= 550 ? 100 : 200;
-    const marginH = 250;
-
     // board width = piece size * (2 * numcols - 1) + margin
-    const pieceSizeW = (width - marginW) / (2 * columns - 1);
-    const pieceSizeH = (height - marginH) / (2 * rows - 1);
+    const pieceSizeW = (width - marginHorizontal) / (2 * columns - 1);
+    const pieceSizeH = (height - marginVertical) / (2 * rows - 1);
     const pieceSize = Math.floor(Math.min(pieceSizeH, pieceSizeW, 65));
 
     setTheme((theme) => ({

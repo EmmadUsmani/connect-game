@@ -12,7 +12,7 @@ interface HeaderProps {
 }
 
 const StyledText = styled(Text)`
-  margin-bottom: 7vh;
+  margin-bottom: 5vh;
 `;
 
 const StyledSpan = styled.span`

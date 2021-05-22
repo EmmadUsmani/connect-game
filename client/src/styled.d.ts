@@ -21,6 +21,10 @@ declare module "styled-components" {
         small: number; // button & input text
         extraSmall: number; // label
       };
+      page: {
+        marginHorizontal: number;
+        marginVertical: number;
+      };
       game: {
         piece: number;
       };
