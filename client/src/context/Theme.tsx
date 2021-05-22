@@ -6,6 +6,9 @@ import { useGame } from ".";
 /* Uses styled-components theme context:
 https://styled-components.com/docs/advanced#theming */
 
+/* TODO: refactor and improve code, should move theme obj
+to another file and keep logic here */
+
 const defaultTheme: DefaultTheme = {
   colors: {
     primary: "#626262", // dark grey

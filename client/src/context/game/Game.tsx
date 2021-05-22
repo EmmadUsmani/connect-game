@@ -55,7 +55,6 @@ export const GameProvider: React.FC = ({ children }) => {
 
   const leaveRoom = (): void => {
     server.leaveRoom();
-    // TODO: clear state when leaving room to prevent flash of old room when joining again
   };
 
   const startGame = (): void => {
@@ -90,7 +89,6 @@ export const GameProvider: React.FC = ({ children }) => {
     dispatch(placePieceAction({ colNum, rowNum }));
   };
 
-  // TODO: error event listeners (do with error msg ui)
   /* Register listeners */
   useEffect(() => {
     server.listen(Events.RoomJoined, (data: EventData[Events.RoomJoined]) => {
@@ -126,6 +124,19 @@ export const GameProvider: React.FC = ({ children }) => {
 
     server.listen(Events.EndGame, () => {
       history.push("/room");
+    });
+
+    // Error events
+    server.listen(Events.RoomNotFound, () => {
+      history.push("/");
+    });
+
+    server.listen(Events.NameTaken, () => {
+      history.push("/");
+    });
+
+    server.listen(Events.InProgress, () => {
+      history.push("/");
     });
 
     return server.removeAllListeners;

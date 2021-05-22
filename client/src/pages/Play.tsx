@@ -5,8 +5,6 @@ import { usePreventBackNav } from "../hooks";
 import { Button, Page } from "../components";
 import { Board, Header } from "../components/play";
 
-// TODO: fix back to lobby button scroll (perhaps make hidden)
-
 const Play: React.FC = () => {
   const { gameState, leaveRoom, placePiece, endGame } = useGame();
   const { board, currPlayerIdx, winner, you } = gameState.play;
