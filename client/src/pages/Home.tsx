@@ -1,31 +1,20 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useHistory } from "react-router";
 
-import { Text, Button, Page, Link } from "../components";
-import { usePreventBackNav } from "../hooks";
+import { Text, Button, Page } from "../components";
 import { useTheme } from "../context";
 
-interface HomeProps {
-  onLoad(): void;
-}
-
-const Home: React.FC<HomeProps> = ({ onLoad }) => {
-  useEffect(onLoad, [onLoad]);
-
-  usePreventBackNav();
-
+const Home: React.FC = () => {
   const theme = useTheme();
+  const history = useHistory();
 
   return (
     <Page>
       <Text size={theme.sizes.text.extraLarge} style={{ marginBottom: 60 }}>
         Connect
       </Text>
-      <Link to="/create/name">
-        <Button>Create Game</Button>
-      </Link>
-      <Link to="/join/name">
-        <Button>Join Game</Button>
-      </Link>
+      <Button onClick={() => history.push("/create/name")}>Create Game</Button>
+      <Button onClick={() => history.push("/join/name")}>Join Game</Button>
     </Page>
   );
 };

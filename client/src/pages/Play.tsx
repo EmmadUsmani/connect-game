@@ -1,7 +1,6 @@
 import React from "react";
 
 import { useGame, useTheme } from "../context";
-import { usePreventBackNav } from "../hooks";
 import { Button, Page } from "../components";
 import { Board, Header } from "../components/play";
 
@@ -11,8 +10,6 @@ const Play: React.FC = () => {
   const { players } = gameState.room;
 
   const theme = useTheme();
-
-  usePreventBackNav(leaveRoom);
 
   const handleColumnClick = (colNum: number): void => {
     placePiece(colNum);

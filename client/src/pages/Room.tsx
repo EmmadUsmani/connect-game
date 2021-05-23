@@ -2,11 +2,9 @@ import React from "react";
 
 import { Page, Label, Input, Button } from "../components";
 import { useGame } from "../context";
-import { usePreventBackNav } from "../hooks";
 
 const Room: React.FC = () => {
   const { gameState, leaveRoom, startGame } = useGame();
-  usePreventBackNav(leaveRoom);
 
   const handleStart = (): void => {
     if (gameState.play.you.isHost) startGame();
