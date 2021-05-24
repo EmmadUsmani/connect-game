@@ -19,7 +19,7 @@ const Code: React.FC<CodeProps> = ({ value, onChange, onSubmit }) => {
       <Text size={theme.sizes.text.large} style={{ marginBottom: 60 }}>
         Enter room code
       </Text>
-      <Input type="text" value={value} onChange={onChange} />
+      <Input type="text" value={value} onChange={onChange} autoFocus={true} />
       <Button onClick={onSubmit} disabled={!value}>
         Continue
       </Button>
