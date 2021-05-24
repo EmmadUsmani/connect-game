@@ -2,6 +2,7 @@ import React from "react";
 
 import { Page, Text, Input, Button } from "../components";
 import { useTheme } from "../context";
+import { useOnKeyDown } from "../hooks";
 
 interface NameProps {
   value: string;
@@ -11,6 +12,7 @@ interface NameProps {
 
 const Name: React.FC<NameProps> = ({ value, onChange, onSubmit }) => {
   const theme = useTheme();
+  useOnKeyDown("Enter", onSubmit);
 
   return (
     <Page>

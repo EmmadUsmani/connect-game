@@ -2,6 +2,7 @@ import React from "react";
 
 import { GameSettings, Options } from "@connect-game/shared";
 import { Page, Label, Picker, Button } from "../components";
+import { useOnKeyDown } from "../hooks";
 import { boardSizeToStr, strToBoardSize } from "../utils";
 
 interface SettingsProps {
@@ -15,6 +16,8 @@ const Settings: React.FC<SettingsProps> = ({
   onChange,
   onSubmit,
 }) => {
+  useOnKeyDown("Enter", onSubmit);
+
   return (
     <Page>
       <Label>Board size</Label>
@@ -36,7 +39,10 @@ const Settings: React.FC<SettingsProps> = ({
         value={settings.winCondition}
         options={Options.winConditions}
         onChange={(event) =>
-          onChange({ ...settings, winCondition: parseInt(event.target.value) })
+          onChange({
+            ...settings,
+            winCondition: parseInt(event.target.value),
+          })
         }
       />
       {/* <Label>Turn timer</Label>

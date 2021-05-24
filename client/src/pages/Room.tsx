@@ -2,13 +2,16 @@ import React from "react";
 
 import { Page, Label, Input, Button } from "../components";
 import { useGame } from "../context";
+import { useOnKeyDown } from "../hooks";
 
 const Room: React.FC = () => {
-  const { gameState, leaveRoom, startGame } = useGame();
+  const { gameState, startGame } = useGame();
 
   const handleStart = (): void => {
     if (gameState.play.you.isHost) startGame();
   };
+
+  useOnKeyDown("Enter", handleStart);
 
   return (
     <Page>
