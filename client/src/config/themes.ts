@@ -4,6 +4,8 @@ export const defaultTheme: DefaultTheme = {
   colors: {
     primary: "#626262", // dark grey
     secondary: "#F6F6F6", // light grey
+    white: "#FFFFFF",
+    negative: "#913030", // dark red
     text: {
       primary: "#626262", // dark grey
       secondary: "#FFFFFF", // white
