@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 
-import { Home, Create, Join, Room, Play } from "./pages";
+import { Home, Create, Join, Room, Play, Menu } from "./pages";
 
 const App: React.FC = () => {
   // Manually remove path since MemoryRouter doesn't update URL
@@ -10,23 +10,26 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <Switch>
-      <Route path="/create">
-        <Create />
-      </Route>
-      <Route path="/join">
-        <Join />
-      </Route>
-      <Route path="/room">
-        <Room />
-      </Route>
-      <Route path="/play">
-        <Play />
-      </Route>
-      <Route path="/">
-        <Home />
-      </Route>
-    </Switch>
+    <>
+      <Switch>
+        <Route path="/create">
+          <Create />
+        </Route>
+        <Route path="/join">
+          <Join />
+        </Route>
+        <Route path="/room">
+          <Room />
+        </Route>
+        <Route path="/play">
+          <Play />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+      <Menu />
+    </>
   );
 };
 

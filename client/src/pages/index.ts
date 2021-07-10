@@ -6,3 +6,4 @@ export { default as Room } from "./Room";
 export { default as Create } from "./Create";
 export { default as Join } from "./Join";
 export { default as Code } from "./Code";
+export { default as Menu } from "./Menu";

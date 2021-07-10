@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 
 import App from "./App";
-import { AppThemeProvider, GameProvider } from "./context";
+import { AppThemeProvider, GameProvider, OptionsProvider } from "./context";
 
 const GlobalStyle = createGlobalStyle`
   html, body, #root {
@@ -22,12 +22,14 @@ const GlobalStyle = createGlobalStyle`
 ReactDOM.render(
   <React.StrictMode>
     <MemoryRouter>
-      <GameProvider>
-        <AppThemeProvider>
-          <GlobalStyle />
-          <App />
-        </AppThemeProvider>
-      </GameProvider>
+      <OptionsProvider>
+        <GameProvider>
+          <AppThemeProvider>
+            <GlobalStyle />
+            <App />
+          </AppThemeProvider>
+        </GameProvider>
+      </OptionsProvider>
     </MemoryRouter>
   </React.StrictMode>,
   document.getElementById("root")
