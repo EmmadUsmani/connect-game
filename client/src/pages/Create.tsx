@@ -32,7 +32,6 @@ const Create: React.FC = () => {
   };
 
   const handleNameSubmit = (): void => {
-    if (!name) return;
     history.push(`${match.path}/settings`);
   };
 

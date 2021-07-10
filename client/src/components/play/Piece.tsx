@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import { GameColor } from "@connect-game/shared";
 
+// TODO: understand why we need separate Piece and StyledDiv
+
 interface PieceProps {
   size: number;
   color?: GameColor;
