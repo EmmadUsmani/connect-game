@@ -1,7 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router";
 
-import { Text, Button, Page } from "../components";
+import { Text, Button } from "../components";
+import { Page } from "../components/layouts";
 import { useTheme } from "../context";
 
 const Home: React.FC = () => {

@@ -1,7 +1,8 @@
 import React from "react";
 
 import { GameSettings, Options } from "@connect-game/shared";
-import { Page, Label, Picker, Button } from "../components";
+import { Label, Picker, Button } from "../components";
+import { Page } from "../components/layouts";
 import { useOnKeyDown } from "../hooks";
 import { boardSizeToStr, strToBoardSize } from "../utils";
 

@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Page, Label, Input, Button } from "../components";
+import { Label, Input, Button } from "../components";
+import { Page } from "../components/layouts";
 import { useGame } from "../context";
 import { useOnKeyDown } from "../hooks";
 

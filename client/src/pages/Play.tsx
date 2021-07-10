@@ -1,7 +1,8 @@
 import React from "react";
 
 import { useGame, useTheme } from "../context";
-import { Button, Page } from "../components";
+import { Button } from "../components";
+import { Page } from "../components/layouts";
 import { Board, Header } from "../components/play";
 
 const Play: React.FC = () => {
