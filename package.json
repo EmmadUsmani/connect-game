@@ -8,9 +8,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "node server/build/index.js",
-    "build": "yarn workspaces foreach -t run build",
-    "develop": "yarn workspaces foreach -vpi --exclude connect-game run start"
+    "dev": "yarn workspaces foreach -vpi --exclude connect-game run start",
+    "clean": "rm -rf shared/build shared/tsconfig.tsbuildinfo server/build client/build",
+    "build": "yarn clean && yarn workspace @connect-game/shared build && yarn workspace @connect-game/server build && yarn workspace @connect-game/client build ",
+    "start": "NODE_ENV=production yarn build && node server/build/index.js"
   },
   "workspaces": [
     "client",
