@@ -50,7 +50,7 @@ export const AppThemeProvider: React.FC = ({ children }) => {
       ...theme,
       sizes: { ...theme.sizes, game: { piece: pieceSize } },
     }));
-  }, [width, height, columns, rows]);
+  }, [width, height, columns, rows, marginHorizontal, marginVertical]);
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
