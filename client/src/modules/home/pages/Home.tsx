@@ -1,11 +1,10 @@
-import React from "react";
 import { useHistory } from "react-router";
 
-import { Text, Button } from "../components";
-import { Page } from "../components/layouts";
-import { useTheme } from "../context";
+import { Text, Button } from "components";
+import { Page } from "components/layouts";
+import { useTheme } from "context";
 
-const Home: React.FC = () => {
+export function Home() {
   const theme = useTheme();
   const history = useHistory();
 
@@ -18,6 +17,4 @@ const Home: React.FC = () => {
       <Button onClick={() => history.push("/join/name")}>Join Game</Button>
     </Page>
   );
-};
-
-export default Home;
+}

@@ -10,11 +10,11 @@ export function Play() {
 
   const theme = useTheme();
 
-  const handleColumnClick = (colNum: number): void => {
+  const handleColumnClick = (colNum: number) => {
     placePiece(colNum);
   };
 
-  const handleBackClick = (): void => {
+  const handleBackClick = () => {
     if (you.isHost) endGame();
   };
 

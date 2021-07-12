@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
-import { Modal } from "../components/layouts";
-import { Button, Toggle } from "../components";
-import { useOptions } from "../context";
-import { useOnKeyDown } from "../hooks";
+import { Modal } from "components/layouts";
+import { Button, Toggle } from "components";
+import { useOptions } from "context";
+import { useOnKeyDown } from "hooks";
 
 function getLeaveMessage(pathName: string): string | null {
   switch (pathName) {
@@ -22,7 +22,7 @@ function getLeaveMessage(pathName: string): string | null {
   }
 }
 
-const Menu: React.FC = () => {
+export function Menu() {
   const { soundsOn, animationsOn, toggleSounds, toggleAnimations } =
     useOptions();
   const history = useHistory();
@@ -32,7 +32,7 @@ const Menu: React.FC = () => {
   const toggleModal = () => setShowModal((showModal) => !showModal);
   useOnKeyDown("Escape", toggleModal);
 
-  const handleLeave = (): void => {
+  const handleLeave = () => {
     history.push("/");
     toggleModal();
   };
@@ -57,6 +57,4 @@ const Menu: React.FC = () => {
   ) : (
     <></>
   );
-};
-
-export default Menu;
+}

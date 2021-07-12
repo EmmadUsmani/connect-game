@@ -33,7 +33,7 @@ export function Board({
   clickable,
   pieceSize,
 }: BoardProps) {
-  const handleClick = (colNum: number): void => {
+  const handleClick = (colNum: number) => {
     if (!clickable) return;
     handleColumnClick(colNum);
   };

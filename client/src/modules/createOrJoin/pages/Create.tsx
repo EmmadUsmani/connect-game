@@ -23,23 +23,21 @@ export function Create() {
   const [name, setName] = useState<string>("");
   const [settings, setSettings] = useState<GameSettings>(DefaultSettings);
 
-  const handleNameChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newName = event.target.value;
     if (newName.length > MaxNameLen) return;
     setName(newName);
   };
 
-  const handleNameSubmit = (): void => {
+  const handleNameSubmit = () => {
     history.push(`${match.path}/settings`);
   };
 
-  const handleSettingsChange = (newSettings: GameSettings): void => {
+  const handleSettingsChange = (newSettings: GameSettings) => {
     setSettings(newSettings);
   };
 
-  const handleSettingsSubmit = (): void => {
+  const handleSettingsSubmit = () => {
     createRoom(settings, name);
     history.push("/room");
   };

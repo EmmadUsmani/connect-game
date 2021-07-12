@@ -1,14 +1,12 @@
-import React from "react";
+import { Label, Input, Button } from "components";
+import { Page } from "components/layouts";
+import { useGame } from "context";
+import { useOnKeyDown } from "hooks";
 
-import { Label, Input, Button } from "../components";
-import { Page } from "../components/layouts";
-import { useGame } from "../context";
-import { useOnKeyDown } from "../hooks";
-
-const Room: React.FC = () => {
+export function Room() {
   const { gameState, startGame } = useGame();
 
-  const handleStart = (): void => {
+  const handleStart = () => {
     if (gameState.play.you.isHost) startGame();
   };
 
@@ -36,6 +34,4 @@ const Room: React.FC = () => {
       {/* <Button>Copy Link</Button> */}
     </Page>
   );
-};
-
-export default Room;
+}
