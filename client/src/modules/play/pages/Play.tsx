@@ -1,12 +1,10 @@
-import React from "react";
+import { useGame, useTheme } from "context";
+import { Button } from "components";
+import { Page } from "components/layouts";
+import { Board, Header } from "../components";
 
-import { useGame, useTheme } from "../context";
-import { Button } from "../components";
-import { Page } from "../components/layouts";
-import { Board, Header } from "../components/play";
-
-const Play: React.FC = () => {
-  const { gameState, leaveRoom, placePiece, endGame } = useGame();
+export function Play() {
+  const { gameState, placePiece, endGame } = useGame();
   const { board, currPlayerIdx, winner, you } = gameState.play;
   const { players } = gameState.room;
 
@@ -38,6 +36,4 @@ const Play: React.FC = () => {
       ) : null}
     </Page>
   ) : null;
-};
-
-export default Play;
+}

@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 import { GameBoard } from "@connect-game/shared";
@@ -28,12 +27,12 @@ const StyledColDiv = styled.div<StyledColProps>`
   margin: 0px ${(props) => props.pieceSize / 2}px;
 `;
 
-const Board: React.FC<BoardProps> = ({
+export function Board({
   board,
   handleColumnClick,
   clickable,
   pieceSize,
-}) => {
+}: BoardProps) {
   const handleClick = (colNum: number): void => {
     if (!clickable) return;
     handleColumnClick(colNum);
@@ -59,6 +58,4 @@ const Board: React.FC<BoardProps> = ({
       ))}
     </StyledBoardDiv>
   );
-};
-
-export default Board;
+}

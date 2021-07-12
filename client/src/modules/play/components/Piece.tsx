@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 import { GameColor } from "@connect-game/shared";
@@ -27,8 +26,6 @@ const StyledDiv = styled.div<StyledDivProps>`
     props.color ? "transparent" : props.theme.colors.game.piece};
 `;
 
-const Piece: React.FC<PieceProps> = ({ size, color }) => {
+export function Piece({ size, color }: PieceProps) {
   return <StyledDiv size={size} color={color} />;
-};
-
-export default Piece;
+}

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 
-import { Home, Create, Join, Room, Play, Menu } from "./pages";
+import { Home, Create, Join, Room, Menu } from "./pages";
+import { Play } from "modules/play/pages";
 
 const App: React.FC = () => {
   // Manually remove path since MemoryRouter doesn't update URL
