@@ -1,24 +1,22 @@
-import React from "react";
+import { Text, Input, Button } from "components";
+import { Page } from "components/layouts";
+import { useTheme } from "context";
+import { useOnKeyDown } from "hooks";
 
-import { Text, Input, Button } from "../components";
-import { Page } from "../components/layouts";
-import { useTheme } from "../context";
-import { useOnKeyDown } from "../hooks";
-
-interface NameProps {
+interface CodeProps {
   value: string;
   onChange(event: React.ChangeEvent<HTMLInputElement>): void;
   onSubmit(): void;
 }
 
-const Name: React.FC<NameProps> = ({ value, onChange, onSubmit }) => {
+export function Code({ value, onChange, onSubmit }: CodeProps) {
   const theme = useTheme();
   useOnKeyDown("Enter", onSubmit);
 
   return (
     <Page>
       <Text size={theme.sizes.text.large} style={{ marginBottom: 60 }}>
-        Enter your name
+        Enter room code
       </Text>
       <Input type="text" value={value} onChange={onChange} autoFocus={true} />
       <Button onClick={onSubmit} disabled={!value}>
@@ -26,6 +24,4 @@ const Name: React.FC<NameProps> = ({ value, onChange, onSubmit }) => {
       </Button>
     </Page>
   );
-};
-
-export default Name;
+}

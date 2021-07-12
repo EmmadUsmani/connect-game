@@ -1,9 +1,7 @@
-import React from "react";
-
 import { GameSettings, Options } from "@connect-game/shared";
-import { Label, Picker, Button } from "../components";
-import { Page } from "../components/layouts";
-import { useOnKeyDown } from "../hooks";
+import { Label, Picker, Button } from "components";
+import { Page } from "components/layouts";
+import { useOnKeyDown } from "hooks";
 import { boardSizeToStr, strToBoardSize } from "../utils";
 
 interface SettingsProps {
@@ -12,11 +10,7 @@ interface SettingsProps {
   onSubmit(): void;
 }
 
-const Settings: React.FC<SettingsProps> = ({
-  settings,
-  onChange,
-  onSubmit,
-}) => {
+export function Settings({ settings, onChange, onSubmit }: SettingsProps) {
   useOnKeyDown("Enter", onSubmit);
 
   return (
@@ -59,6 +53,4 @@ const Settings: React.FC<SettingsProps> = ({
       </Button>
     </Page>
   );
-};
-
-export default Settings;
+}

@@ -3,21 +3,25 @@ import {
   Switch,
   Route,
   Redirect,
-  useHistory,
   useRouteMatch,
+  useHistory,
 } from "react-router-dom";
 
-import { MaxNameLen } from "@connect-game/shared";
-import { useGame } from "../context";
-import { Code, Name } from ".";
+import {
+  GameSettings,
+  DefaultSettings,
+  MaxNameLen,
+} from "@connect-game/shared";
+import { useGame } from "context";
+import { Name, Settings } from ".";
 
-const Join: React.FC = () => {
+export function Create() {
   const history = useHistory();
   const match = useRouteMatch();
-  const { joinRoom } = useGame();
+  const { createRoom } = useGame();
 
   const [name, setName] = useState<string>("");
-  const [code, setCode] = useState<string>("");
+  const [settings, setSettings] = useState<GameSettings>(DefaultSettings);
 
   const handleNameChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -28,18 +32,16 @@ const Join: React.FC = () => {
   };
 
   const handleNameSubmit = (): void => {
-    history.push(`${match.path}/code`);
+    history.push(`${match.path}/settings`);
   };
 
-  const handleCodeChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    setCode(event.target.value);
+  const handleSettingsChange = (newSettings: GameSettings): void => {
+    setSettings(newSettings);
   };
 
-  const handleCodeSubmit = (): void => {
-    joinRoom(code, name);
-    history.push(`/room`);
+  const handleSettingsSubmit = (): void => {
+    createRoom(settings, name);
+    history.push("/room");
   };
 
   return (
@@ -51,16 +53,14 @@ const Join: React.FC = () => {
           onSubmit={handleNameSubmit}
         />
       </Route>
-      <Route exact path={`${match.path}/code`}>
-        <Code
-          value={code}
-          onChange={handleCodeChange}
-          onSubmit={handleCodeSubmit}
+      <Route exact path={`${match.path}/settings`}>
+        <Settings
+          settings={settings}
+          onChange={handleSettingsChange}
+          onSubmit={handleSettingsSubmit}
         />
       </Route>
       <Redirect to="/" />
     </Switch>
   );
-};
-
-export default Join;
+}
