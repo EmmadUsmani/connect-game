@@ -1,5 +1,5 @@
 import { GameState, InitialGameState } from "@connect-game/shared";
-import { createBoard, updatePiece, updateWinner } from "../../utils";
+import { createBoard, updatePiece, updateWinner } from "./utils";
 import {
   Action,
   JOIN_ROOM,
