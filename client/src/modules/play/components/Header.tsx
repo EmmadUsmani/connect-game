@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { GamePlayer, GameWinner } from "@connect-game/shared";
@@ -24,7 +24,7 @@ export function Header({ currPlayer, you, winner }: HeaderProps) {
 
   const yourTurn = currPlayer.name === you.name;
   const youWon = winner && winner.name === you.name;
-  let message: ReactNode;
+  let message: React.ReactNode;
 
   switch (winner) {
     // no player has won yet
