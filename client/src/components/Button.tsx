@@ -52,14 +52,14 @@ const StyledDiv = styled.div<StyledDivProps>`
   }}
 `;
 
-const Button: React.FC<ButtonProps> = ({
+export function Button({
   children,
   onClick,
   style,
   color,
   type = "primary",
   disabled = false,
-}) => {
+}: ButtonProps) {
   return (
     <StyledDiv
       type={type}
@@ -71,6 +71,4 @@ const Button: React.FC<ButtonProps> = ({
       {children}
     </StyledDiv>
   );
-};
-
-export default Button;
+}

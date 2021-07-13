@@ -1,6 +1,6 @@
-export { default as Text } from "./Text";
-export { default as Button } from "./Button";
-export { default as Input } from "./Input";
-export { default as Picker } from "./Picker";
-export { default as Label } from "./Label";
-export { default as Toggle } from "./Toggle";
+export { Text } from "./Text";
+export { Button } from "./Button";
+export { Input } from "./Input";
+export { Picker } from "./Picker";
+export { Label } from "./Label";
+export { Toggle } from "./Toggle";

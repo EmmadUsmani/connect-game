@@ -1,5 +1,9 @@
 import React, { createContext, useContext, useState } from "react";
 
+interface OptionsProviderProps {
+  children: React.ReactNode;
+}
+
 interface OptionsCtxInterface {
   soundsOn: boolean;
   animationsOn: boolean;
@@ -16,7 +20,7 @@ const OptionsContext = createContext<OptionsCtxInterface>({
 
 export const useOptions = () => useContext(OptionsContext);
 
-export const OptionsProvider: React.FC = ({ children }) => {
+export function OptionsProvider({ children }: OptionsProviderProps) {
   const [soundsOn, setSoundsOn] = useState<boolean>(true);
   const [animationsOn, setAnimationsOn] = useState<boolean>(true);
 
@@ -31,4 +35,4 @@ export const OptionsProvider: React.FC = ({ children }) => {
       {children}
     </OptionsContext.Provider>
   );
-};
+}

@@ -1,2 +1,2 @@
-export { default as useDimensions } from "./useDimensions";
-export { default as useOnKeyDown } from "./useOnKeyDown";
+export { useDimensions } from "./useDimensions";
+export { useOnKeyDown } from "./useOnKeyDown";

@@ -10,7 +10,7 @@ const getDimensions = (): Dimensions => ({
   height: window.innerHeight,
 });
 
-export default function useDimensions(): Dimensions {
+export function useDimensions(): Dimensions {
   const [dimensions, setDimensions] = useState<Dimensions>(getDimensions());
 
   const resize = () => setDimensions(getDimensions());

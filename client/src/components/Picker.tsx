@@ -24,7 +24,7 @@ const StyledSelect = styled.select`
   font-size: ${(props) => props.theme.sizes.text.small}px;
 `;
 
-const Picker: React.FC<PickerProps> = ({ value, onChange, options }) => {
+export function Picker({ value, onChange, options }: PickerProps) {
   return (
     <StyledSelect value={value} onChange={onChange}>
       {options.map(({ label, value }, idx) => (
@@ -34,6 +34,4 @@ const Picker: React.FC<PickerProps> = ({ value, onChange, options }) => {
       ))}
     </StyledSelect>
   );
-};
-
-export default Picker;
+}

@@ -3,6 +3,10 @@ import styled from "styled-components";
 
 import { Page } from ".";
 
+interface ModalProps {
+  children: React.ReactNode;
+}
+
 const StyledModalDiv = styled.div`
   position: absolute;
   top: 0;
@@ -26,7 +30,7 @@ const StyledContentDiv = styled.div`
   padding-right: ${(props) => props.theme.sizes.button.width / 6}px;
 `;
 
-const Modal: React.FC = ({ children }) => {
+export function Modal({ children }: ModalProps) {
   return (
     <StyledModalDiv>
       <Page>
@@ -34,6 +38,4 @@ const Modal: React.FC = ({ children }) => {
       </Page>
     </StyledModalDiv>
   );
-};
-
-export default Modal;
+}

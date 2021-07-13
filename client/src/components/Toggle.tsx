@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 import { Button } from ".";
@@ -25,13 +24,13 @@ const StyledDiv = styled.div<StyledDivProps>`
   width: ${(props) => props.width}ch;
 `;
 
-const Toggle: React.FC<ToggleProps> = ({
+export function Toggle({
   label,
   value,
   onClick,
   trueText = "On",
   falseText = "Off",
-}) => {
+}: ToggleProps) {
   return (
     <Button type="secondary" onClick={onClick}>
       <StyledSpan>{`${label}:`}</StyledSpan>
@@ -40,6 +39,4 @@ const Toggle: React.FC<ToggleProps> = ({
       </StyledDiv>
     </Button>
   );
-};
-
-export default Toggle;
+}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import { Home } from "modules/home/pages";
@@ -7,7 +7,7 @@ import { Room } from "modules/room/pages";
 import { Play } from "modules/play/pages";
 import { Menu } from "modules/menu/pages";
 
-const App: React.FC = () => {
+export function App() {
   // Manually remove path since MemoryRouter doesn't update URL
   useEffect(() => {
     window.history.replaceState(null, "", "/");
@@ -35,6 +35,4 @@ const App: React.FC = () => {
       <Menu />
     </>
   );
-};
-
-export default App;
+}

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { MemoryRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 
-import App from "./App";
+import { App } from "./App";
 import { AppThemeProvider, GameProvider, OptionsProvider } from "./context";
 
 const GlobalStyle = createGlobalStyle`

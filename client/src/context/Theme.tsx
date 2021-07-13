@@ -8,9 +8,13 @@ import { defaultTheme, smallTheme } from "../config";
 /* Uses styled-components theme context:
 https://styled-components.com/docs/advanced#theming */
 
+interface AppThemeProviderProps {
+  children: React.ReactNode;
+}
+
 export const useTheme = () => useContext(ThemeContext);
 
-export const AppThemeProvider: React.FC = ({ children }) => {
+export function AppThemeProvider({ children }: AppThemeProviderProps) {
   const { width, height } = useDimensions();
 
   const {
@@ -53,4 +57,4 @@ export const AppThemeProvider: React.FC = ({ children }) => {
   }, [width, height, columns, rows, marginHorizontal, marginVertical]);
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
-};
+}

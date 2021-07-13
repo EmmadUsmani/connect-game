@@ -19,6 +19,10 @@ import {
 import { gameReducer } from "./reducer";
 import { server } from "../../services";
 
+interface GameProviderProps {
+  children: React.ReactNode;
+}
+
 interface GameCtxInterface {
   gameState: GameState;
   createRoom(settings: GameSettings, hostName: string): void;
@@ -41,7 +45,7 @@ const GameContext = createContext<GameCtxInterface>({
 
 export const useGame = () => useContext(GameContext);
 
-export const GameProvider: React.FC = ({ children }) => {
+export function GameProvider({ children }: GameProviderProps) {
   const [gameState, dispatch] = useReducer(gameReducer, InitialGameState);
   const history = useHistory();
 
@@ -157,4 +161,4 @@ export const GameProvider: React.FC = ({ children }) => {
       {children}
     </GameContext.Provider>
   );
-};
+}

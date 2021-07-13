@@ -3,7 +3,7 @@ import { useEffect } from "react";
 /* Top-level keydown listener that works without focus, 
 and is removed when React component is unmounted. */
 
-export default function useOnKeyDown(
+export function useOnKeyDown(
   key: KeyboardEvent["key"],
   callback: Function
 ): void {
