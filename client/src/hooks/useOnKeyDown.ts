@@ -5,11 +5,13 @@ and is removed when React component is unmounted. */
 
 export function useOnKeyDown(
   key: KeyboardEvent["key"],
-  callback: Function
+  callback: () => void
 ): void {
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
-      if (event.key === key) callback();
+      if (event.key === key) {
+        callback();
+      }
     };
 
     document.body.addEventListener("keydown", listener);

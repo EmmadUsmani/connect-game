@@ -3,9 +3,9 @@ import { io } from "socket.io-client";
 import { GameSettings, Events, EventData } from "@connect-game/shared";
 
 const socket = io("/");
-const listeners: [string, Function][] = [];
+const listeners: [string, (data: any) => void][] = [];
 
-function listen(event: string, listener: Function): void {
+function listen(event: string, listener: (data: any) => void): void {
   socket.on(event, listener);
   listeners.push([event, listener]);
 }
