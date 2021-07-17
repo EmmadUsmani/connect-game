@@ -15,6 +15,8 @@ module.exports = {
     "prettier",
   ],
   rules: {
+    curly: "error",
+    eqeqeq: "error",
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/extensions": ["error", "never"],
