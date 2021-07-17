@@ -5,7 +5,6 @@
   "main": "server/build/index.js",
   "repository": "https://github.com/EmmadUsmani/connect-game.git",
   "author": "Emmad Usmani <emmadusmani@berkeley.edu>",
-  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "yarn workspaces foreach -vpi --exclude connect-game run start",
