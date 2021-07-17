@@ -3,7 +3,11 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: ["./server/tsconfig.json", "./shared/tsconfig.json"],
+    project: [
+      "./client/tsconfig.json",
+      "./server/tsconfig.json",
+      "./shared/tsconfig.json",
+    ],
   },
   plugins: ["@typescript-eslint"],
   extends: [
@@ -12,17 +16,33 @@ module.exports = {
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:import/recommended",
     "plugin:import/typescript",
+    "react-app",
     "prettier",
   ],
+  settings: {
+    "import/resolver": {
+      typescript: {
+        project: [
+          "./client/tsconfig.json",
+          "./server/tsconfig.json",
+          "./shared/tsconfig.json",
+        ],
+      },
+    },
+  },
   rules: {
-    curly: "error",
-    eqeqeq: "error",
-    "import/first": "error",
-    "import/newline-after-import": "error",
-    "import/extensions": ["error", "never"],
-    "import/no-default-export": "error",
+    curly: "warn",
+    eqeqeq: "warn",
+    "@typescript-eslint/unbound-method": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "import/first": "warn",
+    "import/newline-after-import": "warn",
+    "import/extensions": ["warn", "never"],
+    "import/no-default-export": "warn",
+    "import/default": "off",
+    "import/no-named-as-default-member": "off",
     "import/order": [
-      "error",
+      "warn",
       {
         "newlines-between": "always",
         alphabetize: {
@@ -32,5 +52,13 @@ module.exports = {
         warnOnUnassignedImports: true,
       },
     ],
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        callbacksLast: true,
+        shorthandFirst: true,
+        reservedFirst: true,
+      },
+    ],
   },
-};
+}
