@@ -1608,7 +1608,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@connect-game/shared@workspace:shared"
   dependencies:
+    "@typescript-eslint/eslint-plugin": ^4.28.3
+    "@typescript-eslint/parser": ^4.28.3
     cross-env: 7.0.3
+    eslint: ^7.30.0
+    eslint-config-prettier: ^8.3.0
     typescript: ^4.2.4
   languageName: unknown
   linkType: soft
