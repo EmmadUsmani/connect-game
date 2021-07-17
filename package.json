@@ -11,7 +11,8 @@
     "dev": "yarn workspaces foreach -vpi --exclude connect-game run start",
     "clean": "rm -rf shared/build shared/tsconfig.tsbuildinfo server/build client/build",
     "build": "yarn clean && yarn workspace @connect-game/shared build && yarn workspace @connect-game/server build && yarn workspace @connect-game/client build ",
-    "start": "NODE_ENV=production yarn build && node server/build/index.js"
+    "start": "NODE_ENV=production yarn build && node server/build/index.js",
+    "lint": "yarn eslint . --ext .ts"
   },
   "workspaces": [
     "client",
@@ -20,5 +21,12 @@
   ],
   "engines": {
     "node": "14.17.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.28.3",
+    "@typescript-eslint/parser": "^4.28.3",
+    "eslint": "^7.30.0",
+    "eslint-config-prettier": "^8.3.0",
+    "typescript": "^4.3.5"
   }
 }
