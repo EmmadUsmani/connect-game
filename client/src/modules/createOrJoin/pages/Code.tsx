@@ -1,7 +1,7 @@
 import React from "react"
 
 import { Text, Input, Button } from "components"
-import { Page, Spacer } from "components/layouts"
+import { Page, Spacer } from "components/layout"
 import { useTheme } from "context"
 import { useOnKeyDown } from "hooks"
 

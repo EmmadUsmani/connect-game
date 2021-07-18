@@ -1,7 +1,7 @@
 import { useHistory } from "react-router"
 
 import { Text, Button } from "components"
-import { Page, Spacer } from "components/layouts"
+import { Page, Spacer } from "components/layout"
 import { useTheme } from "context"
 
 export function Home() {

@@ -2,8 +2,8 @@ import { useState } from "react"
 import { useHistory, useLocation } from "react-router-dom"
 
 import { Button, Toggle } from "components"
-import { Modal } from "components/layouts"
-import { List } from "components/layouts/List"
+import { Modal } from "components/layout"
+import { List } from "components/layout/List"
 import { useOptions } from "context"
 import { useOnKeyDown } from "hooks"
 

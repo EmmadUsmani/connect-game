@@ -1,5 +1,5 @@
 import { Button } from "components"
-import { Page, Spacer } from "components/layouts"
+import { Page, Spacer } from "components/layout"
 import { useGame, useTheme } from "context"
 
 import { Board, Header } from "../components"
