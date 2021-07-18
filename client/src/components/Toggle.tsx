@@ -5,7 +5,7 @@ import { Button } from "."
 interface ToggleProps {
   label: string
   value: boolean
-  onClick: () => void
+  onClick(): void
   trueText?: string
   falseText?: string
 }

@@ -3,7 +3,7 @@ import styled, { css, CSSProperties } from "styled-components"
 
 interface ButtonProps {
   children: React.ReactNode
-  onClick?: () => void
+  onClick?(): void
   style?: CSSProperties
   color?: string
   type?: "primary" | "secondary" | "negative"
