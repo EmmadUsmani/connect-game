@@ -14,6 +14,18 @@ export function Room() {
 
   useOnKeyDown("Enter", handleStart)
 
+  let startDisabled: boolean
+  if (!gameState.play.you.isHost) {
+    startDisabled = true
+  } else if (
+    process.env.NODE_ENV === "production" &&
+    gameState.room.players.length < 2
+  ) {
+    startDisabled = true
+  } else {
+    startDisabled = false
+  }
+
   return (
     <Page>
       <Label>Room code</Label>
@@ -27,7 +39,7 @@ export function Room() {
         </Button>
       ))}
       <Button
-        disabled={!gameState.play.you.isHost}
+        disabled={startDisabled}
         style={{ marginTop: 20 }}
         onClick={handleStart}
       >
