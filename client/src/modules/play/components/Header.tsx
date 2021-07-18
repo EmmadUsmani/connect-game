@@ -1,30 +1,30 @@
-import React from "react";
-import styled from "styled-components";
+import { GamePlayer, GameWinner } from "@connect-game/shared"
+import React from "react"
+import styled from "styled-components"
 
-import { GamePlayer, GameWinner } from "@connect-game/shared";
-import { Text } from "components";
-import { useTheme } from "context";
+import { Text } from "components"
+import { useTheme } from "context"
 
 interface HeaderProps {
-  currPlayer: GamePlayer;
-  you: GamePlayer;
-  winner?: GameWinner;
+  currPlayer: GamePlayer
+  you: GamePlayer
+  winner?: GameWinner
 }
 
 const StyledText = styled(Text)`
   margin-bottom: 5vh;
-`;
+`
 
 const StyledSpan = styled.span`
   color: ${(props) => props.color};
-`;
+`
 
 export function Header({ currPlayer, you, winner }: HeaderProps) {
-  const theme = useTheme();
+  const theme = useTheme()
 
-  const yourTurn = currPlayer.name === you.name;
-  const youWon = winner && winner.name === you.name;
-  let message: React.ReactNode;
+  const yourTurn = currPlayer.name === you.name
+  const youWon = winner && winner.name === you.name
+  let message: React.ReactNode
 
   switch (winner) {
     // no player has won yet
@@ -36,12 +36,12 @@ export function Header({ currPlayer, you, winner }: HeaderProps) {
           </StyledSpan>
           {yourTurn ? " turn" : "'s turn"}
         </>
-      );
-      break;
+      )
+      break
     // game is a tie
     case null:
-      message = <>Draw</>;
-      break;
+      message = <>Draw</>
+      break
     // there is a winner
     default:
       message = (
@@ -51,9 +51,9 @@ export function Header({ currPlayer, you, winner }: HeaderProps) {
           </StyledSpan>{" "}
           won!
         </>
-      );
-      break;
+      )
+      break
   }
 
-  return <StyledText size={theme.sizes.text.large}>{message}</StyledText>;
+  return <StyledText size={theme.sizes.text.large}>{message}</StyledText>
 }

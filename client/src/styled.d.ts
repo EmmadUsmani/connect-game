@@ -1,42 +1,42 @@
-import "styled-components";
+import "styled-components"
 
 declare module "styled-components" {
   export interface DefaultTheme {
     colors: {
-      primary: string;
-      secondary: string;
-      white: string;
-      negative: string;
+      primary: string
+      secondary: string
+      white: string
+      negative: string
       text: {
-        primary: string;
-        secondary: string;
-      };
+        primary: string
+        secondary: string
+      }
       game: {
-        piece: string;
-      };
-    };
+        piece: string
+      }
+    }
     sizes: {
       text: {
-        extraLarge: number; // home logo
-        large: number; // play header & instructions
-        medium: number;
-        small: number; // button & input text
-        extraSmall: number; // label
-      };
+        extraLarge: number // home logo
+        large: number // play header & instructions
+        medium: number
+        small: number // button & input text
+        extraSmall: number // label
+      }
       page: {
-        marginHorizontal: number;
-        marginVertical: number;
-      };
+        marginHorizontal: number
+        marginVertical: number
+      }
       game: {
-        piece: number;
-      };
+        piece: number
+      }
       button: {
-        width: number;
-        height: number;
-      };
-    };
+        width: number
+        height: number
+      }
+    }
     fonts: {
-      primary: string;
-    };
+      primary: string
+    }
   }
 }

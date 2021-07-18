@@ -1,2 +1,2 @@
-export { Page } from "./Page";
-export { Modal } from "./Modal";
+export { Page } from "./Page"
+export { Modal } from "./Modal"

@@ -1,17 +1,17 @@
-import { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { useEffect } from "react"
+import { Switch, Route } from "react-router-dom"
 
-import { Home } from "modules/home/pages";
-import { Create, Join } from "modules/createOrJoin/pages";
-import { Room } from "modules/room/pages";
-import { Play } from "modules/play/pages";
-import { Menu } from "modules/menu/pages";
+import { Create, Join } from "modules/createOrJoin/pages"
+import { Home } from "modules/home/pages"
+import { Menu } from "modules/menu/pages"
+import { Play } from "modules/play/pages"
+import { Room } from "modules/room/pages"
 
 export function App() {
   // Manually remove path since MemoryRouter doesn't update URL
   useEffect(() => {
-    window.history.replaceState(null, "", "/");
-  }, []);
+    window.history.replaceState(null, "", "/")
+  }, [])
 
   return (
     <>
@@ -34,5 +34,5 @@ export function App() {
       </Switch>
       <Menu />
     </>
-  );
+  )
 }

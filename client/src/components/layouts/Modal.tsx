@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
+import React from "react"
+import styled from "styled-components"
 
-import { Page } from ".";
+import { Page } from "."
 
 interface ModalProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 const StyledModalDiv = styled.div`
@@ -16,7 +16,7 @@ const StyledModalDiv = styled.div`
   background-color: rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(2px);
   z-index: 1;
-`;
+`
 
 const StyledContentDiv = styled.div`
   display: flex;
@@ -28,7 +28,7 @@ const StyledContentDiv = styled.div`
   padding-bottom: ${(props) => props.theme.sizes.button.height}px;
   padding-left: ${(props) => props.theme.sizes.button.width / 6}px;
   padding-right: ${(props) => props.theme.sizes.button.width / 6}px;
-`;
+`
 
 export function Modal({ children }: ModalProps) {
   return (
@@ -37,5 +37,5 @@ export function Modal({ children }: ModalProps) {
         <StyledContentDiv>{children}</StyledContentDiv>
       </Page>
     </StyledModalDiv>
-  );
+  )
 }

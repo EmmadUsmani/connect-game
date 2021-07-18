@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const Input = styled.input`
   margin-bottom: 20px;
@@ -13,4 +13,4 @@ export const Input = styled.input`
   color: ${(props) => props.theme.colors.text.primary};
   font-family: ${(props) => props.theme.fonts.primary};
   font-size: ${(props) => props.theme.sizes.text.small}px;
-`;
+`

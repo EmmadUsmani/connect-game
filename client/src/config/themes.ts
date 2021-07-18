@@ -1,4 +1,4 @@
-import { DefaultTheme } from "styled-components";
+import { DefaultTheme } from "styled-components"
 
 export const defaultTheme: DefaultTheme = {
   colors: {
@@ -37,7 +37,7 @@ export const defaultTheme: DefaultTheme = {
   fonts: {
     primary: "Quicksand",
   },
-};
+}
 
 export const smallTheme: DefaultTheme = {
   ...defaultTheme,
@@ -59,4 +59,4 @@ export const smallTheme: DefaultTheme = {
       height: 50,
     },
   },
-};
+}

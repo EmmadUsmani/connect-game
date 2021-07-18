@@ -1,17 +1,16 @@
-import styled from "styled-components";
-
-import { GameColor } from "@connect-game/shared";
+import { GameColor } from "@connect-game/shared"
+import styled from "styled-components"
 
 // TODO: understand why we need separate Piece and StyledDiv
 
 interface PieceProps {
-  size: number;
-  color?: GameColor;
+  size: number
+  color?: GameColor
 }
 
 interface StyledDivProps {
-  size: number;
-  color?: GameColor;
+  size: number
+  color?: GameColor
 }
 
 const StyledDiv = styled.div<StyledDivProps>`
@@ -24,8 +23,8 @@ const StyledDiv = styled.div<StyledDivProps>`
   background-color: ${(props) => props.color};
   border-color: ${(props) =>
     props.color ? "transparent" : props.theme.colors.game.piece};
-`;
+`
 
 export function Piece({ size, color }: PieceProps) {
-  return <StyledDiv size={size} color={color} />;
+  return <StyledDiv color={color} size={size} />
 }

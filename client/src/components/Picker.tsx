@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
+import React from "react"
+import styled from "styled-components"
 
 interface PickerProps {
-  value: string | number;
-  onChange(event: React.ChangeEvent<HTMLSelectElement>): void;
-  options: { label: string; value: string | number }[];
+  value: string | number
+  onChange(event: React.ChangeEvent<HTMLSelectElement>): void
+  options: { label: string; value: string | number }[]
 }
 
 const StyledSelect = styled.select`
@@ -22,16 +22,16 @@ const StyledSelect = styled.select`
   color: ${(props) => props.theme.colors.text.primary};
   font-family: ${(props) => props.theme.fonts.primary};
   font-size: ${(props) => props.theme.sizes.text.small}px;
-`;
+`
 
 export function Picker({ value, onChange, options }: PickerProps) {
   return (
     <StyledSelect value={value} onChange={onChange}>
       {options.map(({ label, value }, idx) => (
-        <option value={value} key={idx}>
+        <option key={idx} value={value}>
           {label}
         </option>
       ))}
     </StyledSelect>
-  );
+  )
 }

@@ -1,2 +1,2 @@
-export { useDimensions } from "./useDimensions";
-export { useOnKeyDown } from "./useOnKeyDown";
+export { useDimensions } from "./useDimensions"
+export { useOnKeyDown } from "./useOnKeyDown"

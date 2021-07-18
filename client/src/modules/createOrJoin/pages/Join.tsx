@@ -1,42 +1,45 @@
-import React, { useState } from "react";
+import { MaxNameLen } from "@connect-game/shared"
+import React, { useState } from "react"
 import {
   Switch,
   Route,
   Redirect,
   useHistory,
   useRouteMatch,
-} from "react-router-dom";
+} from "react-router-dom"
 
-import { MaxNameLen } from "@connect-game/shared";
-import { useGame } from "context";
-import { Code, Name } from ".";
+import { Code, Name } from "."
+
+import { useGame } from "context"
 
 export function Join() {
-  const history = useHistory();
-  const match = useRouteMatch();
-  const { joinRoom } = useGame();
+  const history = useHistory()
+  const match = useRouteMatch()
+  const { joinRoom } = useGame()
 
-  const [name, setName] = useState<string>("");
-  const [code, setCode] = useState<string>("");
+  const [name, setName] = useState<string>("")
+  const [code, setCode] = useState<string>("")
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newName = event.target.value;
-    if (newName.length > MaxNameLen) return;
-    setName(newName);
-  };
+    const newName = event.target.value
+    if (newName.length > MaxNameLen) {
+      return
+    }
+    setName(newName)
+  }
 
   const handleNameSubmit = () => {
-    history.push(`${match.path}/code`);
-  };
+    history.push(`${match.path}/code`)
+  }
 
   const handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCode(event.target.value);
-  };
+    setCode(event.target.value)
+  }
 
   const handleCodeSubmit = () => {
-    joinRoom(code, name);
-    history.push(`/room`);
-  };
+    joinRoom(code, name)
+    history.push(`/room`)
+  }
 
   return (
     <Switch>
@@ -56,5 +59,5 @@ export function Join() {
       </Route>
       <Redirect to="/" />
     </Switch>
-  );
+  )
 }

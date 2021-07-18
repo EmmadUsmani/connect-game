@@ -1,5 +1,5 @@
-import { GameState, InitialGameState } from "@connect-game/shared";
-import { createBoard, updatePiece, updateWinner } from "./utils";
+import { GameState, InitialGameState } from "@connect-game/shared"
+
 import {
   Action,
   JOIN_ROOM,
@@ -13,18 +13,19 @@ import {
   ReassignHostAction,
   PlacePieceAction,
   PLAYER_LEFT,
-} from "./actions";
+} from "./actions"
+import { createBoard, updatePiece, updateWinner } from "./utils"
 
 function joinRoomReducer(data: JoinRoomAction["data"]): GameState {
   const {
     room: { code, settings, players },
     player,
-  } = data;
+  } = data
 
   return {
     room: { code, settings, players, inProgress: false },
     play: { ...InitialGameState.play, you: player },
-  };
+  }
 }
 
 function playerJoinedReducer(
@@ -34,7 +35,7 @@ function playerJoinedReducer(
   return {
     ...state,
     room: { ...state.room, players: [...state.room.players, data.player] },
-  };
+  }
 }
 
 function playerLeftReducer(
@@ -44,7 +45,7 @@ function playerLeftReducer(
   const {
     room: { players },
     play: { currPlayerIdx },
-  } = state;
+  } = state
 
   return {
     room: {
@@ -55,7 +56,7 @@ function playerLeftReducer(
       ...state.play,
       currPlayerIdx: currPlayerIdx % (players.length - 1),
     },
-  };
+  }
 }
 
 function reassignHostReducer(
@@ -65,7 +66,7 @@ function reassignHostReducer(
   const {
     room: { players },
     play: { you },
-  } = state;
+  } = state
 
   return {
     room: {
@@ -83,7 +84,7 @@ function reassignHostReducer(
         isHost: you.name === data.playerName,
       },
     },
-  };
+  }
 }
 
 function startGameReducer(state: GameState): GameState {
@@ -92,10 +93,10 @@ function startGameReducer(state: GameState): GameState {
       settings: { boardSize },
     },
     play: { you },
-  } = state;
+  } = state
   const {
     play: { currPlayerIdx, winner, lastCoord, numFilled },
-  } = InitialGameState;
+  } = InitialGameState
 
   return {
     ...state,
@@ -107,7 +108,7 @@ function startGameReducer(state: GameState): GameState {
       numFilled,
       you,
     },
-  };
+  }
 }
 
 function placePieceReducer(
@@ -120,15 +121,15 @@ function placePieceReducer(
       players,
     },
     play: { board, currPlayerIdx, numFilled, you },
-  } = state;
-  const { colNum, rowNum } = data;
+  } = state
+  const { colNum, rowNum } = data
 
   const updatedBoard = updatePiece(
     colNum,
     rowNum,
     board,
     players[currPlayerIdx]
-  );
+  )
   return {
     ...state,
     play: {
@@ -145,24 +146,24 @@ function placePieceReducer(
       numFilled: numFilled + 1,
       you,
     },
-  };
+  }
 }
 
 export function gameReducer(state: GameState, action: Action): GameState {
   switch (action.type) {
     case JOIN_ROOM:
-      return joinRoomReducer(action.data);
+      return joinRoomReducer(action.data)
     case PLAYER_JOINED:
-      return playerJoinedReducer(state, action.data);
+      return playerJoinedReducer(state, action.data)
     case PLAYER_LEFT:
-      return playerLeftReducer(state, action.data);
+      return playerLeftReducer(state, action.data)
     case REASSIGN_HOST:
-      return reassignHostReducer(state, action.data);
+      return reassignHostReducer(state, action.data)
     case START_GAME:
-      return startGameReducer(state);
+      return startGameReducer(state)
     case PLACE_PIECE:
-      return placePieceReducer(state, action.data);
+      return placePieceReducer(state, action.data)
     default:
-      return InitialGameState;
+      return InitialGameState
   }
 }

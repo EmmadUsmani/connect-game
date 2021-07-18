@@ -4,19 +4,19 @@ import {
   GameDirection,
   GameSettings,
   GameState,
-} from "./types";
+} from "./types"
 
 export const UninitializedPlayer: GamePlayer = {
   name: "",
   color: GameColor.Blue,
   isHost: false,
-};
+}
 
 export const DefaultSettings: GameSettings = {
   boardSize: [7, 6],
   winCondition: 4,
   turnTimer: 0,
-};
+}
 
 export const InitialGameState: GameState = {
   room: {
@@ -33,7 +33,7 @@ export const InitialGameState: GameState = {
     numFilled: 0,
     you: UninitializedPlayer,
   },
-};
+}
 
 export const Directions: { [key: string]: GameDirection } = {
   North: [0, 1],
@@ -44,19 +44,19 @@ export const Directions: { [key: string]: GameDirection } = {
   NorthEast: [1, 1],
   SouthWest: [-1, -1],
   SouthEast: [1, -1],
-};
+}
 
 export const DirectionPairs = [
   [Directions.North, Directions.South],
   [Directions.East, Directions.West],
   [Directions.NorthWest, Directions.SouthEast],
   [Directions.NorthEast, Directions.SouthWest],
-];
+]
 
 export const Options: {
-  boardSizes: { label: string; value: GameSettings["boardSize"] }[];
-  winConditions: { label: string; value: GameSettings["winCondition"] }[];
-  turnTimers: { label: string; value: GameSettings["turnTimer"] }[];
+  boardSizes: { label: string; value: GameSettings["boardSize"] }[]
+  winConditions: { label: string; value: GameSettings["winCondition"] }[]
+  turnTimers: { label: string; value: GameSettings["turnTimer"] }[]
 } = {
   boardSizes: [
     { label: "7 columns x 6 rows", value: [7, 6] },
@@ -73,11 +73,11 @@ export const Options: {
     { label: "5 seconds", value: 5 },
     { label: "30 seconds", value: 30 },
   ],
-};
+}
 
-export const MaxNameLen = 16;
+export const MaxNameLen = 16
 
-export const CodeLen = 7;
+export const CodeLen = 7
 
 export const CodeChars = [
   "A",
@@ -116,4 +116,4 @@ export const CodeChars = [
   "7",
   "8",
   "9",
-];
+]

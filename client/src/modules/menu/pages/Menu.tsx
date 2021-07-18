@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useState } from "react"
+import { useHistory, useLocation } from "react-router-dom"
 
-import { Modal } from "components/layouts";
-import { Button, Toggle } from "components";
-import { useOptions } from "context";
-import { useOnKeyDown } from "hooks";
+import { Button, Toggle } from "components"
+import { Modal } from "components/layouts"
+import { useOptions } from "context"
+import { useOnKeyDown } from "hooks"
 
 function getLeaveMessage(pathName: string): string | null {
   switch (pathName) {
@@ -12,39 +12,39 @@ function getLeaveMessage(pathName: string): string | null {
     case "/create/settings":
     case "/join/name":
     case "/join/code":
-      return "Return Home";
+      return "Return Home"
     case "/room":
-      return "Leave Room";
+      return "Leave Room"
     case "/play":
-      return "Leave Game";
+      return "Leave Game"
     default:
-      return null;
+      return null
   }
 }
 
 export function Menu() {
   const { soundsOn, animationsOn, toggleSounds, toggleAnimations } =
-    useOptions();
-  const history = useHistory();
-  const location = useLocation();
+    useOptions()
+  const history = useHistory()
+  const location = useLocation()
 
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const toggleModal = () => setShowModal((showModal) => !showModal);
-  useOnKeyDown("Escape", toggleModal);
+  const [showModal, setShowModal] = useState<boolean>(false)
+  const toggleModal = () => setShowModal((showModal) => !showModal)
+  useOnKeyDown("Escape", toggleModal)
 
   const handleLeave = () => {
-    history.push("/");
-    toggleModal();
-  };
+    history.push("/")
+    toggleModal()
+  }
 
-  const leaveMessage = getLeaveMessage(location.pathname);
+  const leaveMessage = getLeaveMessage(location.pathname)
 
   return showModal ? (
     <Modal>
-      <Toggle value={soundsOn} label="Sounds" onClick={toggleSounds} />
+      <Toggle label="Sounds" value={soundsOn} onClick={toggleSounds} />
       <Toggle
-        value={animationsOn}
         label="Animations"
+        value={animationsOn}
         onClick={toggleAnimations}
       />
       {leaveMessage && (
@@ -56,5 +56,5 @@ export function Menu() {
     </Modal>
   ) : (
     <></>
-  );
+  )
 }

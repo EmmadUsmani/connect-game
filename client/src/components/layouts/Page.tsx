@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const Page = styled.div`
   display: flex;
@@ -6,4 +6,4 @@ export const Page = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-`;
+`

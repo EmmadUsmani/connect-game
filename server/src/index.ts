@@ -1,22 +1,23 @@
-import { createServer } from "http";
-import * as path from "path";
-import * as dotenv from "dotenv";
-import express from "express";
-import { Server } from "socket.io";
+import { createServer } from "http"
+import * as path from "path"
 
-import { initListeners } from "./listeners";
+import * as dotenv from "dotenv"
+import express from "express"
+import { Server } from "socket.io"
 
-dotenv.config({ path: path.join(__dirname, "..", "..", ".env") });
-const app = express();
-const httpServer = createServer(app);
+import { initListeners } from "./listeners"
+
+dotenv.config({ path: path.join(__dirname, "..", "..", ".env") })
+const app = express()
+const httpServer = createServer(app)
 
 // serve frontend in prod
 if (process.env.NODE_ENV === "production") {
-  const buildPath = path.join(__dirname, "..", "..", "client", "build");
-  app.use(express.static(buildPath));
+  const buildPath = path.join(__dirname, "..", "..", "client", "build")
+  app.use(express.static(buildPath))
   app.get("/*", (_, res) => {
-    res.sendFile(path.join(buildPath, "index.html"));
-  });
+    res.sendFile(path.join(buildPath, "index.html"))
+  })
 }
 
 // allow cors in dev
@@ -30,12 +31,12 @@ const io = new Server(
         },
       }
     : {}
-);
+)
 
-initListeners(io);
+initListeners(io)
 
-const port = process.env.PORT ? +process.env.PORT : 3001;
+const port = process.env.PORT ? +process.env.PORT : 3001
 
 httpServer.listen(port, () => {
-  console.log("Listening on port " + port);
-});
+  console.log(`Listening on port ${port}`)
+})

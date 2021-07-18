@@ -4,19 +4,19 @@ import {
   GamePiece,
   GameWinner,
   DirectionPairs,
-} from "@connect-game/shared";
+} from "@connect-game/shared"
 
 /* Creates blank board with given dimmensions */
 export function createBoard(numCols: number, numRows: number): GameBoard {
-  const board: GameBoard = [];
+  const board: GameBoard = []
   for (let i = 0; i < numCols; i++) {
-    const column: GameColumn = [];
+    const column: GameColumn = []
     for (let j = 0; j < numRows; j++) {
-      column.push(undefined);
+      column.push(undefined)
     }
-    board.push(column);
+    board.push(column)
   }
-  return board;
+  return board
 }
 
 /* Updates board after placing piece in given coordinate */
@@ -26,18 +26,18 @@ export function updatePiece(
   board: GameBoard,
   piece: GamePiece
 ): GameBoard {
-  const newBoard: GameBoard = [];
-  const [numCols, numRows] = [board.length, board[0].length];
+  const newBoard: GameBoard = []
+  const [numCols, numRows] = [board.length, board[0].length]
 
   for (let i = 0; i < numCols; i++) {
-    const newColumn: GameColumn = [];
+    const newColumn: GameColumn = []
     for (let j = 0; j < numRows; j++) {
-      newColumn.push(i === colNum && j === rowNum ? piece : board[i][j]);
+      newColumn.push(i === colNum && j === rowNum ? piece : board[i][j])
     }
-    newBoard.push(newColumn);
+    newBoard.push(newColumn)
   }
 
-  return newBoard;
+  return newBoard
 }
 
 /* Check if any player has won the game, or if it's a tie */
@@ -48,9 +48,11 @@ export function updateWinner(
   numFilled: number,
   winCondition: number
 ): GameWinner {
-  const [numCols, numRows] = [board.length, board[0].length];
-  const player = board[colNum][rowNum];
-  if (!player) return undefined;
+  const [numCols, numRows] = [board.length, board[0].length]
+  const player = board[colNum][rowNum]
+  if (!player) {
+    return undefined
+  }
 
   /* explores a single direction, defined by colOff and rowOff, 
   and checks how many in row */
@@ -61,12 +63,15 @@ export function updateWinner(
     rowOff: number,
     count: number
   ): number => {
-    if (colNum < 0 || rowNum < 0 || colNum >= numCols || rowNum >= numRows)
-      return count;
-    if (board[colNum][rowNum] !== player) return count;
+    if (colNum < 0 || rowNum < 0 || colNum >= numCols || rowNum >= numRows) {
+      return count
+    }
+    if (board[colNum][rowNum] !== player) {
+      return count
+    }
 
-    return explore(colNum + colOff, rowNum + rowOff, colOff, rowOff, count + 1);
-  };
+    return explore(colNum + colOff, rowNum + rowOff, colOff, rowOff, count + 1)
+  }
 
   /* for each pair of direction (i.e. North & South), 
   check if the player's pieces in those directions sum to winCondition */
@@ -74,12 +79,16 @@ export function updateWinner(
     const count =
       1 +
       explore(colNum + colOff1, rowNum + rowOff1, colOff1, rowOff1, 0) +
-      explore(colNum + colOff2, rowNum + rowOff2, colOff2, rowOff2, 0);
-    if (count >= winCondition) return player;
+      explore(colNum + colOff2, rowNum + rowOff2, colOff2, rowOff2, 0)
+    if (count >= winCondition) {
+      return player
+    }
   }
 
   /* check if game is a tie */
-  if (numFilled === numCols * numRows) return null;
+  if (numFilled === numCols * numRows) {
+    return null
+  }
 
-  return undefined;
+  return undefined
 }

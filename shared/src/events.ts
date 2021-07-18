@@ -1,4 +1,4 @@
-import { GameSettings, GamePlayer, GameRoom } from "./types";
+import { GameSettings, GamePlayer, GameRoom } from "./types"
 
 export enum Events {
   CreateRoom = "CreateRoom",
@@ -18,28 +18,28 @@ export enum Events {
 
 export interface EventData {
   CreateRoom: {
-    settings: GameSettings;
-    hostName: string;
-  };
+    settings: GameSettings
+    hostName: string
+  }
   JoinRoom: {
-    code: string;
-    playerName: string;
-  };
+    code: string
+    playerName: string
+  }
   RoomJoined: {
-    room: GameRoom;
-    player: GamePlayer;
-  };
+    room: GameRoom
+    player: GamePlayer
+  }
   PlayerJoined: {
-    player: GamePlayer;
-  };
+    player: GamePlayer
+  }
   PlayerLeft: {
-    playerName: string;
-  };
+    playerName: string
+  }
   ReassignHost: {
-    playerName: string;
-  };
+    playerName: string
+  }
   PlacePiece: {
-    colNum: number;
-    rowNum: number;
-  };
+    colNum: number
+    rowNum: number
+  }
 }

@@ -1,27 +1,29 @@
-import { GameSettings, Options } from "@connect-game/shared";
-import { Label, Picker, Button } from "components";
-import { Page } from "components/layouts";
-import { useOnKeyDown } from "hooks";
-import { boardSizeToStr, strToBoardSize } from "../utils";
+import { GameSettings, Options } from "@connect-game/shared"
+
+import { boardSizeToStr, strToBoardSize } from "../utils"
+
+import { Label, Picker, Button } from "components"
+import { Page } from "components/layouts"
+import { useOnKeyDown } from "hooks"
 
 interface SettingsProps {
-  settings: GameSettings;
-  onChange(newSettings: GameSettings): void;
-  onSubmit(): void;
+  settings: GameSettings
+  onChange(newSettings: GameSettings): void
+  onSubmit(): void
 }
 
 export function Settings({ settings, onChange, onSubmit }: SettingsProps) {
-  useOnKeyDown("Enter", onSubmit);
+  useOnKeyDown("Enter", onSubmit)
 
   return (
     <Page>
       <Label>Board size</Label>
       <Picker
-        value={boardSizeToStr(settings.boardSize)}
         options={Options.boardSizes.map(({ label, value }) => ({
           label,
           value: boardSizeToStr(value),
         }))}
+        value={boardSizeToStr(settings.boardSize)}
         onChange={(event) =>
           onChange({
             ...settings,
@@ -31,8 +33,8 @@ export function Settings({ settings, onChange, onSubmit }: SettingsProps) {
       />
       <Label>Win condition</Label>
       <Picker
-        value={settings.winCondition}
         options={Options.winConditions}
+        value={settings.winCondition}
         onChange={(event) =>
           onChange({
             ...settings,
@@ -48,9 +50,9 @@ export function Settings({ settings, onChange, onSubmit }: SettingsProps) {
           onChange({ ...settings, turnTimer: parseInt(event.target.value) })
         }
       /> */}
-      <Button onClick={onSubmit} style={{ marginTop: 10 }}>
+      <Button style={{ marginTop: 10 }} onClick={onSubmit}>
         Create Game
       </Button>
     </Page>
-  );
+  )
 }

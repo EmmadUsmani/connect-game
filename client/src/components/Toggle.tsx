@@ -1,28 +1,28 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
-import { Button } from ".";
+import { Button } from "."
 
 interface ToggleProps {
-  label: string;
-  value: boolean;
-  onClick: () => void;
-  trueText?: string;
-  falseText?: string;
+  label: string
+  value: boolean
+  onClick: () => void
+  trueText?: string
+  falseText?: string
 }
 
 interface StyledDivProps {
-  width: number;
+  width: number
 }
 
 const StyledSpan = styled.span`
   margin-right: 0.5ch;
-`;
+`
 
 const StyledDiv = styled.div<StyledDivProps>`
   display: flex;
   justify-items: flex-start;
   width: ${(props) => props.width}ch;
-`;
+`
 
 export function Toggle({
   label,
@@ -38,5 +38,5 @@ export function Toggle({
         {value ? trueText : falseText}
       </StyledDiv>
     </Button>
-  );
+  )
 }

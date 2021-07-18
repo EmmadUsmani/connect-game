@@ -1,12 +1,12 @@
-import { useHistory } from "react-router";
+import { useHistory } from "react-router"
 
-import { Text, Button } from "components";
-import { Page } from "components/layouts";
-import { useTheme } from "context";
+import { Text, Button } from "components"
+import { Page } from "components/layouts"
+import { useTheme } from "context"
 
 export function Home() {
-  const theme = useTheme();
-  const history = useHistory();
+  const theme = useTheme()
+  const history = useHistory()
 
   return (
     <Page>
@@ -16,5 +16,5 @@ export function Home() {
       <Button onClick={() => history.push("/create/name")}>Create Game</Button>
       <Button onClick={() => history.push("/join/name")}>Join Game</Button>
     </Page>
-  );
+  )
 }

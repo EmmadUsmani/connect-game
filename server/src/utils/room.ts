@@ -5,35 +5,35 @@ import {
   CodeChars,
   GameColor,
   GamePlayer,
-} from "@connect-game/shared";
+} from "@connect-game/shared"
 
 export function generateRoomCode(rooms: GameRooms): string {
-  let code = "";
+  let code = ""
   for (let i = 0; i < CodeLen; i++) {
-    const char = randomFrom(CodeChars);
-    code += char;
+    const char = randomFrom(CodeChars)
+    code += char
   }
-  return code in rooms ? generateRoomCode(rooms) : code;
+  return code in rooms ? generateRoomCode(rooms) : code
 }
 
 export function generateColor(room: GameRoom): GameColor {
-  const availableColors = new Set<GameColor>();
+  const availableColors = new Set<GameColor>()
 
   for (const color in GameColor) {
-    availableColors.add(GameColor[color as keyof typeof GameColor]);
+    availableColors.add(GameColor[color as keyof typeof GameColor])
   }
 
   for (const player of room.players) {
-    availableColors.delete(player.color);
+    availableColors.delete(player.color)
   }
 
-  return randomFrom(Array.from(availableColors));
+  return randomFrom(Array.from(availableColors))
 }
 
 export function reassignHost(room: GameRoom): GamePlayer {
-  return randomFrom(room.players);
+  return randomFrom(room.players)
 }
 
 function randomFrom<T>(arr: T[]): T {
-  return arr[Math.floor(Math.random() * arr.length)];
+  return arr[Math.floor(Math.random() * arr.length)]
 }

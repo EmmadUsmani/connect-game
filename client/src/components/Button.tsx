@@ -1,19 +1,19 @@
-import React from "react";
-import styled, { css, CSSProperties } from "styled-components";
+import React from "react"
+import styled, { css, CSSProperties } from "styled-components"
 
 interface ButtonProps {
-  children: React.ReactNode;
-  onClick?: () => void;
-  style?: CSSProperties;
-  color?: string;
-  type?: "primary" | "secondary" | "negative";
-  disabled?: boolean;
+  children: React.ReactNode
+  onClick?: () => void
+  style?: CSSProperties
+  color?: string
+  type?: "primary" | "secondary" | "negative"
+  disabled?: boolean
 }
 
 interface StyledDivProps {
-  type: "primary" | "secondary" | "negative";
-  color?: string;
-  disabled?: boolean;
+  type: "primary" | "secondary" | "negative"
+  color?: string
+  disabled?: boolean
 }
 
 const StyledDiv = styled.div<StyledDivProps>`
@@ -32,7 +32,7 @@ const StyledDiv = styled.div<StyledDivProps>`
       return css`
         background-color: ${props.color ?? props.theme.colors.primary};
         color: ${props.theme.colors.text.secondary};
-      `;
+      `
     }
     if (props.type === "secondary") {
       return css`
@@ -41,16 +41,16 @@ const StyledDiv = styled.div<StyledDivProps>`
         border-color: ${(props) => props.theme.colors.primary};
         border-style: solid;
         border-width: 2px;
-      `;
+      `
     }
     if (props.type === "negative") {
       return css`
         background-color: ${props.color ?? props.theme.colors.negative};
         color: ${props.theme.colors.text.secondary};
-      `;
+      `
     }
   }}
-`;
+`
 
 export function Button({
   children,
@@ -62,13 +62,13 @@ export function Button({
 }: ButtonProps) {
   return (
     <StyledDiv
-      type={type}
       color={color}
       disabled={disabled}
-      onClick={() => (disabled ? null : onClick?.())}
       style={style}
+      type={type}
+      onClick={() => (disabled ? null : onClick?.())}
     >
       {children}
     </StyledDiv>
-  );
+  )
 }
