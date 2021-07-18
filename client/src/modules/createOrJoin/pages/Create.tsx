@@ -8,9 +8,10 @@ import {
   useHistory,
 } from "react-router-dom"
 
+import { useGame } from "context"
+
 import { Name, Settings } from "."
 
-import { useGame } from "context"
 
 export function Create() {
   const history = useHistory()

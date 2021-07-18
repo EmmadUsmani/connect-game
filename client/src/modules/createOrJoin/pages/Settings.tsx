@@ -1,10 +1,11 @@
 import { GameSettings, Options } from "@connect-game/shared"
 
-import { boardSizeToStr, strToBoardSize } from "../utils"
 
 import { Label, Picker, Button } from "components"
 import { Page } from "components/layouts"
 import { useOnKeyDown } from "hooks"
+
+import { boardSizeToStr, strToBoardSize } from "../utils"
 
 interface SettingsProps {
   settings: GameSettings

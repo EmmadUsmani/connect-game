@@ -49,6 +49,15 @@ module.exports = {
           order: "asc",
           caseInsensitive: true,
         },
+        groups: [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+        ],
       },
     ],
     "react/jsx-sort-props": [

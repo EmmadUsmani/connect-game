@@ -1,8 +1,9 @@
-import { Board, Header } from "../components"
 
 import { Button } from "components"
 import { Page } from "components/layouts"
 import { useGame, useTheme } from "context"
+
+import { Board, Header } from "../components"
 
 export function Play() {
   const { gameState, placePiece, endGame } = useGame()

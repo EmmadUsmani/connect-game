@@ -8,9 +8,10 @@ import {
   useRouteMatch,
 } from "react-router-dom"
 
+import { useGame } from "context"
+
 import { Code, Name } from "."
 
-import { useGame } from "context"
 
 export function Join() {
   const history = useHistory()
