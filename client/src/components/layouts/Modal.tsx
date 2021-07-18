@@ -5,6 +5,7 @@ import { Page } from "."
 
 interface ModalProps {
   children: React.ReactNode
+  onClickOutside?(): void
 }
 
 const StyledModalDiv = styled.div`
@@ -15,7 +16,6 @@ const StyledModalDiv = styled.div`
   width: 100%;
   background-color: rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(2px);
-  z-index: 1;
 `
 
 const StyledContentDiv = styled.div`
@@ -30,11 +30,15 @@ const StyledContentDiv = styled.div`
   padding-right: ${(props) => props.theme.sizes.button.width / 6}px;
 `
 
-export function Modal({ children }: ModalProps) {
+export function Modal({ children, onClickOutside }: ModalProps) {
+  const onContentClick = (event: React.MouseEvent) => {
+    event.stopPropagation()
+  }
+
   return (
-    <StyledModalDiv>
+    <StyledModalDiv onClick={onClickOutside}>
       <Page>
-        <StyledContentDiv>{children}</StyledContentDiv>
+        <StyledContentDiv onClick={onContentClick}>{children}</StyledContentDiv>
       </Page>
     </StyledModalDiv>
   )

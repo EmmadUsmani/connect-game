@@ -45,7 +45,7 @@ export function Menu() {
     <>
       <MenuIcon onClick={toggleModal} />
       {showModal && (
-        <Modal>
+        <Modal onClickOutside={toggleModal}>
           <Toggle label="Sounds" value={soundsOn} onClick={toggleSounds} />
           <Toggle
             label="Animations"
