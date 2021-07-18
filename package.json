@@ -11,7 +11,8 @@
     "clean": "rm -rf shared/build shared/tsconfig.tsbuildinfo server/build client/build",
     "build": "yarn clean && yarn workspace @connect-game/shared build && yarn workspace @connect-game/server build && yarn workspace @connect-game/client build ",
     "start": "NODE_ENV=production yarn build && node server/build/index.js",
-    "lint": "yarn prettier . --write && yarn eslint . --fix"
+    "lint": "yarn prettier . --write && yarn eslint . --fix",
+    "lint-nofix": "yarn prettier . --check && yarn eslint ."
   },
   "workspaces": [
     "client",
