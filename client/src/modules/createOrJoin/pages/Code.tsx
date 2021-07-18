@@ -1,7 +1,7 @@
 import React from "react"
 
 import { Text, Input, Button } from "components"
-import { Page } from "components/layouts"
+import { Page, Spacer } from "components/layouts"
 import { useTheme } from "context"
 import { useOnKeyDown } from "hooks"
 
@@ -17,9 +17,8 @@ export function Code({ value, onChange, onSubmit }: CodeProps) {
 
   return (
     <Page>
-      <Text size={theme.sizes.text.large} style={{ marginBottom: 60 }}>
-        Enter room code
-      </Text>
+      <Text size={theme.sizes.text.large}>Enter room code</Text>
+      <Spacer size={60} />
       <Input autoFocus={true} type="text" value={value} onChange={onChange} />
       <Button disabled={!value} onClick={onSubmit}>
         Continue

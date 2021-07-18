@@ -1,5 +1,5 @@
 import { Label, Input, Button } from "components"
-import { Page } from "components/layouts"
+import { Page, Spacer } from "components/layouts"
 import { useGame } from "context"
 import { useOnKeyDown } from "hooks"
 
@@ -38,11 +38,8 @@ export function Room() {
             (player.name === gameState.play.you.name ? " ✨" : "")}
         </Button>
       ))}
-      <Button
-        disabled={startDisabled}
-        style={{ marginTop: 20 }}
-        onClick={handleStart}
-      >
+      <Spacer size={10} />
+      <Button disabled={startDisabled} onClick={handleStart}>
         Start Game
       </Button>
       {/* <Button>Copy Link</Button> */}

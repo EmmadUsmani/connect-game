@@ -1,6 +1,5 @@
-
 import { Button } from "components"
-import { Page } from "components/layouts"
+import { Page, Spacer } from "components/layouts"
 import { useGame, useTheme } from "context"
 
 import { Board, Header } from "../components"
@@ -34,9 +33,10 @@ export function Play() {
         pieceSize={theme.sizes.game.piece}
       />
       {winner !== undefined && you.isHost ? (
-        <Button style={{ marginTop: 20 }} onClick={handleBackClick}>
-          Back to lobby
-        </Button>
+        <>
+          <Spacer size={10} />
+          <Button onClick={handleBackClick}>Back to lobby</Button>
+        </>
       ) : null}
     </Page>
   ) : null

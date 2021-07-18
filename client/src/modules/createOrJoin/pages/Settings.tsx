@@ -1,8 +1,7 @@
 import { GameSettings, Options } from "@connect-game/shared"
 
-
 import { Label, Picker, Button } from "components"
-import { Page } from "components/layouts"
+import { Page, Spacer } from "components/layouts"
 import { useOnKeyDown } from "hooks"
 
 import { boardSizeToStr, strToBoardSize } from "../utils"
@@ -51,9 +50,8 @@ export function Settings({ settings, onChange, onSubmit }: SettingsProps) {
           onChange({ ...settings, turnTimer: parseInt(event.target.value) })
         }
       /> */}
-      <Button style={{ marginTop: 10 }} onClick={onSubmit}>
-        Create Game
-      </Button>
+      <Spacer size={20} />
+      <Button onClick={onSubmit}>Create Game</Button>
     </Page>
   )
 }
