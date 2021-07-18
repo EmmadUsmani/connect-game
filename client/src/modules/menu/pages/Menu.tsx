@@ -6,6 +6,8 @@ import { Modal } from "components/layouts"
 import { useOptions } from "context"
 import { useOnKeyDown } from "hooks"
 
+import { MenuIcon } from "../components"
+
 function getLeaveMessage(pathName: string): string | null {
   switch (pathName) {
     case "/create/name":
@@ -39,22 +41,25 @@ export function Menu() {
 
   const leaveMessage = getLeaveMessage(location.pathname)
 
-  return showModal ? (
-    <Modal>
-      <Toggle label="Sounds" value={soundsOn} onClick={toggleSounds} />
-      <Toggle
-        label="Animations"
-        value={animationsOn}
-        onClick={toggleAnimations}
-      />
-      {leaveMessage && (
-        <Button type="negative" onClick={handleLeave}>
-          {leaveMessage}
-        </Button>
+  return (
+    <>
+      <MenuIcon onClick={toggleModal} />
+      {showModal && (
+        <Modal>
+          <Toggle label="Sounds" value={soundsOn} onClick={toggleSounds} />
+          <Toggle
+            label="Animations"
+            value={animationsOn}
+            onClick={toggleAnimations}
+          />
+          {leaveMessage && (
+            <Button type="negative" onClick={handleLeave}>
+              {leaveMessage}
+            </Button>
+          )}
+          <Button onClick={toggleModal}>Close</Button>
+        </Modal>
       )}
-      <Button onClick={toggleModal}>Close</Button>
-    </Modal>
-  ) : (
-    <></>
+    </>
   )
 }
