@@ -4,9 +4,15 @@ module.exports = {
   parserOptions: {
     tsconfigRootDir: __dirname,
     project: [
+<<<<<<< HEAD
       "client/tsconfig.json",
       "server/tsconfig.json",
       "shared/tsconfig.json",
+=======
+      "./client/tsconfig.json",
+      "./server/tsconfig.json",
+      "./shared/tsconfig.json",
+>>>>>>> dc04c50fe23d3c297f79fd5910b243daf44e2895
     ],
   },
   plugins: ["@typescript-eslint"],
@@ -59,5 +65,13 @@ module.exports = {
         reservedFirst: true,
       },
     ],
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        callbacksLast: true,
+        shorthandFirst: true,
+        reservedFirst: true,
+      },
+    ],
   },
-};
+}

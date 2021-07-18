@@ -390,6 +390,7 @@ module.exports = {
                 [i, s]
               )
             }
+<<<<<<< HEAD
             ;(A.schema = i.object().shape({
               jobs: i.number().min(2),
               parallel: i.boolean().when("jobs", {
@@ -400,6 +401,22 @@ module.exports = {
                 otherwise: i.boolean(),
               }),
             })),
+=======
+            ;(A.schema = i
+              .object()
+              .shape({
+                jobs: i.number().min(2),
+                parallel: i
+                  .boolean()
+                  .when("jobs", {
+                    is: (e) => e > 1,
+                    then: i
+                      .boolean()
+                      .oneOf([!0], "--parallel must be set when using --jobs"),
+                    otherwise: i.boolean(),
+                  }),
+              })),
+>>>>>>> dc04c50fe23d3c297f79fd5910b243daf44e2895
               (A.usage = s.Command.Usage({
                 category: "Workspace-related commands",
                 description: "run a command on all workspaces",
