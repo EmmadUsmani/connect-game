@@ -12,7 +12,7 @@ interface HeaderProps {
 }
 
 const StyledText = styled(Text)`
-  margin-bottom: 5vh;
+  margin-bottom: ${(props) => props.theme.sizes.game.piece}px;
 `
 
 const StyledSpan = styled.span`
