@@ -7,10 +7,10 @@
   "author": "Emmad Usmani <emmadusmani@berkeley.edu>",
   "private": true,
   "scripts": {
-    "dev": "yarn workspaces foreach -vpi --exclude connect-game run start",
+    "dev": "(NODE_ENV=development; yarn workspaces foreach -vpi --exclude connect-game run start)",
     "clean": "rm -rf shared/build shared/tsconfig.tsbuildinfo server/build client/build",
     "build": "yarn clean && yarn workspace @connect-game/shared build && yarn workspace @connect-game/server build && yarn workspace @connect-game/client build ",
-    "start": "NODE_ENV=production yarn build && node server/build/index.js",
+    "start": "(NODE_ENV=production; yarn build && node server/build/index.js)",
     "lint": "yarn prettier . --write && yarn eslint . --fix",
     "lint-nofix": "yarn prettier . --check && yarn eslint ."
   },

@@ -1,13 +1,11 @@
 import { createServer } from "http"
 import * as path from "path"
 
-import * as dotenv from "dotenv"
 import express from "express"
 import { Server } from "socket.io"
 
 import { initListeners } from "./listeners"
 
-dotenv.config({ path: path.join(__dirname, "..", "..", ".env") })
 const app = express()
 const httpServer = createServer(app)
 
