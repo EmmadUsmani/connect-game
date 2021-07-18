@@ -3,6 +3,7 @@ import { useHistory, useLocation } from "react-router-dom"
 
 import { Button, Toggle } from "components"
 import { Modal } from "components/layouts"
+import { List } from "components/layouts/List"
 import { useOptions } from "context"
 import { useOnKeyDown } from "hooks"
 
@@ -46,18 +47,20 @@ export function Menu() {
       <MenuIcon onClick={toggleModal} />
       {showModal && (
         <Modal onClickOutside={toggleModal}>
-          <Toggle label="Sounds" value={soundsOn} onClick={toggleSounds} />
-          <Toggle
-            label="Animations"
-            value={animationsOn}
-            onClick={toggleAnimations}
-          />
-          {leaveMessage && (
-            <Button type="negative" onClick={handleLeave}>
-              {leaveMessage}
-            </Button>
-          )}
-          <Button onClick={toggleModal}>Close</Button>
+          <List spacing={20}>
+            <Toggle label="Sounds" value={soundsOn} onClick={toggleSounds} />
+            <Toggle
+              label="Animations"
+              value={animationsOn}
+              onClick={toggleAnimations}
+            />
+            {leaveMessage && (
+              <Button type="negative" onClick={handleLeave}>
+                {leaveMessage}
+              </Button>
+            )}
+            <Button onClick={toggleModal}>Close</Button>
+          </List>
         </Modal>
       )}
     </>

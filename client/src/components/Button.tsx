@@ -20,7 +20,6 @@ const StyledDiv = styled.div<StyledDivProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10px auto 10px;
   cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
   width: ${(props) => props.theme.sizes.button.width}px;
   height: ${(props) => props.theme.sizes.button.height}px;

@@ -1,5 +1,6 @@
 import { Label, Input, Button } from "components"
 import { Page, Spacer } from "components/layouts"
+import { List } from "components/layouts/List"
 import { useGame } from "context"
 import { useOnKeyDown } from "hooks"
 
@@ -30,15 +31,18 @@ export function Room() {
     <Page>
       <Label>Room code</Label>
       <Input disabled type="text" value={gameState.room.code} />
+      <Spacer size={20} />
       <Label>Players</Label>
-      {gameState.room.players.map((player) => (
-        <Button key={player.name} disabled color={player.color}>
-          {player.name +
-            (player.isHost ? " 👑" : "") +
-            (player.name === gameState.play.you.name ? " ✨" : "")}
-        </Button>
-      ))}
-      <Spacer size={10} />
+      <List spacing={20}>
+        {gameState.room.players.map((player) => (
+          <Button key={player.name} disabled color={player.color}>
+            {player.name +
+              (player.isHost ? " 👑" : "") +
+              (player.name === gameState.play.you.name ? " ✨" : "")}
+          </Button>
+        ))}
+      </List>
+      <Spacer size={30} />
       <Button disabled={startDisabled} onClick={handleStart}>
         Start Game
       </Button>

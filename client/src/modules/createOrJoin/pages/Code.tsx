@@ -20,6 +20,7 @@ export function Code({ value, onChange, onSubmit }: CodeProps) {
       <Text size={theme.sizes.text.large}>Enter room code</Text>
       <Spacer size={60} />
       <Input autoFocus={true} type="text" value={value} onChange={onChange} />
+      <Spacer size={20} />
       <Button disabled={!value} onClick={onSubmit}>
         Continue
       </Button>

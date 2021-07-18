@@ -13,6 +13,7 @@ export function Home() {
       <Text size={theme.sizes.text.extraLarge}>Connect</Text>
       <Spacer size={60} />
       <Button onClick={() => history.push("/create/name")}>Create Game</Button>
+      <Spacer size={20} />
       <Button onClick={() => history.push("/join/name")}>Join Game</Button>
     </Page>
   )

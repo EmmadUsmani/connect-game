@@ -1,7 +1,6 @@
 import styled from "styled-components"
 
 export const Input = styled.input`
-  margin-bottom: 20px;
   width: ${(props) => props.theme.sizes.button.width}px;
   height: ${(props) => props.theme.sizes.button.height}px;
   box-sizing: border-box;
