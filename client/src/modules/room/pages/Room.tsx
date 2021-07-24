@@ -30,7 +30,11 @@ export function Room() {
   return (
     <Page>
       <Label>Room code</Label>
-      <Input disabled type="text" value={gameState.room.code} />
+      <Input
+        disabled
+        value={gameState.room.code}
+        onClick={() => navigator.clipboard.writeText(gameState.room.code)}
+      />
       <Spacer size={20} />
       <Label>Players</Label>
       <List spacing={20}>
@@ -46,7 +50,6 @@ export function Room() {
       <Button disabled={startDisabled} onClick={handleStart}>
         Start Game
       </Button>
-      {/* <Button>Copy Link</Button> */}
     </Page>
   )
 }

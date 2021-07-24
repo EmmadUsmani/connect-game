@@ -19,7 +19,7 @@ export function Name({ value, onChange, onSubmit }: NameProps) {
     <Page>
       <Text size={theme.sizes.text.large}>Enter your name</Text>
       <Spacer size={60} />
-      <Input autoFocus={true} type="text" value={value} onChange={onChange} />
+      <Input autoFocus={true} value={value} onChange={onChange} />
       <Spacer size={20} />
       <Button disabled={!value} onClick={onSubmit}>
         Continue
