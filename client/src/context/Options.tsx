@@ -21,8 +21,8 @@ const OptionsContext = createContext<OptionsCtxInterface>({
 export const useOptions = () => useContext(OptionsContext)
 
 export function OptionsProvider({ children }: OptionsProviderProps) {
-  const [soundsOn, setSoundsOn] = useState<boolean>(true)
-  const [animationsOn, setAnimationsOn] = useState<boolean>(true)
+  const [soundsOn, setSoundsOn] = useState(true)
+  const [animationsOn, setAnimationsOn] = useState(true)
 
   const toggleSounds = () => setSoundsOn((soundsOn) => !soundsOn)
   const toggleAnimations = () =>

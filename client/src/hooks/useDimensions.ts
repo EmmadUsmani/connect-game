@@ -11,7 +11,7 @@ const getDimensions = (): Dimensions => ({
 })
 
 export function useDimensions(): Dimensions {
-  const [dimensions, setDimensions] = useState<Dimensions>(getDimensions())
+  const [dimensions, setDimensions] = useState(getDimensions())
 
   const resize = () => setDimensions(getDimensions())
 

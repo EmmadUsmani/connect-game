@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react"
-import { DefaultTheme, ThemeContext, ThemeProvider } from "styled-components"
+import { ThemeContext, ThemeProvider } from "styled-components"
 
 import { defaultTheme, smallTheme } from "../config"
 import { useDimensions } from "../hooks"
@@ -28,7 +28,7 @@ export function AppThemeProvider({ children }: AppThemeProviderProps) {
     },
   } = useGame()
 
-  const [theme, setTheme] = useState<DefaultTheme>(defaultTheme)
+  const [theme, setTheme] = useState(defaultTheme)
   const {
     sizes: {
       page: { marginHorizontal, marginVertical },

@@ -31,7 +31,7 @@ export function Menu() {
   const history = useHistory()
   const location = useLocation()
 
-  const [showModal, setShowModal] = useState<boolean>(false)
+  const [showModal, setShowModal] = useState(false)
   const toggleModal = () => setShowModal((showModal) => !showModal)
   useOnKeyDown("Escape", toggleModal)
 

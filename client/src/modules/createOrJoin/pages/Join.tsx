@@ -12,14 +12,13 @@ import { useGame } from "context"
 
 import { Code, Name } from "."
 
-
 export function Join() {
   const history = useHistory()
   const match = useRouteMatch()
   const { joinRoom } = useGame()
 
-  const [name, setName] = useState<string>("")
-  const [code, setCode] = useState<string>("")
+  const [name, setName] = useState("")
+  const [code, setCode] = useState("")
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newName = event.target.value

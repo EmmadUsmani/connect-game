@@ -12,14 +12,13 @@ import { useGame } from "context"
 
 import { Name, Settings } from "."
 
-
 export function Create() {
   const history = useHistory()
   const match = useRouteMatch()
   const { createRoom } = useGame()
 
-  const [name, setName] = useState<string>("")
-  const [settings, setSettings] = useState<GameSettings>(DefaultSettings)
+  const [name, setName] = useState("")
+  const [settings, setSettings] = useState(DefaultSettings)
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newName = event.target.value
