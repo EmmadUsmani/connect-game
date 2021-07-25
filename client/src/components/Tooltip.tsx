@@ -8,7 +8,7 @@ interface TooltipProps {
   label: string
   delay?: number
   float?: boolean
-  offset?: string
+  offset?: { top?: number; right?: number; left?: number; bottom?: number }
   active?: boolean
 }
 
@@ -25,18 +25,20 @@ export function Tooltip({
 
   return (
     <>
-      <div
-        data-tip
-        data-arrow-color="rgba(0, 0, 0, 0)"
-        data-background-color={theme.colors.primary}
-        data-delay-show={delay}
-        data-effect={float ? "float" : "solid"}
-        data-for={id}
-        data-offset={offset ?? ""}
-      >
+      <div data-tip data-for={id}>
         {children}
       </div>
-      {active && <ReactTooltip getContent={() => label} id={id} />}
+      {active && (
+        <ReactTooltip
+          arrowColor="rgba(0, 0, 0, 0)"
+          backgroundColor={theme.colors.primary}
+          delayShow={delay}
+          effect={float ? "float" : "solid"}
+          getContent={() => label}
+          id={id}
+          offset={offset ?? {}}
+        />
+      )}
     </>
   )
 }

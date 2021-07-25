@@ -21,18 +21,17 @@ export function MenuIcon({ onClick }: MenuIconProps) {
 
   return (
     <>
-      <StyledIconDiv
-        data-arrow-color="rgba(0, 0, 0, 0)"
-        data-background-color={theme.colors.primary}
-        data-effect="solid"
-        data-for="menu"
-        data-place="left"
-        data-tip="Escape"
-        onClick={onClick}
-      >
+      <StyledIconDiv data-tip data-for="menu" onClick={onClick}>
         <FontAwesomeIcon icon={faBars} size="2x" />
       </StyledIconDiv>
-      <ReactTooltip id="menu" />
+      <ReactTooltip
+        arrowColor="rgba(0, 0, 0, 0)"
+        backgroundColor={theme.colors.primary}
+        effect="solid"
+        getContent={() => "Escape"}
+        id="menu"
+        place="left"
+      />
     </>
   )
 }

@@ -42,7 +42,7 @@ export function RoomCode({ code }: RoomCodeProps) {
       active={active}
       id="code"
       label={clicked ? "Copied" : "Copy"}
-      offset="{'top': -12}"
+      offset={{ top: -12 }}
     >
       <StyledDiv
         clicked={clicked}

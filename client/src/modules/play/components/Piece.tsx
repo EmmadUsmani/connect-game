@@ -32,7 +32,7 @@ export function Piece({ id, size, player }: PieceProps) {
       delay={100}
       id={id}
       label={player ? player.name : ""}
-      offset={`{'top': -${size / 2 + 10}}`}
+      offset={{ top: -(size / 2 + 6) }}
     >
       <StyledDiv color={player?.color} size={size} />
     </Tooltip>
