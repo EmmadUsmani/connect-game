@@ -1,8 +1,10 @@
-import { Label, Input, Button } from "components"
+import { Label, Button } from "components"
 import { Page, Spacer } from "components/layout"
 import { List } from "components/layout/List"
 import { useGame } from "context"
 import { useOnKeyDown } from "hooks"
+
+import { RoomCode } from "../components"
 
 export function Room() {
   const { gameState, startGame } = useGame()
@@ -30,11 +32,7 @@ export function Room() {
   return (
     <Page>
       <Label>Room code</Label>
-      <Input
-        disabled
-        value={gameState.room.code}
-        onClick={() => navigator.clipboard.writeText(gameState.room.code)}
-      />
+      <RoomCode code={gameState.room.code} />
       <Spacer size={20} />
       <Label>Players</Label>
       <List spacing={20}>
