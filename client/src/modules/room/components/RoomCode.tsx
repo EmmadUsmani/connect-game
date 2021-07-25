@@ -15,6 +15,9 @@ const StyledDiv = styled.div<StyledDivProps>`
   input {
     cursor: ${(props) => (props.clicked ? "auto" : "pointer")};
   }
+  input::selection {
+    background-color: transparent;
+  }
 `
 
 export function RoomCode({ code }: RoomCodeProps) {
