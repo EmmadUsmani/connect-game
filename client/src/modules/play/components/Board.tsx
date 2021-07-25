@@ -42,17 +42,18 @@ export function Board({
 
   return (
     <StyledBoardDiv>
-      {board.map((col, index) => (
+      {board.map((col, colIndex) => (
         <StyledColDiv
-          key={index}
+          key={colIndex}
           clickable={clickable}
           pieceSize={pieceSize}
-          onClick={() => handleClick(index)}
+          onClick={() => handleClick(colIndex)}
         >
-          {col.map((player, index) => (
+          {col.map((piece, rowIndex) => (
             <Piece
-              key={index}
-              color={player ? player.color : undefined}
+              key={rowIndex}
+              id={`${rowIndex}-${colIndex}`}
+              player={piece}
               size={pieceSize}
             />
           ))}

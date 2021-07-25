@@ -37,7 +37,13 @@ export function RoomCode({ code }: RoomCodeProps) {
   }
 
   return (
-    <Tooltip active={active} id="code" label={clicked ? "Copied" : "Copy"}>
+    <Tooltip
+      float
+      active={active}
+      id="code"
+      label={clicked ? "Copied" : "Copy"}
+      offset="{'top': -12}"
+    >
       <StyledDiv
         clicked={clicked}
         onClick={onClick}

@@ -6,10 +6,21 @@ interface TooltipProps {
   children: React.ReactNode
   id: string
   label: string
+  delay?: number
+  float?: boolean
+  offset?: string
   active?: boolean
 }
 
-export function Tooltip({ children, id, label, active = true }: TooltipProps) {
+export function Tooltip({
+  children,
+  id,
+  label,
+  delay,
+  float,
+  offset,
+  active = true,
+}: TooltipProps) {
   const theme = useTheme()
 
   return (
@@ -18,8 +29,10 @@ export function Tooltip({ children, id, label, active = true }: TooltipProps) {
         data-tip
         data-arrow-color="rgba(0, 0, 0, 0)"
         data-background-color={theme.colors.primary}
+        data-delay-show={delay}
+        data-effect={float ? "float" : "solid"}
         data-for={id}
-        data-offset="{'top': -12}"
+        data-offset={offset ?? ""}
       >
         {children}
       </div>

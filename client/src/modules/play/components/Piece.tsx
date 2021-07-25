@@ -1,11 +1,12 @@
-import { GameColor } from "@connect-game/shared"
+import { GameColor, GamePlayer } from "@connect-game/shared"
 import styled from "styled-components"
 
-// TODO: understand why we need separate Piece and StyledDiv
+import { Tooltip } from "components"
 
 interface PieceProps {
+  id: string
   size: number
-  color?: GameColor
+  player?: GamePlayer
 }
 
 interface StyledDivProps {
@@ -25,6 +26,15 @@ const StyledDiv = styled.div<StyledDivProps>`
     props.color ? "transparent" : props.theme.colors.game.piece};
 `
 
-export function Piece({ size, color }: PieceProps) {
-  return <StyledDiv color={color} size={size} />
+export function Piece({ id, size, player }: PieceProps) {
+  return (
+    <Tooltip
+      delay={100}
+      id={id}
+      label={player ? player.name : ""}
+      offset={`{'top': -${size / 2 + 10}}`}
+    >
+      <StyledDiv color={player?.color} size={size} />
+    </Tooltip>
+  )
 }
