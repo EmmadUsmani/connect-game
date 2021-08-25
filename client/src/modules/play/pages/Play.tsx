@@ -1,11 +1,10 @@
-import { Button } from "components"
-import { Page, Spacer } from "components/layout"
+import { List, Page, Spacer } from "components/layout"
 import { useGame, useTheme } from "context"
 
-import { Board, Header } from "../components"
+import { Board, Header, BackIcon, ReplayIcon } from "../components"
 
 export function Play() {
-  const { gameState, placePiece, endGame } = useGame()
+  const { gameState, placePiece, endGame, startGame } = useGame()
   const { board, currPlayerIdx, winner, you } = gameState.play
   const { players } = gameState.room
 
@@ -21,9 +20,22 @@ export function Play() {
     }
   }
 
+  const handleReplayClick = () => {
+    if (you.isHost) {
+      startGame()
+    }
+  }
+
+  const showHostButtons = winner !== undefined && you.isHost
+
   return players.length !== 0 ? (
     <Page>
-      <Header currPlayer={players[currPlayerIdx]} winner={winner} you={you} />
+      <List direction="row" spacing={40}>
+        {showHostButtons && <BackIcon onClick={handleBackClick} />}
+        <Header currPlayer={players[currPlayerIdx]} winner={winner} you={you} />
+        {showHostButtons && <ReplayIcon onClick={handleReplayClick} />}
+      </List>
+      <Spacer size={theme.sizes.game.piece} />
       <Board
         board={board}
         clickable={
@@ -32,12 +44,17 @@ export function Play() {
         handleColumnClick={handleColumnClick}
         pieceSize={theme.sizes.game.piece}
       />
-      {winner !== undefined && you.isHost ? (
-        <>
-          <Spacer size={10} />
-          <Button onClick={handleBackClick}>Back to lobby</Button>
-        </>
-      ) : null}
     </Page>
   ) : null
 }
+
+/* 
+TODO: better error handling for players.length !== 0 
+This should be a generic error screen ("uh oh something went wrong")
+and should trigger some logging
+
+TODO: move showHostButtons to game context?
+
+TODO: move click functions inline?
+don't need to check host due to conditional rendering
+*/

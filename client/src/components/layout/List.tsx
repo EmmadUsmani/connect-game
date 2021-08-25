@@ -20,10 +20,14 @@ const StyledDiv = styled.div<StyledDivProps>`
 `
 
 export function List({ children, spacing, direction = "column" }: ListProps) {
+  const childrenArray = React.Children.toArray(children).filter(
+    (child) => child !== null
+  )
+
   return (
     <StyledDiv direction={direction}>
-      {React.Children.map(children, (child, index) =>
-        index !== React.Children.count(children) - 1 && child !== null ? (
+      {childrenArray.map((child, index) =>
+        index !== childrenArray.length - 1 ? (
           <>
             {child}
             <Spacer size={spacing} />

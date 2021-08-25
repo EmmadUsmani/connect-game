@@ -11,10 +11,6 @@ interface HeaderProps {
   winner?: GameWinner
 }
 
-const StyledText = styled(Text)`
-  margin-bottom: ${(props) => props.theme.sizes.game.piece}px;
-`
-
 const StyledSpan = styled.span`
   color: ${(props) => props.color};
 `
@@ -26,6 +22,7 @@ export function Header({ currPlayer, you, winner }: HeaderProps) {
   const youWon = winner && winner.name === you.name
   let message: React.ReactNode
 
+  // TODO: refactor to if statement
   switch (winner) {
     // no player has won yet
     case undefined:
@@ -55,5 +52,5 @@ export function Header({ currPlayer, you, winner }: HeaderProps) {
       break
   }
 
-  return <StyledText size={theme.sizes.text.large}>{message}</StyledText>
+  return <Text size={theme.sizes.text.large}>{message}</Text>
 }
