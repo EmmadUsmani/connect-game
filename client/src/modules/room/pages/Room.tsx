@@ -1,6 +1,5 @@
 import { Label, Button } from "components"
-import { Page, Spacer } from "components/layout"
-import { List } from "components/layout/List"
+import { Page, Spacer, List } from "components/layout"
 import { useGame } from "context"
 import { useOnKeyDown } from "hooks"
 

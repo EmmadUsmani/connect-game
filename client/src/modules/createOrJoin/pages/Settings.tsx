@@ -1,8 +1,7 @@
 import { GameSettings, Options } from "@connect-game/shared"
 
 import { Label, Picker, Button } from "components"
-import { Page, Spacer } from "components/layout"
-import { List } from "components/layout/List"
+import { Page, Spacer, List } from "components/layout"
 import { useOnKeyDown } from "hooks"
 
 import { boardSizeToStr, strToBoardSize } from "../utils"
