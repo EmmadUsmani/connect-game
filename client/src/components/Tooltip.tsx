@@ -9,7 +9,7 @@ interface TooltipProps {
   delay?: number
   float?: boolean
   offset?: { top?: number; right?: number; left?: number; bottom?: number }
-  active?: boolean
+  disabled?: boolean
 }
 
 export function Tooltip({
@@ -19,7 +19,7 @@ export function Tooltip({
   delay,
   float,
   offset,
-  active = true,
+  disabled = false,
 }: TooltipProps) {
   const theme = useTheme()
 
@@ -28,7 +28,7 @@ export function Tooltip({
       <div data-tip data-for={id}>
         {children}
       </div>
-      {active && (
+      {!disabled && (
         <ReactTooltip
           arrowColor="rgba(0, 0, 0, 0)"
           backgroundColor={theme.colors.primary}

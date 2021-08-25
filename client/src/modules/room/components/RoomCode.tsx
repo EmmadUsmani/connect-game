@@ -22,13 +22,13 @@ const StyledDiv = styled.div<StyledDivProps>`
 
 export function RoomCode({ code }: RoomCodeProps) {
   const [clicked, setClicked] = useState(false)
-  const [active, setActive] = useState(true)
+  const [disabled, setDisabled] = useState(false)
   const [timeoutID, setTimeoutID] = useState<NodeJS.Timeout>()
 
   const onClick = () => {
     void navigator.clipboard.writeText(code)
     setClicked(true)
-    setTimeoutID(setTimeout(() => setActive(false), 1000))
+    setTimeoutID(setTimeout(() => setDisabled(true), 1000))
   }
 
   const onMouseEnter = () => {
@@ -36,13 +36,13 @@ export function RoomCode({ code }: RoomCodeProps) {
       clearTimeout(timeoutID)
     }
     setClicked(false)
-    setActive(true)
+    setDisabled(false)
   }
 
   return (
     <Tooltip
       float
-      active={active}
+      disabled={disabled}
       id="code"
       label={clicked ? "Copied" : "Copy"}
       offset={{ top: -12 }}
