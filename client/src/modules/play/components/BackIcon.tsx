@@ -1,7 +1,7 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-import { Clickable, Tooltip } from "components"
+import { Clickable, Tooltip } from "components/wrapper"
 
 interface BackIconProps {
   onClick(): void

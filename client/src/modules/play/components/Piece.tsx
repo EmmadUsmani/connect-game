@@ -1,7 +1,7 @@
 import { GameColor, GamePlayer } from "@connect-game/shared"
 import styled from "styled-components"
 
-import { Tooltip } from "components"
+import { Tooltip } from "components/wrapper"
 
 interface PieceProps {
   id: string

@@ -1,7 +1,8 @@
 import { useState } from "react"
 import styled from "styled-components"
 
-import { Input, Tooltip } from "components"
+import { Input } from "components"
+import { Tooltip } from "components/wrapper"
 
 interface RoomCodeProps {
   code: string
