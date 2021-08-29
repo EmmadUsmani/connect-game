@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 interface ClickableProps {
   children: React.ReactNode
-  onClick(): void
+  onClick?(): void
   disabled?: boolean
 }
 
@@ -23,7 +23,7 @@ export function Clickable({
   return (
     <StyledDiv
       disabled={disabled}
-      onClick={() => (disabled ? null : onClick())}
+      onClick={() => (disabled ? null : onClick?.())}
     >
       {children}
     </StyledDiv>

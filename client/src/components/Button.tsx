@@ -1,6 +1,8 @@
 import React from "react"
 import styled, { css, CSSProperties } from "styled-components"
 
+import { Clickable } from "./wrapper"
+
 interface ButtonProps {
   children: React.ReactNode
   onClick?(): void
@@ -20,7 +22,6 @@ const StyledDiv = styled.div<StyledDivProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
   width: ${(props) => props.theme.sizes.button.width}px;
   height: ${(props) => props.theme.sizes.button.height}px;
   opacity: ${(props) => (props.disabled && !props.color ? "50%" : "100%")};
@@ -60,14 +61,10 @@ export function Button({
   disabled = false,
 }: ButtonProps) {
   return (
-    <StyledDiv
-      color={color}
-      disabled={disabled}
-      style={style}
-      type={type}
-      onClick={() => (disabled ? null : onClick?.())}
-    >
-      {children}
-    </StyledDiv>
+    <Clickable disabled={disabled} onClick={onClick}>
+      <StyledDiv color={color} disabled={disabled} style={style} type={type}>
+        {children}
+      </StyledDiv>
+    </Clickable>
   )
 }

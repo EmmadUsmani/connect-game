@@ -1,6 +1,8 @@
 import { GameBoard } from "@connect-game/shared"
 import styled from "styled-components"
 
+import { Clickable } from "components/wrapper"
+
 import { Piece } from "."
 
 interface BoardProps {
@@ -23,7 +25,6 @@ const StyledBoardDiv = styled.div`
 const StyledColDiv = styled.div<StyledColProps>`
   display: flex;
   flex-direction: column-reverse;
-  cursor: ${(props) => (props.clickable ? "pointer" : "auto")};
   margin: 0px ${(props) => props.pieceSize / 2}px;
 `
 
@@ -43,21 +44,22 @@ export function Board({
   return (
     <StyledBoardDiv>
       {board.map((col, colIndex) => (
-        <StyledColDiv
-          key={colIndex}
-          clickable={clickable}
-          pieceSize={pieceSize}
-          onClick={() => handleClick(colIndex)}
-        >
-          {col.map((piece, rowIndex) => (
-            <Piece
-              key={rowIndex}
-              id={`${rowIndex}-${colIndex}`}
-              player={piece}
-              size={pieceSize}
-            />
-          ))}
-        </StyledColDiv>
+        <Clickable disabled={!clickable} onClick={() => handleClick(colIndex)}>
+          <StyledColDiv
+            key={colIndex}
+            clickable={clickable}
+            pieceSize={pieceSize}
+          >
+            {col.map((piece, rowIndex) => (
+              <Piece
+                key={rowIndex}
+                id={`${rowIndex}-${colIndex}`}
+                player={piece}
+                size={pieceSize}
+              />
+            ))}
+          </StyledColDiv>
+        </Clickable>
       ))}
     </StyledBoardDiv>
   )
