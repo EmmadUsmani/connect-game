@@ -10,7 +10,7 @@ interface MenuIconProps {
   onClick(): void
 }
 
-const StyledIconDiv = styled.div`
+const StyledDiv = styled.div`
   position: absolute;
   top: 20px;
   right: 20px;
@@ -21,11 +21,11 @@ export function MenuIcon({ onClick }: MenuIconProps) {
 
   return (
     <>
-      <StyledIconDiv data-tip data-for="menu">
+      <StyledDiv data-tip data-for="menu">
         <Clickable onClick={onClick}>
           <FontAwesomeIcon icon={faBars} size="2x" />
         </Clickable>
-      </StyledIconDiv>
+      </StyledDiv>
       <ReactTooltip
         arrowColor="rgba(0, 0, 0, 0)"
         backgroundColor={theme.colors.primary}
