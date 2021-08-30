@@ -19,6 +19,19 @@ export function createBoard(numCols: number, numRows: number): GameBoard {
   return board
 }
 
+/* Returns the index of the first empty row (topmost) in a column, or -1 if the column is full */
+export function getEmptyRowNum(board: GameBoard, colNum: number): number {
+  const column = board[colNum]
+  let rowNum = -1
+  for (let i = 0; i < column.length; i++) {
+    if (!column[i]) {
+      rowNum = i
+      break
+    }
+  }
+  return rowNum
+}
+
 /* Updates board after placing piece in given coordinate */
 export function updatePiece(
   colNum: number,

@@ -8,7 +8,7 @@ import {
 import React, { createContext, useContext, useEffect, useReducer } from "react"
 import { useHistory } from "react-router-dom"
 
-import { server } from "../../services"
+import { server } from "services"
 
 import {
   joinRoomAction,
@@ -19,6 +19,7 @@ import {
   startGameAction,
 } from "./actions"
 import { gameReducer } from "./reducer"
+import { getEmptyRowNum } from "./utils"
 
 interface GameProviderProps {
   children: React.ReactNode
@@ -84,14 +85,7 @@ export function GameProvider({ children }: GameProviderProps) {
       return
     }
 
-    const column = board[colNum]
-    let rowNum = -1
-    for (let j = 0; j < column.length; j++) {
-      if (!column[j]) {
-        rowNum = j
-        break
-      }
-    }
+    const rowNum = getEmptyRowNum(board, colNum)
     if (rowNum === -1) {
       return
     }

@@ -2,6 +2,7 @@ import { GameBoard } from "@connect-game/shared"
 
 import { List } from "components/layout"
 import { Clickable } from "components/wrapper"
+import { getEmptyRowNum } from "context/game/utils"
 
 import { Piece } from "."
 
@@ -22,7 +23,7 @@ export function Board({
     <List direction="row" spacing={pieceSize}>
       {board.map((column, columnIndex) => (
         <Clickable
-          disabled={disabled}
+          disabled={disabled || getEmptyRowNum(board, columnIndex) === -1}
           onClick={() => handleColumnClick(columnIndex)}
         >
           <List
