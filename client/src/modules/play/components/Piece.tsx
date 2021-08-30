@@ -21,7 +21,6 @@ const StyledDiv = styled.div<StyledDivProps>`
   box-sizing: border-box;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
-  margin: ${(props) => props.size / 2}px 0px;
   background-color: ${(props) => props.color};
   border-color: ${(props) =>
     props.color ? "transparent" : props.theme.colors.game.piece};
@@ -33,9 +32,11 @@ export function Piece({ id, size, player }: PieceProps) {
       delay={100}
       id={id}
       label={player ? player.name : ""}
-      offset={{ top: -(size / 2 + 6) }}
+      offset={{ top: -5 }}
     >
       <StyledDiv color={player?.color} size={size} />
     </Tooltip>
   )
 }
+
+// TODO: does size need to be a prop, or can we get it from theme?

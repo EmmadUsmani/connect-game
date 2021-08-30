@@ -38,8 +38,8 @@ export function Play() {
       <Spacer size={theme.sizes.game.piece * 2} />
       <Board
         board={board}
-        clickable={
-          winner === undefined && players[currPlayerIdx].name === you.name
+        disabled={
+          winner !== undefined || players[currPlayerIdx].name !== you.name
         }
         handleColumnClick={handleColumnClick}
         pieceSize={theme.sizes.game.piece}

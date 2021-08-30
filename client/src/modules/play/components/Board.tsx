@@ -1,66 +1,46 @@
 import { GameBoard } from "@connect-game/shared"
-import styled from "styled-components"
 
+import { List } from "components/layout"
 import { Clickable } from "components/wrapper"
 
 import { Piece } from "."
 
 interface BoardProps {
   board: GameBoard
+  disabled: boolean
   handleColumnClick(colNum: number): void
-  clickable: boolean
   pieceSize: number
 }
-
-interface StyledColProps {
-  clickable: boolean
-  pieceSize: number
-}
-
-const StyledBoardDiv = styled.div`
-  display: inline-flex;
-  flex-direction: row;
-`
-
-const StyledColDiv = styled.div<StyledColProps>`
-  display: flex;
-  flex-direction: column-reverse;
-  margin: 0px ${(props) => props.pieceSize / 2}px;
-`
 
 export function Board({
   board,
+  disabled,
   handleColumnClick,
-  clickable,
   pieceSize,
 }: BoardProps) {
-  const handleClick = (colNum: number) => {
-    if (!clickable) {
-      return
-    }
-    handleColumnClick(colNum)
-  }
-
   return (
-    <StyledBoardDiv>
-      {board.map((col, colIndex) => (
-        <Clickable disabled={!clickable} onClick={() => handleClick(colIndex)}>
-          <StyledColDiv
-            key={colIndex}
-            clickable={clickable}
-            pieceSize={pieceSize}
+    <List direction="row" spacing={pieceSize}>
+      {board.map((column, columnIndex) => (
+        <Clickable
+          disabled={disabled}
+          onClick={() => handleColumnClick(columnIndex)}
+        >
+          <List
+            key={columnIndex}
+            direction="column-reverse"
+            spacing={pieceSize}
           >
-            {col.map((piece, rowIndex) => (
+            {column.map((piece, rowIndex) => (
               <Piece
                 key={rowIndex}
-                id={`${rowIndex}-${colIndex}`}
+                id={`${rowIndex}-${columnIndex}`}
                 player={piece}
                 size={pieceSize}
               />
             ))}
-          </StyledColDiv>
+          </List>
         </Clickable>
       ))}
-    </StyledBoardDiv>
+    </List>
   )
 }
