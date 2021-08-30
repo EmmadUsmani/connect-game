@@ -1,7 +1,7 @@
 import { List, Page, Spacer } from "components/layout"
 import { useGame, useTheme } from "context"
 
-import { Board, Header, BackIcon, ReplayIcon } from "../components"
+import { Board, Header, BackIcon, ReplayIcon, PlayerOrder } from "../components"
 
 export function Play() {
   const { gameState, placePiece, endGame, startGame } = useGame()
@@ -35,7 +35,7 @@ export function Play() {
         <Header currPlayer={players[currPlayerIdx]} winner={winner} you={you} />
         {showHostButtons && <ReplayIcon onClick={handleReplayClick} />}
       </List>
-      <Spacer size={theme.sizes.game.piece} />
+      <Spacer size={theme.sizes.game.piece * 2} />
       <Board
         board={board}
         clickable={
@@ -43,6 +43,13 @@ export function Play() {
         }
         handleColumnClick={handleColumnClick}
         pieceSize={theme.sizes.game.piece}
+      />
+      <Spacer size={theme.sizes.game.piece * 1.5} />
+      <PlayerOrder
+        board={board}
+        currPlayerIdx={currPlayerIdx}
+        players={players}
+        winner={winner}
       />
     </Page>
   ) : null

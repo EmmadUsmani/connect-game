@@ -16,8 +16,9 @@ interface StyledDivProps {
 
 const StyledDiv = styled.div<StyledDivProps>`
   border-radius: 50%;
-  border-width: 1;
+  border-width: 2px;
   border-style: solid;
+  box-sizing: border-box;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
   margin: ${(props) => props.size / 2}px 0px;
