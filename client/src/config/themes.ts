@@ -23,11 +23,12 @@ export const defaultTheme: DefaultTheme = {
       extraSmall: 30,
     },
     page: {
-      marginHorizontal: 200,
-      marginVertical: 250,
+      marginHorizontalRatio: 0.25, // TODO: rename to marginHorizontalRatio
+      marginVerticalRatio: 0.3,
     },
     game: {
-      piece: 70,
+      piece: 60,
+      headerHeight: 80,
     },
     button: {
       width: 400,
@@ -51,8 +52,12 @@ export const smallTheme: DefaultTheme = {
       extraSmall: 24,
     },
     page: {
-      marginHorizontal: 100,
-      marginVertical: 250,
+      marginHorizontalRatio: 0.1,
+      marginVerticalRatio: 0.15,
+    },
+    game: {
+      ...defaultTheme.sizes.game,
+      headerHeight: 55,
     },
     button: {
       width: 300,

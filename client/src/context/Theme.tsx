@@ -31,7 +31,8 @@ export function AppThemeProvider({ children }: AppThemeProviderProps) {
   const [theme, setTheme] = useState(defaultTheme)
   const {
     sizes: {
-      page: { marginHorizontal, marginVertical },
+      page: { marginHorizontalRatio, marginVerticalRatio },
+      game: { headerHeight },
     },
   } = theme
 
@@ -47,15 +48,33 @@ export function AppThemeProvider({ children }: AppThemeProviderProps) {
   // Scale piece size
   useEffect(() => {
     // board width = piece size * (2 * numcols - 1) + margin
-    const pieceSizeW = (width - marginHorizontal) / (2 * columns - 1)
-    const pieceSizeH = (height - marginVertical) / (2 * rows - 1)
-    const pieceSize = Math.floor(Math.min(pieceSizeH, pieceSizeW, 65))
+    const pieceSizeW = (width * (1 - marginHorizontalRatio)) / (2 * columns - 1)
+    // header = text height + 1.5 * pieceSize; footer = 2 * pieceSize
+    // footer = 2 * piece size
+    // board height = (2 * numrows - 1) * pieceSize
+    // play component height = header + footer + board height
+    const pieceSizeH =
+      (height * (1 - marginVerticalRatio) - headerHeight) / (2.5 + 2 * rows)
+    const pieceSize = Math.floor(Math.min(pieceSizeH, pieceSizeW, 60))
 
     setTheme((theme) => ({
       ...theme,
-      sizes: { ...theme.sizes, game: { piece: pieceSize } },
+      sizes: {
+        ...theme.sizes,
+        game: { ...theme.sizes.game, piece: pieceSize },
+      },
     }))
-  }, [width, height, columns, rows, marginHorizontal, marginVertical])
+  }, [
+    width,
+    height,
+    columns,
+    rows,
+    marginHorizontalRatio,
+    marginVerticalRatio,
+    headerHeight,
+  ])
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>
 }
+
+// TODO: better documentation for height calculation

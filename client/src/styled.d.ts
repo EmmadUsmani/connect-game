@@ -24,11 +24,12 @@ declare module "styled-components" {
         extraSmall: number // label
       }
       page: {
-        marginHorizontal: number
-        marginVertical: number
+        marginHorizontalRatio: number
+        marginVerticalRatio: number
       }
       game: {
         piece: number
+        headerHeight: number
       }
       button: {
         width: number

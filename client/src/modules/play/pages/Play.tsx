@@ -35,7 +35,7 @@ export function Play() {
         <Header currPlayer={players[currPlayerIdx]} winner={winner} you={you} />
         {showHostButtons && <ReplayIcon onClick={handleReplayClick} />}
       </List>
-      <Spacer size={theme.sizes.game.piece * 2} />
+      <Spacer size={theme.sizes.game.piece * 1.5} />
       <Board
         board={board}
         disabled={
