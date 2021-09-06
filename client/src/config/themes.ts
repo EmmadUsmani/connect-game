@@ -23,7 +23,7 @@ export const defaultTheme: DefaultTheme = {
       extraSmall: 30,
     },
     page: {
-      marginHorizontalRatio: 0.25, // TODO: rename to marginHorizontalRatio
+      marginHorizontalRatio: 0.25,
       marginVerticalRatio: 0.3,
     },
     game: {
