@@ -1,12 +1,6 @@
 import { GameSettings, DefaultSettings, MaxNameLen } from "@connect-game/shared"
 import React, { useState } from "react"
-import {
-  Switch,
-  Route,
-  Redirect,
-  useRouteMatch,
-  useHistory,
-} from "react-router-dom"
+import { Switch, Route, Redirect, useHistory } from "react-router-dom"
 
 import { useGame } from "context"
 
@@ -14,7 +8,6 @@ import { Name, Settings } from "."
 
 export function Create() {
   const history = useHistory()
-  const match = useRouteMatch()
   const { createRoom } = useGame()
 
   const [name, setName] = useState("")
@@ -29,7 +22,7 @@ export function Create() {
   }
 
   const handleNameSubmit = () => {
-    history.push(`${match.path}/settings`)
+    history.push(`/create/settings`)
   }
 
   const handleSettingsChange = (newSettings: GameSettings) => {
@@ -43,14 +36,14 @@ export function Create() {
 
   return (
     <Switch>
-      <Route exact path={`${match.path}/name`}>
+      <Route exact path={`/create/name`}>
         <Name
           value={name}
           onChange={handleNameChange}
           onSubmit={handleNameSubmit}
         />
       </Route>
-      <Route exact path={`${match.path}/settings`}>
+      <Route exact path={`/create/settings`}>
         <Settings
           settings={settings}
           onChange={handleSettingsChange}

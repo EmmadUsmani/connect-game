@@ -1,12 +1,6 @@
 import { MaxNameLen } from "@connect-game/shared"
 import React, { useState } from "react"
-import {
-  Switch,
-  Route,
-  Redirect,
-  useHistory,
-  useRouteMatch,
-} from "react-router-dom"
+import { Switch, Route, Redirect, useHistory } from "react-router-dom"
 
 import { useGame } from "context"
 
@@ -14,7 +8,6 @@ import { Code, Name } from "."
 
 export function Join() {
   const history = useHistory()
-  const match = useRouteMatch()
   const { joinRoom } = useGame()
 
   const [code, setCode] = useState("")
@@ -25,7 +18,7 @@ export function Join() {
   }
 
   const handleCodeSubmit = () => {
-    history.push(`${match.path}/name`) // TODO: hardcode this?
+    history.push(`/join/name`)
   }
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,14 +36,14 @@ export function Join() {
 
   return (
     <Switch>
-      <Route exact path={`${match.path}/code`}>
+      <Route exact path={`/join/code`}>
         <Code
           value={code}
           onChange={handleCodeChange}
           onSubmit={handleCodeSubmit}
         />
       </Route>
-      <Route exact path={`${match.path}/name`}>
+      <Route exact path={`/join/name`}>
         <Name
           value={name}
           onChange={handleNameChange}
