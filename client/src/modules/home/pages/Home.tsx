@@ -14,7 +14,7 @@ export function Home() {
       <Spacer size={60} />
       <Button onClick={() => history.push("/create/name")}>Create Game</Button>
       <Spacer size={20} />
-      <Button onClick={() => history.push("/join/name")}>Join Game</Button>
+      <Button onClick={() => history.push("/join/code")}>Join Game</Button>
     </Page>
   )
 }
