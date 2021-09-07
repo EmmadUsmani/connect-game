@@ -10,7 +10,7 @@ interface CodeProps {
   onSubmit(): void
 }
 
-export function Code({ onSubmit, field }: CodeProps & FieldProps) {
+export function Code({ onSubmit, field, meta }: CodeProps & FieldProps) {
   const theme = useTheme()
   useOnKeyDown("Enter", onSubmit)
 
@@ -18,6 +18,7 @@ export function Code({ onSubmit, field }: CodeProps & FieldProps) {
     <Page>
       <Text size={theme.sizes.text.large}>Enter room code</Text>
       <Spacer size={60} />
+      <Text size={theme.sizes.text.extraSmall}>{meta.error}</Text>
       <Input autoFocus={true} {...field} />
       <Spacer size={20} />
       <Button disabled={!field.value} onClick={onSubmit}>

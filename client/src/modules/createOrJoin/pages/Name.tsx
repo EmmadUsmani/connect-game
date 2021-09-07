@@ -10,7 +10,7 @@ interface NameProps {
   onSubmit(): void
 }
 
-export function Name({ onSubmit, field }: NameProps & FieldProps) {
+export function Name({ onSubmit, field, meta }: NameProps & FieldProps) {
   const theme = useTheme()
   useOnKeyDown("Enter", onSubmit)
 
@@ -18,6 +18,7 @@ export function Name({ onSubmit, field }: NameProps & FieldProps) {
     <Page>
       <Text size={theme.sizes.text.large}>Enter your name</Text>
       <Spacer size={60} />
+      <Text size={theme.sizes.text.extraSmall}>{meta.error}</Text>
       <Input autoFocus={true} {...field} />
       <Spacer size={20} />
       <Button disabled={!field.value} onClick={onSubmit}>
