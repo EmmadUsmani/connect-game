@@ -1,4 +1,3 @@
-import { MaxNameLen } from "@connect-game/shared"
 import { Field, FieldProps, Formik } from "formik"
 import React, { useState } from "react"
 import { Switch, Route, Redirect, useHistory } from "react-router-dom"
@@ -17,20 +16,12 @@ export function Join() {
   const [name, setName] = useState("")
 
   const handleCodeSubmit = () => {
-    history.push(`/join/name`)
-  }
-
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newName = event.target.value
-    if (newName.length > MaxNameLen) {
-      return
-    }
-    setName(newName)
+    history.push("/join/name")
   }
 
   const handleNameSubmit = () => {
     joinRoom(code, name)
-    history.push(`/room`)
+    history.push("/room")
   }
 
   return (
@@ -39,19 +30,19 @@ export function Join() {
       onSubmit={() => console.log("submited")}
     >
       <Switch>
-        <Route exact path={`/join/code`}>
+        <Route exact path={"/join/code"}>
           <Field name="code">
             {(props: FieldProps) => (
               <Code onSubmit={handleCodeSubmit} {...props} />
             )}
           </Field>
         </Route>
-        <Route exact path={`/join/name`}>
-          <Name
-            value={name}
-            onChange={handleNameChange}
-            onSubmit={handleNameSubmit}
-          />
+        <Route exact path={"/join/name"}>
+          <Field name="name">
+            {(props: FieldProps) => (
+              <Name onSubmit={handleNameSubmit} {...props} />
+            )}
+          </Field>
         </Route>
         <Redirect to="/" />
       </Switch>

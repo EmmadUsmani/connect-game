@@ -37,11 +37,11 @@ export function Create() {
   return (
     <Switch>
       <Route exact path={`/create/name`}>
-        <Name
+        {/* <Name
           value={name}
           onChange={handleNameChange}
           onSubmit={handleNameSubmit}
-        />
+        /> */}
       </Route>
       <Route exact path={`/create/settings`}>
         <Settings
