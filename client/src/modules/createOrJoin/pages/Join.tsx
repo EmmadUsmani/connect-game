@@ -1,14 +1,23 @@
-import { Events } from "@connect-game/shared"
+import { Events, CodeLen, MaxNameLen } from "@connect-game/shared"
 import { useFormik } from "formik"
 import React, { useEffect } from "react"
 import { Switch, Route, Redirect, useHistory } from "react-router-dom"
+import * as yup from "yup"
 
 import { useGame } from "context"
 import { server } from "services"
 
-import { JoinForm, JoinFormSchema } from ".."
-
 import { Code, Name } from "."
+
+interface JoinForm {
+  code: string
+  name: string
+}
+
+const JoinFormSchema = yup.object({
+  code: yup.string().length(CodeLen).uppercase(),
+  name: yup.string().max(MaxNameLen),
+})
 
 export function Join() {
   const history = useHistory()
