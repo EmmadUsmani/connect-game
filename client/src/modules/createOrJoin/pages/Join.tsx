@@ -5,7 +5,7 @@ import { Switch, Route, Redirect, useHistory } from "react-router-dom"
 import * as yup from "yup"
 
 import { useGame } from "context"
-import { server } from "services"
+import { ListenerId, server } from "services"
 
 import { Code, Name } from "."
 
@@ -49,32 +49,44 @@ export function Join() {
   }
 
   useEffect(() => {
-    server.listen(Events.RoomFound, () => {
-      history.push("/join/name")
-    })
+    const listeners: ListenerId[] = []
 
-    server.listen(Events.RoomNotFound, () => {
-      if (history.location.pathname === "/join/code") {
-        formik.setFieldError("code", "Room not found")
-      } else if (history.location.pathname === "/join/name") {
-        formik.setFieldError("name", "Room no longer exists")
-      }
-    })
+    listeners.push(
+      server.listen(Events.RoomFound, () => {
+        history.push("/join/name")
+      })
+    )
 
-    server.listen(Events.InProgress, () => {
-      formik.setFieldError("code", "Game in progress")
-    })
+    listeners.push(
+      server.listen(Events.RoomNotFound, () => {
+        if (history.location.pathname === "/join/code") {
+          formik.setFieldError("code", "Room not found")
+        } else if (history.location.pathname === "/join/name") {
+          formik.setFieldError("name", "Room no longer exists")
+        }
+      })
+    )
 
-    server.listen(Events.RoomJoined, () => {
-      void formik.submitForm()
-    })
+    listeners.push(
+      server.listen(Events.InProgress, () => {
+        formik.setFieldError("code", "Game in progress")
+      })
+    )
 
-    server.listen(Events.NameTaken, () => {
-      formik.setFieldError("name", "Name taken")
-    })
+    listeners.push(
+      server.listen(Events.RoomJoined, () => {
+        void formik.submitForm()
+      })
+    )
 
-    // return server.removeAllListeners
-  })
+    listeners.push(
+      server.listen(Events.NameTaken, () => {
+        formik.setFieldError("name", "Name taken")
+      })
+    )
+
+    return () => server.removeListeners(listeners)
+  }, [formik, history])
 
   return (
     <Switch>
@@ -98,4 +110,4 @@ export function Join() {
 }
 
 // TODO: add loader to button
-// TODO: remove only specific listeners
+// TODO: prevent listeners from being removed everytime form value updates

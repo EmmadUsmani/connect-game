@@ -8,7 +8,7 @@ import {
 import React, { createContext, useContext, useEffect, useReducer } from "react"
 import { useHistory } from "react-router-dom"
 
-import { server } from "services"
+import { ListenerId, server } from "services"
 
 import {
   joinRoomAction,
@@ -96,42 +96,58 @@ export function GameProvider({ children }: GameProviderProps) {
 
   /* Register listeners */
   useEffect(() => {
-    server.listen(Events.RoomJoined, (data: EventData[Events.RoomJoined]) => {
-      dispatch(joinRoomAction(data))
-    })
+    const listeners: ListenerId[] = []
 
-    server.listen(
-      Events.PlayerJoined,
-      (data: EventData[Events.PlayerJoined]) => {
-        dispatch(playerJoinedAction(data))
-      }
+    listeners.push(
+      server.listen(Events.RoomJoined, (data: EventData[Events.RoomJoined]) => {
+        dispatch(joinRoomAction(data))
+      })
     )
 
-    server.listen(Events.PlayerLeft, (data: EventData[Events.PlayerLeft]) => {
-      dispatch(playerLeftAction(data))
-    })
-
-    server.listen(
-      Events.ReassignHost,
-      (data: EventData[Events.ReassignHost]) => {
-        dispatch(reassignHostAction(data))
-      }
+    listeners.push(
+      server.listen(
+        Events.PlayerJoined,
+        (data: EventData[Events.PlayerJoined]) => {
+          dispatch(playerJoinedAction(data))
+        }
+      )
     )
 
-    server.listen(Events.StartGame, () => {
-      dispatch(startGameAction())
-      history.push("/play")
-    })
+    listeners.push(
+      server.listen(Events.PlayerLeft, (data: EventData[Events.PlayerLeft]) => {
+        dispatch(playerLeftAction(data))
+      })
+    )
 
-    server.listen(Events.PlacePiece, (data: EventData[Events.PlacePiece]) => {
-      dispatch(placePieceAction(data))
-    })
+    listeners.push(
+      server.listen(
+        Events.ReassignHost,
+        (data: EventData[Events.ReassignHost]) => {
+          dispatch(reassignHostAction(data))
+        }
+      )
+    )
 
-    server.listen(Events.EndGame, () => {
-      history.push("/room")
-    })
+    listeners.push(
+      server.listen(Events.StartGame, () => {
+        dispatch(startGameAction())
+        history.push("/play")
+      })
+    )
 
-    return server.removeAllListeners
+    listeners.push(
+      server.listen(Events.PlacePiece, (data: EventData[Events.PlacePiece]) => {
+        dispatch(placePieceAction(data))
+      })
+    )
+
+    listeners.push(
+      server.listen(Events.EndGame, () => {
+        history.push("/room")
+      })
+    )
+
+    return () => server.removeListeners(listeners)
   }, [history])
 
   return (

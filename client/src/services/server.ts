@@ -1,21 +1,26 @@
 import { GameSettings, Events, EventData } from "@connect-game/shared"
 import { io } from "socket.io-client"
 
-const socket = io("/")
-const listeners: [string, (data: any) => void][] = []
+export type ListenerId = number
 
-// TODO: can we change type of event from string to Event?
-function listen(event: string, listener: (data: any) => void): void {
+const socket = io("/")
+const listeners: { [key: number]: [Events, (data: any) => void] } = {}
+let nextListenerId = 0
+
+function listen(event: Events, listener: (data: any) => void): ListenerId {
   socket.on(event, listener)
-  listeners.push([event, listener])
+  listeners[nextListenerId] = [event, listener]
+  return nextListenerId++
 }
 
-function removeAllListeners(): void {
-  for (let i = listeners.length - 1; i >= 0; i--) {
-    const [event, listener] = listeners[i]
-    socket.off(event, listener)
-    listeners.pop()
-  }
+function removeListener(listenerId: ListenerId): void {
+  const [event, listener] = listeners[listenerId]
+  socket.off(event, listener)
+  delete listeners[listenerId]
+}
+
+function removeListeners(listenerIds: ListenerId[]): void {
+  listenerIds.map((id) => removeListener(id))
 }
 
 function createRoom(settings: GameSettings, hostName: string): void {
@@ -52,7 +57,8 @@ function placePiece(colNum: number, rowNum: number): void {
 
 export const server = {
   listen,
-  removeAllListeners,
+  removeListener,
+  removeListeners,
   createRoom,
   getRoom,
   joinRoom,
