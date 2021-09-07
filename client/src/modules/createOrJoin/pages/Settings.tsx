@@ -1,4 +1,5 @@
 import { GameSettings, Options } from "@connect-game/shared"
+import { FieldHelperProps, FieldInputProps } from "formik"
 
 import { Label, Picker, Button } from "components"
 import { Page, Spacer, List } from "components/layout"
@@ -7,12 +8,12 @@ import { useOnKeyDown } from "hooks"
 import { boardSizeToStr, strToBoardSize } from "../utils"
 
 interface SettingsProps {
-  settings: GameSettings
-  onChange(newSettings: GameSettings): void
+  field: FieldInputProps<GameSettings>
+  helpers: FieldHelperProps<GameSettings>
   onSubmit(): void
 }
 
-export function Settings({ settings, onChange, onSubmit }: SettingsProps) {
+export function Settings({ field, helpers, onSubmit }: SettingsProps) {
   useOnKeyDown("Enter", onSubmit)
 
   return (
@@ -25,10 +26,10 @@ export function Settings({ settings, onChange, onSubmit }: SettingsProps) {
               label,
               value: boardSizeToStr(value),
             }))}
-            value={boardSizeToStr(settings.boardSize)}
+            value={boardSizeToStr(field.value.boardSize)}
             onChange={(event) =>
-              onChange({
-                ...settings,
+              helpers.setValue({
+                ...field.value,
                 boardSize: strToBoardSize(event.target.value),
               })
             }
@@ -38,25 +39,15 @@ export function Settings({ settings, onChange, onSubmit }: SettingsProps) {
           <Label>Win condition</Label>
           <Picker
             options={Options.winConditions}
-            value={settings.winCondition}
+            value={field.value.winCondition}
             onChange={(event) =>
-              onChange({
-                ...settings,
+              helpers.setValue({
+                ...field.value,
                 winCondition: parseInt(event.target.value),
               })
             }
           />
         </>
-        {/* <>
-          <Label>Turn timer</Label>
-          <Picker
-            options={GameOptions.turnTimers}
-            value={settings.turnTimer}
-            onChange={(event) =>
-              onChange({ ...settings, turnTimer: parseInt(event.target.value) })
-            }
-          />
-        </> */}
       </List>
       <Spacer size={30} />
       <Button onClick={onSubmit}>Create Game</Button>

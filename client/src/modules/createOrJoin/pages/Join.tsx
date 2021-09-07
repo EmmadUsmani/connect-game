@@ -41,7 +41,6 @@ export function Join() {
       return
     }
     server.getRoom(formik.values.code)
-    history.push("/join/name")
   }
 
   const handleNameSubmit = async () => {
@@ -74,7 +73,7 @@ export function Join() {
       formik.setFieldError("name", "Name taken")
     })
 
-    return server.removeAllListeners
+    // return server.removeAllListeners
   })
 
   return (
@@ -99,3 +98,4 @@ export function Join() {
 }
 
 // TODO: add loader to button
+// TODO: remove only specific listeners
