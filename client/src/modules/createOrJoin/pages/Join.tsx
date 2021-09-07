@@ -1,8 +1,10 @@
-import { Field, FieldProps, Formik, FormikProps } from "formik"
-import React from "react"
+import { Events } from "@connect-game/shared"
+import { useFormik } from "formik"
+import React, { useEffect } from "react"
 import { Switch, Route, Redirect, useHistory } from "react-router-dom"
 
 import { useGame } from "context"
+import { server } from "services"
 
 import { JoinForm, JoinFormSchema } from ".."
 
@@ -12,57 +14,79 @@ export function Join() {
   const history = useHistory()
   const { joinRoom } = useGame()
 
-  const handleCodeSubmit = (formikProps: FormikProps<JoinForm>) => async () => {
-    const errors = await formikProps.validateForm()
-    if (!errors.code) {
-      history.push("/join/name")
-    }
-  }
-
-  const handleNameSubmit = (formikProps: FormikProps<JoinForm>) => async () => {
-    await formikProps.validateForm()
-    void formikProps.submitForm()
-  }
-
   const handleFormSubmit = () => {
     history.push("/room")
   }
 
+  const formik = useFormik<JoinForm>({
+    initialValues: { code: "", name: "" },
+    validateOnBlur: false,
+    validateOnChange: false,
+    validationSchema: JoinFormSchema,
+    onSubmit: handleFormSubmit,
+  })
+
+  const handleCodeSubmit = async () => {
+    const errors = await formik.validateForm()
+    if (errors.code) {
+      return
+    }
+    server.getRoom(formik.values.code)
+    history.push("/join/name")
+  }
+
+  const handleNameSubmit = async () => {
+    await formik.validateForm()
+    joinRoom(formik.values.code, formik.values.name)
+  }
+
+  useEffect(() => {
+    server.listen(Events.RoomFound, () => {
+      history.push("/join/name")
+    })
+
+    server.listen(Events.RoomNotFound, () => {
+      if (history.location.pathname === "/join/code") {
+        formik.setFieldError("code", "Room not found")
+      } else if (history.location.pathname === "/join/name") {
+        formik.setFieldError("name", "Room no longer exists")
+      }
+    })
+
+    server.listen(Events.InProgress, () => {
+      formik.setFieldError("code", "Game in progress")
+    })
+
+    server.listen(Events.RoomJoined, () => {
+      void formik.submitForm()
+    })
+
+    server.listen(Events.NameTaken, () => {
+      formik.setFieldError("name", "Name taken")
+    })
+
+    return server.removeAllListeners
+  })
+
   return (
-    <Formik<JoinForm>
-      initialValues={{ code: "", name: "" }}
-      validateOnBlur={false}
-      validateOnChange={false}
-      validationSchema={JoinFormSchema}
-      onSubmit={handleFormSubmit}
-    >
-      {(formikProps) => (
-        <Switch>
-          <Route exact path={"/join/code"}>
-            <Field name="code">
-              {(fieldProps: FieldProps) => (
-                <Code
-                  onSubmit={handleCodeSubmit(formikProps)}
-                  {...fieldProps}
-                />
-              )}
-            </Field>
-          </Route>
-          <Route exact path={"/join/name"}>
-            <Field name="name">
-              {(fieldProps: FieldProps) => (
-                <Name
-                  onSubmit={handleNameSubmit(formikProps)}
-                  {...fieldProps}
-                />
-              )}
-            </Field>
-          </Route>
-          <Redirect to="/" />
-        </Switch>
-      )}
-    </Formik>
+    <Switch>
+      <Route exact path={"/join/code"}>
+        <Code
+          field={formik.getFieldProps("code")}
+          meta={formik.getFieldMeta("code")}
+          onSubmit={handleCodeSubmit}
+        />
+      </Route>
+      <Route exact path={"/join/name"}>
+        <Name
+          field={formik.getFieldProps("name")}
+          meta={formik.getFieldMeta("name")}
+          onSubmit={handleNameSubmit}
+        />
+      </Route>
+      <Redirect to="/" />
+    </Switch>
   )
 }
 
-// TODO: try using useFormik instead of Formik component to avoid higher order func
+// TODO: add loader to button

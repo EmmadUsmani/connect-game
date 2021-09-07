@@ -1,5 +1,5 @@
 import { MaxNameLen } from "@connect-game/shared"
-import { FieldProps } from "formik"
+import { FieldInputProps, FieldMetaProps } from "formik"
 import React from "react"
 
 import { Text, Input, Button } from "components"
@@ -8,10 +8,12 @@ import { useTheme } from "context"
 import { useOnKeyDown } from "hooks"
 
 interface NameProps {
+  field: FieldInputProps<string>
+  meta: FieldMetaProps<string>
   onSubmit(): void
 }
 
-export function Name({ onSubmit, field, meta }: NameProps & FieldProps) {
+export function Name({ field, meta, onSubmit }: NameProps) {
   const theme = useTheme()
   useOnKeyDown("Enter", onSubmit)
 

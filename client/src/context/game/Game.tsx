@@ -131,19 +131,6 @@ export function GameProvider({ children }: GameProviderProps) {
       history.push("/room")
     })
 
-    // Error events
-    server.listen(Events.RoomNotFound, () => {
-      history.push("/")
-    })
-
-    server.listen(Events.NameTaken, () => {
-      history.push("/")
-    })
-
-    server.listen(Events.InProgress, () => {
-      history.push("/")
-    })
-
     return server.removeAllListeners
   }, [history])
 

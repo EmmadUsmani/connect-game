@@ -4,6 +4,7 @@ import { io } from "socket.io-client"
 const socket = io("/")
 const listeners: [string, (data: any) => void][] = []
 
+// TODO: can we change type of event from string to Event?
 function listen(event: string, listener: (data: any) => void): void {
   socket.on(event, listener)
   listeners.push([event, listener])
@@ -20,6 +21,11 @@ function removeAllListeners(): void {
 function createRoom(settings: GameSettings, hostName: string): void {
   const data: EventData[Events.CreateRoom] = { settings, hostName }
   socket.emit(Events.CreateRoom, data)
+}
+
+function getRoom(code: string): void {
+  const data: EventData[Events.GetRoom] = { code }
+  socket.emit(Events.GetRoom, data)
 }
 
 function joinRoom(code: string, playerName: string): void {
@@ -48,6 +54,7 @@ export const server = {
   listen,
   removeAllListeners,
   createRoom,
+  getRoom,
   joinRoom,
   leaveRoom,
   startGame,

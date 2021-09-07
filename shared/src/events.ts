@@ -2,7 +2,12 @@ import { GameSettings, GamePlayer, GameRoom } from "./types"
 
 export enum Events {
   CreateRoom = "CreateRoom",
+  GetRoom = "GetRoom",
+  RoomFound = "RoomFound",
+  RoomNotFound = "RoomNotFound",
+  InProgress = "InProgress",
   JoinRoom = "JoinRoom",
+  NameTaken = "NameTaken",
   RoomJoined = "RoomJoined",
   PlayerJoined = "PlayerJoined",
   LeaveRoom = "LeaveRoom",
@@ -11,15 +16,15 @@ export enum Events {
   StartGame = "StartGame",
   EndGame = "EndGame",
   PlacePiece = "PlacePiece",
-  RoomNotFound = "RoomNotFound",
-  NameTaken = "NameTaken",
-  InProgress = "InProgress",
 }
 
 export interface EventData {
   CreateRoom: {
     settings: GameSettings
     hostName: string
+  }
+  GetRoom: {
+    code: string
   }
   JoinRoom: {
     code: string

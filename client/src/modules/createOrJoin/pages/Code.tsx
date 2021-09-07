@@ -1,5 +1,5 @@
 import { CodeLen } from "@connect-game/shared"
-import { FieldProps } from "formik"
+import { FieldInputProps, FieldMetaProps } from "formik"
 import React from "react"
 
 import { Text, Input, Button } from "components"
@@ -8,14 +8,12 @@ import { useTheme } from "context"
 import { useOnKeyDown } from "hooks"
 
 interface CodeProps {
+  field: FieldInputProps<string>
+  meta: FieldMetaProps<string>
   onSubmit(): void
 }
 
-export function Code({
-  onSubmit,
-  field,
-  meta,
-}: CodeProps & FieldProps<string>) {
+export function Code({ field, meta, onSubmit }: CodeProps) {
   const theme = useTheme()
   useOnKeyDown("Enter", onSubmit)
 

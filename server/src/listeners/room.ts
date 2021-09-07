@@ -33,6 +33,17 @@ export function initRoomListeners(socket: ExtendedSocket) {
     socket.emit(Events.RoomJoined, resData)
   })
 
+  socket.on(Events.GetRoom, (data: EventData[Events.GetRoom]) => {
+    const { code } = data
+
+    // check if room exists
+    if (!(code in rooms)) {
+      socket.emit(Events.RoomNotFound)
+      return
+    }
+    socket.emit(Events.RoomFound)
+  })
+
   socket.on(Events.JoinRoom, (data: EventData[Events.JoinRoom]) => {
     const { code, playerName } = data
 
