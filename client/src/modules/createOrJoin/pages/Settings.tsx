@@ -4,7 +4,7 @@ import { Label, Picker, Button } from "components"
 import { Page, Spacer, List } from "components/layout"
 import { useOnKeyDown } from "hooks"
 
-import { boardSizeToStr, strToBoardSize } from "../utils"
+import { boardSizeToStr, strToBoardSize } from ".."
 
 interface SettingsProps {
   settings: GameSettings

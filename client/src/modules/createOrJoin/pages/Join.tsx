@@ -1,8 +1,11 @@
 import { MaxNameLen } from "@connect-game/shared"
+import { Field, FieldProps, Formik } from "formik"
 import React, { useState } from "react"
 import { Switch, Route, Redirect, useHistory } from "react-router-dom"
 
 import { useGame } from "context"
+
+import { JoinForm } from ".."
 
 import { Code, Name } from "."
 
@@ -12,10 +15,6 @@ export function Join() {
 
   const [code, setCode] = useState("")
   const [name, setName] = useState("")
-
-  const handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCode(event.target.value)
-  }
 
   const handleCodeSubmit = () => {
     history.push(`/join/name`)
@@ -35,22 +34,27 @@ export function Join() {
   }
 
   return (
-    <Switch>
-      <Route exact path={`/join/code`}>
-        <Code
-          value={code}
-          onChange={handleCodeChange}
-          onSubmit={handleCodeSubmit}
-        />
-      </Route>
-      <Route exact path={`/join/name`}>
-        <Name
-          value={name}
-          onChange={handleNameChange}
-          onSubmit={handleNameSubmit}
-        />
-      </Route>
-      <Redirect to="/" />
-    </Switch>
+    <Formik<JoinForm>
+      initialValues={{ code: "", name: "" }}
+      onSubmit={() => console.log("submited")}
+    >
+      <Switch>
+        <Route exact path={`/join/code`}>
+          <Field name="code">
+            {(props: FieldProps) => (
+              <Code onSubmit={handleCodeSubmit} {...props} />
+            )}
+          </Field>
+        </Route>
+        <Route exact path={`/join/name`}>
+          <Name
+            value={name}
+            onChange={handleNameChange}
+            onSubmit={handleNameSubmit}
+          />
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    </Formik>
   )
 }

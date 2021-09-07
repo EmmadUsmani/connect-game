@@ -1,3 +1,4 @@
+import { FieldProps } from "formik"
 import React from "react"
 
 import { Text, Input, Button } from "components"
@@ -6,12 +7,10 @@ import { useTheme } from "context"
 import { useOnKeyDown } from "hooks"
 
 interface CodeProps {
-  value: string
-  onChange(event: React.ChangeEvent<HTMLInputElement>): void
   onSubmit(): void
 }
 
-export function Code({ value, onChange, onSubmit }: CodeProps) {
+export function Code({ onSubmit, field }: CodeProps & FieldProps) {
   const theme = useTheme()
   useOnKeyDown("Enter", onSubmit)
 
@@ -19,9 +18,9 @@ export function Code({ value, onChange, onSubmit }: CodeProps) {
     <Page>
       <Text size={theme.sizes.text.large}>Enter room code</Text>
       <Spacer size={60} />
-      <Input autoFocus={true} value={value} onChange={onChange} />
+      <Input autoFocus={true} {...field} />
       <Spacer size={20} />
-      <Button disabled={!value} onClick={onSubmit}>
+      <Button disabled={!field.value} onClick={onSubmit}>
         Continue
       </Button>
     </Page>
