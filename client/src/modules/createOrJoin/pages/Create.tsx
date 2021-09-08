@@ -1,10 +1,16 @@
-import { GameSettings, DefaultSettings, MaxNameLen } from "@connect-game/shared"
+import {
+  GameSettings,
+  DefaultSettings,
+  MaxNameLen,
+  Events,
+} from "@connect-game/shared"
 import { useFormik } from "formik"
-import React from "react"
+import React, { useEffect } from "react"
 import { Switch, Route, Redirect, useHistory } from "react-router-dom"
 import * as yup from "yup"
 
 import { useGame } from "context"
+import { server } from "services"
 
 import { Name, Settings } from "."
 
@@ -32,6 +38,7 @@ export function Create() {
     validationSchema: CreateFormSchema,
     onSubmit: handleFormSubmit,
   })
+  const { submitForm } = formik
 
   const handleNameSubmit = async () => {
     const errors = await formik.validateForm()
@@ -44,8 +51,16 @@ export function Create() {
   const handleSettingsSubmit = async () => {
     await formik.validateForm()
     createRoom(formik.values.settings, formik.values.name)
-    void formik.submitForm() // TODO: trigger on RoomCreated event
+    // TODO: wait x seconds for RoomJoined before displaying error
   }
+
+  useEffect(() => {
+    const listener = server.listen(Events.RoomJoined, () => {
+      void submitForm()
+    })
+
+    return () => server.removeListener(listener)
+  }, [submitForm])
 
   return (
     <Switch>
