@@ -35,6 +35,7 @@ module.exports = {
     eqeqeq: "warn",
     "@typescript-eslint/unbound-method": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "import/first": "warn",
     "import/newline-after-import": "warn",
     "import/extensions": ["warn", "never"],
