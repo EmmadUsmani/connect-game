@@ -34,6 +34,7 @@ export function Join() {
     validationSchema: JoinFormSchema,
     onSubmit: handleFormSubmit,
   })
+  const { setFieldError, submitForm } = formik
 
   const handleCodeSubmit = async () => {
     const errors = await formik.validateForm()
@@ -60,33 +61,33 @@ export function Join() {
     listeners.push(
       server.listen(Events.RoomNotFound, () => {
         if (history.location.pathname === "/join/code") {
-          formik.setFieldError("code", "Room not found")
+          setFieldError("code", "Room not found")
         } else if (history.location.pathname === "/join/name") {
-          formik.setFieldError("name", "Room no longer exists")
+          setFieldError("name", "Room no longer exists")
         }
       })
     )
 
     listeners.push(
       server.listen(Events.InProgress, () => {
-        formik.setFieldError("code", "Game in progress")
+        setFieldError("code", "Game in progress")
       })
     )
 
     listeners.push(
       server.listen(Events.RoomJoined, () => {
-        void formik.submitForm()
+        void submitForm()
       })
     )
 
     listeners.push(
       server.listen(Events.NameTaken, () => {
-        formik.setFieldError("name", "Name taken")
+        setFieldError("name", "Name taken")
       })
     )
 
     return () => server.removeListeners(listeners)
-  }, [formik, history])
+  }, [history, setFieldError, submitForm])
 
   return (
     <Switch>
@@ -110,4 +111,3 @@ export function Join() {
 }
 
 // TODO: add loader to button
-// TODO: prevent listeners from being removed everytime form value updates
