@@ -20,7 +20,7 @@ const StyledSelect = styled.select`
   background-color: ${(props) => props.theme.colors.secondary};
   color: ${(props) => props.theme.colors.text.primary};
   font-family: ${(props) => props.theme.fonts.primary};
-  font-size: ${(props) => props.theme.sizes.text.small}px;
+  font-size: ${(props) => props.theme.sizes.text.medium}px;
 `
 
 export function Picker({ value, onChange, options }: PickerProps) {

@@ -25,7 +25,7 @@ const StyledDiv = styled.div<StyledDivProps>`
   width: ${(props) => props.theme.sizes.button.width}px;
   height: ${(props) => props.theme.sizes.button.height}px;
   opacity: ${(props) => (props.disabled && !props.color ? "50%" : "100%")};
-  font-size: ${(props) => props.theme.sizes.text.small}px;
+  font-size: ${(props) => props.theme.sizes.text.medium}px;
 
   ${(props) => {
     if (props.type === "primary") {

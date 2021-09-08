@@ -15,7 +15,7 @@ interface JoinForm {
 }
 
 const JoinFormSchema = yup.object({
-  code: yup.string().length(CodeLen).uppercase(),
+  code: yup.string().length(CodeLen, "Code must be 7 characters"),
   name: yup.string().max(MaxNameLen),
 })
 

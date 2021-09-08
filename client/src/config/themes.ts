@@ -18,9 +18,9 @@ export const defaultTheme: DefaultTheme = {
     text: {
       extraLarge: 72,
       large: 64,
-      medium: 48,
-      small: 36,
-      extraSmall: 30,
+      medium: 36,
+      small: 30,
+      extraSmall: 20,
     },
     page: {
       marginHorizontalRatio: 0.25,
@@ -49,7 +49,7 @@ export const smallTheme: DefaultTheme = {
       large: 42,
       medium: 36,
       small: 30,
-      extraSmall: 24,
+      extraSmall: 14,
     },
     page: {
       marginHorizontalRatio: 0.1,

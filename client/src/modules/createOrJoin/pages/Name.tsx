@@ -26,10 +26,19 @@ export function Name({ field, meta, onSubmit }: NameProps) {
   return (
     <Page>
       <Text size={theme.sizes.text.large}>Enter your name</Text>
-      <Spacer size={60} />
-      <Text size={theme.sizes.text.extraSmall}>{meta.error}</Text>
+      <Spacer size={35} />
+      {meta.error ? (
+        <Text color={theme.colors.negative} size={theme.sizes.text.extraSmall}>
+          {meta.error}
+        </Text>
+      ) : (
+        <Text size={theme.sizes.text.extraSmall}>
+          {String.fromCharCode(160)}
+        </Text>
+      )}
       <Input
         autoFocus={true}
+        error={Boolean(meta.error)}
         {...field}
         spellCheck={false}
         onChange={handleChange}
