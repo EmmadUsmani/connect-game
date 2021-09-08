@@ -71,7 +71,7 @@ export function GameProvider({ children }: GameProviderProps) {
 
   const endGame = (): void => {
     server.endGame()
-    history.push("/room")
+    history.push("/room/main")
   }
 
   const placePiece = (colNum: number): void => {
@@ -143,7 +143,7 @@ export function GameProvider({ children }: GameProviderProps) {
 
     listeners.push(
       server.listen(Events.EndGame, () => {
-        history.push("/room")
+        history.push("/room/main")
       })
     )
 

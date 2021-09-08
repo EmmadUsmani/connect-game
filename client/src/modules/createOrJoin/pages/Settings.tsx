@@ -8,12 +8,18 @@ import { useOnKeyDown } from "hooks"
 import { boardSizeToStr, strToBoardSize } from "../utils"
 
 interface SettingsProps {
+  buttonText: string
   field: FieldInputProps<GameSettings>
   helpers: FieldHelperProps<GameSettings>
   onSubmit(): void
 }
 
-export function Settings({ field, helpers, onSubmit }: SettingsProps) {
+export function Settings({
+  buttonText,
+  field,
+  helpers,
+  onSubmit,
+}: SettingsProps) {
   useOnKeyDown("Enter", onSubmit)
 
   return (
@@ -50,7 +56,7 @@ export function Settings({ field, helpers, onSubmit }: SettingsProps) {
         </>
       </List>
       <Spacer size={30} />
-      <Button onClick={onSubmit}>Create Game</Button>
+      <Button onClick={onSubmit}>{buttonText}</Button>
     </Page>
   )
 }

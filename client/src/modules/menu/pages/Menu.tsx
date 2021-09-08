@@ -15,7 +15,8 @@ function getLeaveMessage(pathName: string): string | null {
     case "/join/name":
     case "/join/code":
       return "Return Home"
-    case "/room":
+    case "/room/main":
+    case "/room/settings":
       return "Leave Room"
     case "/play":
       return "Leave Game"

@@ -28,7 +28,7 @@ export function Create() {
   const { createRoom } = useGame()
 
   const handleFormSubmit = () => {
-    history.push("/room")
+    history.push("/room/main")
   }
 
   const formik = useFormik<CreateForm>({
@@ -45,7 +45,7 @@ export function Create() {
     if (errors.name) {
       return
     }
-    history.push(`/create/settings`)
+    history.push("/create/settings")
   }
 
   const handleSettingsSubmit = async () => {
@@ -64,15 +64,16 @@ export function Create() {
 
   return (
     <Switch>
-      <Route exact path={`/create/name`}>
+      <Route exact path={"/create/name"}>
         <Name
           field={formik.getFieldProps("name")}
           meta={formik.getFieldMeta("name")}
           onSubmit={handleNameSubmit}
         />
       </Route>
-      <Route exact path={`/create/settings`}>
+      <Route exact path={"/create/settings"}>
         <Settings
+          buttonText="Create Game"
           field={formik.getFieldProps("settings")}
           helpers={formik.getFieldHelpers("settings")}
           onSubmit={handleSettingsSubmit}

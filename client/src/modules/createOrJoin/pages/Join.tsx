@@ -24,7 +24,7 @@ export function Join() {
   const { joinRoom } = useGame()
 
   const handleFormSubmit = () => {
-    history.push("/room")
+    history.push("/room/main")
   }
 
   const formik = useFormik<JoinForm>({
