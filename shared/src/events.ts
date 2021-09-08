@@ -13,6 +13,7 @@ export enum Events {
   LeaveRoom = "LeaveRoom",
   PlayerLeft = "PlayerLeft",
   ReassignHost = "ReassignHost",
+  UpdateSettings = "UpdateSettings",
   StartGame = "StartGame",
   EndGame = "EndGame",
   PlacePiece = "PlacePiece",
@@ -42,6 +43,9 @@ export interface EventData {
   }
   ReassignHost: {
     playerName: string
+  }
+  UpdateSettings: {
+    settings: GameSettings
   }
   PlacePiece: {
     colNum: number

@@ -15,7 +15,7 @@ interface RoomForm {
 }
 
 export function Room() {
-  const { gameState, startGame } = useGame()
+  const { gameState, startGame, updateSettings } = useGame()
   const history = useHistory()
 
   const handleStart = () => {
@@ -27,7 +27,7 @@ export function Room() {
   useOnKeyDown("Enter", handleStart)
 
   const handleFormSubmit = (values: RoomForm) => {
-    console.log(values)
+    updateSettings(values.settings)
     history.push("/room/main")
   }
 
@@ -81,7 +81,7 @@ export function Room() {
         >
           {(formik) => (
             <Settings
-              buttonText="Change Settings"
+              buttonText="Update Settings"
               field={formik.getFieldProps("settings")}
               helpers={formik.getFieldHelpers("settings")}
               onSubmit={formik.submitForm}

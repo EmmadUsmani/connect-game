@@ -42,6 +42,11 @@ function leaveRoom(): void {
   socket.emit(Events.LeaveRoom)
 }
 
+function updateSettings(settings: GameSettings): void {
+  const data: EventData[Events.UpdateSettings] = { settings }
+  socket.emit(Events.UpdateSettings, data)
+}
+
 function startGame(): void {
   socket.emit(Events.StartGame)
 }
@@ -63,6 +68,7 @@ export const server = {
   getRoom,
   joinRoom,
   leaveRoom,
+  updateSettings,
   startGame,
   endGame,
   placePiece,

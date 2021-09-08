@@ -17,6 +17,7 @@ import {
   playerLeftAction,
   reassignHostAction,
   startGameAction,
+  updateSettingsAction,
 } from "./actions"
 import { gameReducer } from "./reducer"
 import { getEmptyRowNum } from "./utils"
@@ -30,6 +31,7 @@ interface GameCtxInterface {
   createRoom(settings: GameSettings, hostName: string): void
   joinRoom(code: string, playerName: string): void
   leaveRoom(): void
+  updateSettings(settings: GameSettings): void
   startGame(): void
   endGame(): void
   placePiece(colNum: number): void
@@ -37,9 +39,10 @@ interface GameCtxInterface {
 
 const GameContext = createContext<GameCtxInterface>({
   gameState: InitialGameState,
-  createRoom: (_, _2) => null,
-  joinRoom: (_, _2) => null,
+  createRoom: () => null,
+  joinRoom: () => null,
   leaveRoom: () => null,
+  updateSettings: () => null,
   startGame: () => null,
   endGame: () => null,
   placePiece: () => null,
@@ -61,6 +64,11 @@ export function GameProvider({ children }: GameProviderProps) {
 
   const leaveRoom = (): void => {
     server.leaveRoom()
+  }
+
+  const updateSettings = (settings: GameSettings): void => {
+    server.updateSettings(settings)
+    dispatch(updateSettingsAction({ settings }))
   }
 
   const startGame = (): void => {
@@ -129,6 +137,15 @@ export function GameProvider({ children }: GameProviderProps) {
     )
 
     listeners.push(
+      server.listen(
+        Events.UpdateSettings,
+        (data: EventData[Events.UpdateSettings]) => {
+          dispatch(updateSettingsAction(data))
+        }
+      )
+    )
+
+    listeners.push(
       server.listen(Events.StartGame, () => {
         dispatch(startGameAction())
         history.push("/play")
@@ -157,6 +174,7 @@ export function GameProvider({ children }: GameProviderProps) {
         createRoom,
         joinRoom,
         leaveRoom,
+        updateSettings,
         startGame,
         endGame,
         placePiece,

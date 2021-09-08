@@ -5,6 +5,7 @@ export const JOIN_ROOM = "JOIN_ROOM"
 export const PLAYER_JOINED = "PLAYER_JOINED"
 export const PLAYER_LEFT = "PLAYER_LEFT"
 export const REASSIGN_HOST = "REASSIGN_HOST"
+export const UPDATE_SETTINGS = "UPDATE_SETTINGS"
 export const START_GAME = "START_GAME"
 export const PLACE_PIECE = "PLACE_PIECE"
 
@@ -29,6 +30,11 @@ export interface ReassignHostAction {
   data: EventData[Events.ReassignHost]
 }
 
+export interface UpdateSettingsAction {
+  type: typeof UPDATE_SETTINGS
+  data: EventData[Events.UpdateSettings]
+}
+
 export interface StartGameAction {
   type: typeof START_GAME
 }
@@ -43,6 +49,7 @@ export type Action =
   | PlayerJoinedAction
   | PlayerLeftAction
   | ReassignHostAction
+  | UpdateSettingsAction
   | StartGameAction
   | PlacePieceAction
 
@@ -62,6 +69,10 @@ export const playerLeftAction = (
 export const reassignHostAction = (
   data: ReassignHostAction["data"]
 ): ReassignHostAction => ({ type: REASSIGN_HOST, data })
+
+export const updateSettingsAction = (
+  data: UpdateSettingsAction["data"]
+): UpdateSettingsAction => ({ type: UPDATE_SETTINGS, data })
 
 export const startGameAction = (): StartGameAction => ({ type: START_GAME })
 

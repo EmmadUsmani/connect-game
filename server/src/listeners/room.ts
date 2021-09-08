@@ -105,6 +105,16 @@ export function initRoomListeners(socket: ExtendedSocket) {
     socket.to(socket.code).emit(Events.EndGame)
   })
 
+  socket.on(Events.UpdateSettings, (data: EventData[Events.UpdateSettings]) => {
+    const { settings } = data
+
+    // update settings
+    rooms[socket.code].settings = settings
+
+    // send to other clients in room
+    socket.to(socket.code).emit(Events.UpdateSettings, data)
+  })
+
   const leaveRoomHandler = () => {
     if (!socket.code || !socket.name) {
       return

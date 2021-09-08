@@ -13,6 +13,8 @@ import {
   ReassignHostAction,
   PlacePieceAction,
   PLAYER_LEFT,
+  UpdateSettingsAction,
+  UPDATE_SETTINGS,
 } from "./actions"
 import { createBoard, updatePiece, updateWinner } from "./utils"
 
@@ -87,6 +89,13 @@ function reassignHostReducer(
   }
 }
 
+function updateSettingsReducer(
+  state: GameState,
+  data: UpdateSettingsAction["data"]
+): GameState {
+  return { ...state, room: { ...state.room, settings: data.settings } }
+}
+
 function startGameReducer(state: GameState): GameState {
   const {
     room: {
@@ -159,6 +168,8 @@ export function gameReducer(state: GameState, action: Action): GameState {
       return playerLeftReducer(state, action.data)
     case REASSIGN_HOST:
       return reassignHostReducer(state, action.data)
+    case UPDATE_SETTINGS:
+      return updateSettingsReducer(state, action.data)
     case START_GAME:
       return startGameReducer(state)
     case PLACE_PIECE:
