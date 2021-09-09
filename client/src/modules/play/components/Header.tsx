@@ -22,34 +22,28 @@ export function Header({ currPlayer, you, winner }: HeaderProps) {
   const youWon = winner && winner.name === you.name
   let message: React.ReactNode
 
-  // TODO: refactor to if statement
-  switch (winner) {
+  if (winner === undefined) {
     // no player has won yet
-    case undefined:
-      message = (
-        <>
-          <StyledSpan color={currPlayer.color}>
-            {yourTurn ? "Your" : currPlayer.name}
-          </StyledSpan>
-          {yourTurn ? " turn" : "'s turn"}
-        </>
-      )
-      break
-    // game is a tie
-    case null:
-      message = <>Draw</>
-      break
-    // there is a winner
-    default:
-      message = (
-        <>
-          <StyledSpan color={winner.color}>
-            {youWon ? "You" : winner.name}
-          </StyledSpan>{" "}
-          won!
-        </>
-      )
-      break
+    message = (
+      <>
+        <StyledSpan color={currPlayer.color}>
+          {yourTurn ? "Your" : currPlayer.name}
+        </StyledSpan>
+        {yourTurn ? " turn" : "'s turn"}
+      </>
+    )
+  } else if (winner === null) {
+    // game is a draw
+    message = <>Draw</>
+  } else {
+    message = (
+      <>
+        <StyledSpan color={winner.color}>
+          {youWon ? "You" : winner.name}
+        </StyledSpan>{" "}
+        won!
+      </>
+    )
   }
 
   return <Text size={theme.sizes.text.large}>{message}</Text>
