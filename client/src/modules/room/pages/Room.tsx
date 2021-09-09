@@ -4,6 +4,7 @@ import { Redirect, Route, Switch, useHistory } from "react-router"
 
 import { Label, Button } from "components"
 import { Page, Spacer, List } from "components/layout"
+import { Tooltip } from "components/wrapper"
 import { useGame } from "context"
 import { Settings } from "modules/createOrJoin/pages"
 
@@ -60,15 +61,33 @@ export function Room() {
           </List>
           <Spacer size={40} />
           <List spacing={20}>
-            <Button disabled={startDisabled} onClick={handleStart}>
-              Start Game
-            </Button>
-            <Button
-              disabled={!gameState.play.you.isHost}
-              onClick={() => history.push("/room/settings")}
+            <Tooltip
+              float
+              delay={25}
+              disabled={!startDisabled}
+              id="startGame"
+              label="Only host can start game"
+              offset={{ top: -12 }}
             >
-              Settings
-            </Button>
+              <Button disabled={startDisabled} onClick={handleStart}>
+                Start Game
+              </Button>
+            </Tooltip>
+            <Tooltip
+              float
+              delay={25}
+              disabled={!startDisabled}
+              id="settings"
+              label="Only host can change settings"
+              offset={{ top: -12 }}
+            >
+              <Button
+                disabled={!gameState.play.you.isHost}
+                onClick={() => history.push("/room/settings")}
+              >
+                Settings
+              </Button>
+            </Tooltip>
           </List>
         </Page>
       </Route>
