@@ -5,7 +5,6 @@ import { Redirect, Route, Switch, useHistory } from "react-router"
 import { Label, Button } from "components"
 import { Page, Spacer, List } from "components/layout"
 import { useGame } from "context"
-import { useOnKeyDown } from "hooks"
 import { Settings } from "modules/createOrJoin/pages"
 
 import { RoomCode } from "../components"
@@ -23,8 +22,6 @@ export function Room() {
       startGame()
     }
   }
-
-  useOnKeyDown("Enter", handleStart)
 
   const handleFormSubmit = (values: RoomForm) => {
     updateSettings(values.settings)
