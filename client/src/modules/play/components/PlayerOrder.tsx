@@ -41,7 +41,7 @@ export function PlayerOrder({
   return (
     <List direction="row" spacing={0}>
       {players.map((player, index) => (
-        <Tooltip id={player.name} label={player.name}>
+        <Tooltip key={index} id={player.name} label={player.name}>
           <StyledDiv
             color={player.color}
             currPlayer={index === currPlayerIdx && winner === undefined}

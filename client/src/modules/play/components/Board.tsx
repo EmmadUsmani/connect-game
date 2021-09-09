@@ -23,14 +23,11 @@ export function Board({
     <List direction="row" spacing={pieceSize}>
       {board.map((column, columnIndex) => (
         <Clickable
+          key={columnIndex}
           disabled={disabled || getEmptyRowNum(board, columnIndex) === -1}
           onClick={() => handleColumnClick(columnIndex)}
         >
-          <List
-            key={columnIndex}
-            direction="column-reverse"
-            spacing={pieceSize}
-          >
+          <List direction="column-reverse" spacing={pieceSize}>
             {column.map((piece, rowIndex) => (
               <Piece
                 key={rowIndex}

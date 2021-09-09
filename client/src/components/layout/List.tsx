@@ -28,10 +28,10 @@ export function List({ children, spacing, direction = "column" }: ListProps) {
     <StyledDiv direction={direction}>
       {childrenArray.map((child, index) =>
         index !== childrenArray.length - 1 ? (
-          <>
+          <React.Fragment key={index}>
             {child}
             <Spacer size={spacing} />
-          </>
+          </React.Fragment>
         ) : (
           child
         )
