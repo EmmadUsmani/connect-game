@@ -36,7 +36,6 @@ export function Board({
                 key={rowIndex}
                 id={`${rowIndex}-${columnIndex}`}
                 player={piece}
-                size={pieceSize}
               />
             ))}
           </List>

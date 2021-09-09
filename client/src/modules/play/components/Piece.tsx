@@ -2,10 +2,10 @@ import { GameColor, GamePlayer } from "@connect-game/shared"
 import styled from "styled-components"
 
 import { Tooltip } from "components/wrapper"
+import { useTheme } from "context"
 
 interface PieceProps {
   id: string
-  size: number
   player?: GamePlayer
 }
 
@@ -26,7 +26,9 @@ const StyledDiv = styled.div<StyledDivProps>`
     props.color ? "transparent" : props.theme.colors.game.piece};
 `
 
-export function Piece({ id, size, player }: PieceProps) {
+export function Piece({ id, player }: PieceProps) {
+  const theme = useTheme()
+
   return (
     <Tooltip
       delay={100}
@@ -34,9 +36,7 @@ export function Piece({ id, size, player }: PieceProps) {
       label={player ? player.name : ""}
       offset={{ top: -5 }}
     >
-      <StyledDiv color={player?.color} size={size} />
+      <StyledDiv color={player?.color} size={theme.sizes.game.piece} />
     </Tooltip>
   )
 }
-
-// TODO: does size need to be a prop, or can we get it from theme?
