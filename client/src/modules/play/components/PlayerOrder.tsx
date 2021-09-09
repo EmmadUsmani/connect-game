@@ -1,9 +1,4 @@
-import {
-  GameBoard,
-  GameColor,
-  GamePlayer,
-  GameWinner,
-} from "@connect-game/shared"
+import { GameColor, GamePlayer, GameWinner } from "@connect-game/shared"
 import styled from "styled-components"
 
 import { List } from "components/layout"
@@ -11,8 +6,8 @@ import { Tooltip } from "components/wrapper"
 import { useTheme } from "context"
 
 interface PlayerOrderProps {
-  board: GameBoard
   currPlayerIdx: number
+  numCols: number
   players: GamePlayer[]
   winner: GameWinner
 }
@@ -32,14 +27,13 @@ const StyledDiv = styled.div<StyledDivProps>`
 `
 
 export function PlayerOrder({
-  board,
   currPlayerIdx,
+  numCols,
   players,
   winner,
 }: PlayerOrderProps) {
   const theme = useTheme()
 
-  const numCols = board.length
   const totalWidth = theme.sizes.game.piece * (numCols * 2 - 1)
   const playerWidth = totalWidth / players.length
   const height = theme.sizes.game.piece / 2
@@ -59,5 +53,3 @@ export function PlayerOrder({
     </List>
   )
 }
-
-// TODO: pass board size as prop rather than entire board

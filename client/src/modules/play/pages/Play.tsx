@@ -46,8 +46,8 @@ export function Play() {
       />
       <Spacer size={theme.sizes.game.piece * 1.5} />
       <PlayerOrder
-        board={board}
         currPlayerIdx={currPlayerIdx}
+        numCols={gameState.room.settings.boardSize[0]}
         players={players}
         winner={winner}
       />
@@ -59,9 +59,4 @@ export function Play() {
 TODO: better error handling for players.length !== 0 
 This should be a generic error screen ("uh oh something went wrong")
 and should trigger some logging
-
-TODO: move showHostButtons to game context?
-
-TODO: move click functions inline?
-don't need to check host due to conditional rendering
 */
