@@ -35,6 +35,7 @@ export function Room() {
   if (!gameState.play.you.isHost) {
     startDisabled = true
   } else if (
+    // in production, do not start game with 1 player
     process.env.NODE_ENV === "production" &&
     gameState.room.players.length < 2
   ) {
