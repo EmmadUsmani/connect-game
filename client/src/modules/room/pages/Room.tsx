@@ -2,7 +2,7 @@ import { GameSettings } from "@connect-game/shared"
 import { Formik } from "formik"
 import { Redirect, Route, Switch, useHistory } from "react-router"
 
-import { Label, Button } from "components"
+import { Label, Button, Text } from "components"
 import { Page, Spacer, List } from "components/layout"
 import { Tooltip } from "components/wrapper"
 import { useGame } from "context"
@@ -53,9 +53,13 @@ export function Room() {
           <List spacing={20}>
             {gameState.room.players.map((player) => (
               <Button key={player.name} disabled color={player.color}>
-                {player.name +
-                  (player.isHost ? " 👑" : "") +
-                  (player.name === gameState.play.you.name ? " ✨" : "")}
+                <>{(player.isHost ? "👑 " : "") + player.name}</>
+                {player.name === gameState.play.you.name ? (
+                  <>
+                    <Spacer size={4} />
+                    <Text size={16}> (you)</Text>
+                  </>
+                ) : null}
               </Button>
             ))}
           </List>
